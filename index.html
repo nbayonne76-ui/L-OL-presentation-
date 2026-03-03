@@ -117,7 +117,7 @@ html, body {
   border-left: 1px solid rgba(0,200,255,.15);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  padding: 36px 28px; gap: 24px;
+  padding: 36px 28px; gap: 20px;
 }
 #s1 .topline { height: 2px; background: var(--accent); margin-bottom: 36px; border-radius: 1px; }
 #s1 .brand {
@@ -149,17 +149,37 @@ html, body {
   display: flex; align-items: center; justify-content: center;
   font-size: 10px; color: rgba(255,255,255,.75); letter-spacing: 2px;
 }
-#s1 .ol-badge {
-  width: 160px; height: 160px; border-radius: 50%;
-  border: 2px solid var(--ol-red);
-  background: rgba(0,61,165,.25);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
+/* Club logo image */
+#s1 .ol-logo-img {
+  width: 168px; height: 168px; object-fit: contain;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,.55));
+  transition: transform .3s ease;
 }
-#s1 .ol-badge .ol-big { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: #fff; line-height: 1; }
-#s1 .ol-badge .ol-sub { font-size: 10px; color: var(--accent); letter-spacing: 3px; }
-#s1 .ol-info { color: rgba(255,255,255,.4); font-size: 11px; text-align: center; line-height: 1.7; }
-#s1 .ol-info strong { color: rgba(255,255,255,.65); display: block; margin-bottom: 4px; }
+#s1 .ol-logo-img:hover { transform: scale(1.04); }
+
+/* Knowledge panel style info */
+#s1 .ol-club-name {
+  font-size: 20px; font-weight: 800; color: #fff;
+  text-align: center; line-height: 1.1; letter-spacing: -.2px;
+}
+#s1 .ol-ranking {
+  display: flex; align-items: center; gap: 7px;
+  margin-top: 4px; justify-content: center;
+}
+#s1 .ol-ranking .rank-badge {
+  background: rgba(210,0,26,.18); border: 1px solid rgba(210,0,26,.5);
+  color: #ff6b6b; font-size: 9px; font-weight: 800;
+  padding: 2px 9px; border-radius: 10px; letter-spacing: .5px;
+}
+#s1 .ol-ranking .rank-text {
+  color: rgba(255,255,255,.5); font-size: 11px;
+}
+#s1 .ol-divider {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.1), transparent);
+}
+#s1 .ol-info { color: rgba(255,255,255,.38); font-size: 11px; text-align: center; line-height: 1.85; }
+#s1 .ol-info strong { color: rgba(255,255,255,.62); display: block; margin-bottom: 4px; }
 
 /* ════════════════════════════════════
    SLIDE 2 — HAPPI : QUI ON EST
@@ -786,15 +806,81 @@ html, body {
     <div class="fbar">RESPONSABLE SI APPLICATIF &nbsp;·&nbsp; EAGLE FOOTBALL GROUP &nbsp;·&nbsp; VISION 2026–2027</div>
   </div>
   <div class="right">
-    <div class="ol-badge">
-      <div class="ol-big">OL</div>
-      <div class="ol-sub">LYON</div>
+    <!-- OL logo — inline SVG faithful recreation -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="168" height="168" style="filter:drop-shadow(0 4px 16px rgba(0,0,0,.55));flex-shrink:0;">
+      <defs>
+        <path id="olRing" d="M 100,100 m -82,0 a 82,82 0 1,1 164,0 a 82,82 0 1,1 -164,0"/>
+        <filter id="olShad"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,.35)"/></filter>
+      </defs>
+      <!-- Outer red disc -->
+      <circle cx="100" cy="100" r="99" fill="#D2001A" filter="url(#olShad)"/>
+      <!-- Gold thin outer ring -->
+      <circle cx="100" cy="100" r="98" fill="none" stroke="#E8B800" stroke-width="2"/>
+      <!-- White/cream inner disc -->
+      <circle cx="100" cy="100" r="80" fill="#FFF8E4"/>
+      <!-- Gold ring border -->
+      <circle cx="100" cy="100" r="80" fill="none" stroke="#E8B800" stroke-width="2.5"/>
+      <!-- OLYMPIQUE LYONNAIS curved text on red ring -->
+      <text font-family="Arial Black,Arial,sans-serif" font-size="11.5" font-weight="900" fill="white" letter-spacing="2.2">
+        <textPath href="#olRing" startOffset="7%">OLYMPIQUE LYONNAIS</textPath>
+      </text>
+      <!-- Blue central oval -->
+      <ellipse cx="100" cy="106" rx="56" ry="59" fill="#003DA5"/>
+      <ellipse cx="100" cy="106" rx="56" ry="59" fill="none" stroke="#E8B800" stroke-width="2.5"/>
+      <!-- White inner oval -->
+      <ellipse cx="100" cy="106" rx="50" ry="53" fill="#FFF8E4"/>
+      <!-- === LION RAMPANT === -->
+      <!-- Mane (outer halo) -->
+      <circle cx="100" cy="82" r="22" fill="#B87700"/>
+      <!-- Head -->
+      <circle cx="100" cy="80" r="16" fill="#E8B800"/>
+      <!-- Ear left -->
+      <ellipse cx="87" cy="65" rx="5.5" ry="7" fill="#E8B800" transform="rotate(-18,87,65)"/>
+      <!-- Ear right -->
+      <ellipse cx="113" cy="65" rx="5.5" ry="7" fill="#E8B800" transform="rotate(18,113,65)"/>
+      <!-- Eye left -->
+      <circle cx="93" cy="77" r="3.2" fill="#003DA5"/>
+      <circle cx="94.2" cy="76" r="1.1" fill="white"/>
+      <!-- Eye right -->
+      <circle cx="107" cy="77" r="3.2" fill="#003DA5"/>
+      <circle cx="108.2" cy="76" r="1.1" fill="white"/>
+      <!-- Muzzle -->
+      <ellipse cx="100" cy="86" rx="7" ry="5" fill="#C98A00"/>
+      <circle cx="100" cy="82.5" r="2.2" fill="#C98A00"/>
+      <!-- Mouth -->
+      <path d="M 95.5,89 Q 100,93 104.5,89" fill="none" stroke="#8B6000" stroke-width="1.3" stroke-linecap="round"/>
+      <!-- Body -->
+      <ellipse cx="100" cy="112" rx="17" ry="19" fill="#E8B800"/>
+      <!-- Right arm raised -->
+      <ellipse cx="120" cy="97" rx="7" ry="11" fill="#E8B800" transform="rotate(-28,120,97)"/>
+      <!-- Paw right -->
+      <ellipse cx="129" cy="105" rx="7" ry="5" fill="#C98A00"/>
+      <!-- Left arm -->
+      <ellipse cx="81" cy="106" rx="6.5" ry="10" fill="#E8B800" transform="rotate(18,81,106)"/>
+      <!-- Hind legs -->
+      <ellipse cx="89" cy="128" rx="8" ry="12" fill="#E8B800" transform="rotate(8,89,128)"/>
+      <ellipse cx="111" cy="128" rx="8" ry="12" fill="#E8B800" transform="rotate(-8,111,128)"/>
+      <!-- Tail arching up -->
+      <path d="M 117,114 Q 142,104 140,84 Q 139,72 128,76" fill="none" stroke="#E8B800" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="126" cy="74" r="9" fill="#E8B800"/>
+      <!-- OL text -->
+      <text x="100" y="154" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="21" font-weight="900" fill="#D2001A" letter-spacing="5">OL</text>
+    </svg>
+
+    <!-- Knowledge Panel info block -->
+    <div style="text-align:center; width:100%;">
+      <div class="ol-club-name">Olympique Lyonnais</div>
+      <div class="ol-ranking">
+        <span class="rank-badge">LIGUE 1</span>
+        <span class="rank-text">3ème &nbsp;·&nbsp; Eagle Football Group</span>
+      </div>
     </div>
+
+    <div class="ol-divider"></div>
+
     <div class="ol-info">
-      <strong>Olympique Lyonnais</strong>
-      Eagle Football Group · Ligue 1<br>
       Groupama Stadium · 59 000 places<br>
-      ~8M fans dans le monde<br>
+      ~8M fans · Décines-Charpieu<br>
       <br>
       <span style="color:var(--accent); font-weight:700; font-size:12px;">Vision interne<br>Candidature SI</span>
     </div>
