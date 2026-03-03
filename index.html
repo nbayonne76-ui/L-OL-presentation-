@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H'appi × Olympique Lyonnais — Vision SI Applicatif</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Bebas+Neue&display=swap');
+
+/* ─── RESET & BASE ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ol-red:    #D2001A;
+  --ol-blue:   #003DA5;
+  --ol-navy:   #001A4E;
+  --dark:      #080D1A;
+  --mid:       #0D1630;
+  --accent:    #00C8FF;
+  --gold:      #E8B800;
+  --green:     #00B87C;
+  --white:     #FFFFFF;
+  --light:     #F4F6FA;
+  --gray:      #64748B;
+  --lgray:     #E2E8F0;
+  --card-bg:   #111827;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  background: #000;
+}
+
+/* ─── PROGRESS BAR ─── */
+#progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 3px; background: var(--ol-red);
+  transition: width 0.35s ease;
+  z-index: 10000;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ─── SLIDE ENGINE — fade transitions ─── */
+.deck { width: 100vw; height: 100vh; position: relative; }
+
+.slide {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  width: 100%; height: 100%;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+
+/* ─── NAV BAR ─── */
+.nav {
+  position: fixed; bottom: 20px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 40px;
+  padding: 8px 22px;
+  z-index: 9999;
+}
+.nav button {
+  background: none; border: none; color: #fff;
+  font-size: 18px; cursor: pointer; padding: 4px 8px;
+  border-radius: 6px; transition: background .15s;
+}
+.nav button:hover { background: rgba(255,255,255,0.12); }
+.nav .dots { display: flex; gap: 5px; }
+.nav .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,0.25); cursor: pointer;
+  transition: all .2s;
+}
+.nav .dot.on { background: var(--accent); transform: scale(1.4); }
+.nav .count { color: rgba(255,255,255,0.5); font-size: 12px; min-width: 50px; text-align: center; }
+
+/* ════════════════════════════════════
+   SHARED COMPONENTS
+════════════════════════════════════ */
+
+.s-hdr {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 52px; flex-shrink: 0;
+}
+.s-hdr .bar { width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0; }
+.s-hdr h2 { font-size: 22px; font-weight: 800; line-height: 1.1; }
+.s-hdr .slide-n {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px; line-height: 1;
+  margin-left: auto; opacity: .07;
+}
+
+.tag {
+  display: inline-block;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 10px; font-weight: 700; letter-spacing: .5px;
+}
+
+/* ════════════════════════════════════
+   SLIDE 1 — COVER
+════════════════════════════════════ */
+#s1 { background: var(--dark); flex-direction: row; }
+#s1 .stripe { width: 6px; background: var(--ol-red); flex-shrink: 0; }
+#s1 .left {
+  flex: 1; display: flex; flex-direction: column;
+  padding: 44px 52px; position: relative;
+}
+#s1 .right {
+  width: 320px; background: var(--mid);
+  border-left: 1px solid rgba(0,200,255,.15);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 36px 28px; gap: 24px;
+}
+#s1 .topline { height: 2px; background: var(--accent); margin-bottom: 36px; border-radius: 1px; }
+#s1 .brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 68px; color: var(--accent);
+  letter-spacing: 5px; line-height: 1;
+}
+#s1 .tagline { color: rgba(255,255,255,.45); font-size: 13px; font-style: italic; margin: 6px 0 4px; }
+#s1 .candidature-note {
+  color: rgba(255,255,255,.18);
+  font-size: 10px; letter-spacing: 1.5px;
+  margin: 0 0 26px; font-style: italic;
+  border-left: 2px solid rgba(255,255,255,.08);
+  padding-left: 8px;
+}
+#s1 h1 { font-size: 30px; font-weight: 800; color: #fff; line-height: 1.25; margin-bottom: 28px; }
+#s1 h1 em { color: var(--ol-red); font-style: normal; }
+#s1 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+#s1 .chip { padding: 5px 13px; border-radius: 20px; font-size: 10px; font-weight: 700; letter-spacing: .5px; }
+.chip-r { background: var(--ol-red); color: #fff; }
+.chip-b { background: var(--ol-blue); color: #fff; }
+.chip-a { background: rgba(0,200,255,.12); color: var(--accent); border: 1px solid rgba(0,200,255,.4); }
+.chip-g { background: rgba(0,184,124,.12); color: var(--green); border: 1px solid rgba(0,184,124,.4); }
+#s1 .meta { color: rgba(255,255,255,.3); font-size: 11px; margin-top: auto; line-height: 1.8; }
+#s1 .meta strong { color: rgba(255,255,255,.55); }
+#s1 .fbar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 38px; background: var(--ol-blue);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: rgba(255,255,255,.75); letter-spacing: 2px;
+}
+#s1 .ol-badge {
+  width: 160px; height: 160px; border-radius: 50%;
+  border: 2px solid var(--ol-red);
+  background: rgba(0,61,165,.25);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+#s1 .ol-badge .ol-big { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: #fff; line-height: 1; }
+#s1 .ol-badge .ol-sub { font-size: 10px; color: var(--accent); letter-spacing: 3px; }
+#s1 .ol-info { color: rgba(255,255,255,.4); font-size: 11px; text-align: center; line-height: 1.7; }
+#s1 .ol-info strong { color: rgba(255,255,255,.65); display: block; margin-bottom: 4px; }
+
+/* ════════════════════════════════════
+   SLIDE 2 — HAPPI : QUI ON EST
+════════════════════════════════════ */
+#s2 { background: var(--light); }
+#s2 .s-hdr { background: var(--ol-blue); }
+#s2 .s-hdr h2 { color: #fff; }
+#s2 .s-hdr .bar { background: var(--ol-red); }
+#s2 .s-hdr .slide-n { color: #fff; }
+#s2 .body {
+  flex: 1; display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px; padding: 20px 52px 52px;
+}
+#s2 .col { display: flex; flex-direction: column; gap: 14px; }
+.white-card {
+  background: #fff; border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 3px 16px rgba(0,0,0,.08);
+  border-left: 4px solid var(--ol-blue);
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.white-card .ic { font-size: 22px; flex-shrink: 0; padding-top: 2px; }
+.white-card h4 { font-size: 13px; font-weight: 700; color: var(--ol-navy); margin-bottom: 4px; }
+.white-card p { font-size: 11px; color: var(--gray); line-height: 1.55; }
+.dark-panel {
+  background: var(--dark); border-radius: 14px;
+  padding: 24px; box-shadow: 0 8px 28px rgba(0,0,0,.22);
+  display: flex; flex-direction: column; gap: 0;
+}
+.dark-panel h3 { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 3px; margin-bottom: 18px; }
+.stack-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.stack-row:last-child { border-bottom: none; }
+.stack-row .si { font-size: 18px; }
+.stack-row .st { font-size: 11px; color: rgba(255,255,255,.82); }
+.stack-row .badge-tech {
+  margin-left: auto;
+  background: rgba(0,200,255,.1); color: var(--accent);
+  border: 1px solid rgba(0,200,255,.3);
+  font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+}
+
+/* ════════════════════════════════════
+   SLIDE 3 — DIAGNOSTIC OL
+════════════════════════════════════ */
+#s3 { background: var(--dark); }
+#s3 .s-hdr { background: var(--mid); }
+#s3 .s-hdr h2 { color: var(--accent); }
+#s3 .s-hdr .bar { background: var(--ol-red); }
+#s3 .s-hdr .slide-n { color: #fff; }
+#s3 .sub { color: var(--gray); font-size: 11px; font-style: italic; padding: 0 52px 14px; }
+#s3 .diag-grid {
+  flex: 1; display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px; padding: 0 52px 20px;
+}
+.diag-card {
+  background: var(--card-bg); border-radius: 14px;
+  padding: 20px; display: flex; flex-direction: column; gap: 12px;
+  border-top: 3px solid;
+}
+.diag-card h4 { font-size: 13px; font-weight: 700; }
+.diag-card .pain { font-size: 10px; color: rgba(255,255,255,.6); line-height: 1.6; flex: 1; }
+.diag-card .sol {
+  background: rgba(0,200,255,.07);
+  border: 1px solid rgba(0,200,255,.2);
+  border-radius: 8px; padding: 10px 12px;
+  font-size: 10px; color: var(--accent); line-height: 1.5;
+}
+.diag-card .sol strong { display: block; margin-bottom: 3px; color: var(--accent); font-size: 11px; }
+#s3 .bottom-note {
+  margin: 0 52px 20px;
+  background: rgba(210,0,26,.15); border: 1px solid rgba(210,0,26,.4);
+  border-radius: 10px; padding: 12px 20px;
+  font-size: 11px; color: rgba(255,255,255,.8);
+  display: flex; align-items: center; gap: 10px;
+}
+
+/* ════════════════════════════════════
+   SLIDE 4 — CHATBOT FAN
+════════════════════════════════════ */
+#s4 { background: var(--light); }
+#s4 .s-hdr { background: var(--ol-red); }
+#s4 .s-hdr h2 { color: #fff; }
+#s4 .s-hdr .bar { background: #fff; }
+#s4 .s-hdr .slide-n { color: #fff; }
+#s4 .stats-row {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 14px; padding: 16px 52px 14px;
+}
+.stat-box {
+  border-radius: 12px; padding: 16px 14px; text-align: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,.12);
+}
+.stat-box .sv { font-family: 'Bebas Neue', sans-serif; font-size: 44px; line-height: 1; }
+.stat-box .sl { font-size: 10px; margin-top: 5px; opacity: .85; line-height: 1.4; }
+#s4 .feat-grid {
+  flex: 1; display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 13px; padding: 0 52px 52px;
+}
+.feat-card {
+  background: #fff; border-radius: 12px;
+  padding: 16px 18px;
+  box-shadow: 0 3px 14px rgba(0,0,0,.07);
+  border-top: 3px solid var(--ol-red);
+  display: flex; flex-direction: column; gap: 8px;
+}
+.feat-card h4 { font-size: 12px; font-weight: 700; color: var(--ol-navy); }
+.feat-card p { font-size: 10px; color: var(--gray); line-height: 1.6; flex: 1; }
+.feat-card .feas {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 9px; font-weight: 700; color: var(--green); margin-top: 4px;
+}
+
+/* ════════════════════════════════════
+   SLIDE DEMO — DÉMO INTERACTIVE
+════════════════════════════════════ */
+#s-demo { background: var(--dark); }
+#s-demo .s-hdr { background: var(--ol-red); }
+#s-demo .s-hdr h2 { color: #fff; }
+#s-demo .s-hdr .bar { background: rgba(255,255,255,.6); }
+#s-demo .s-hdr .slide-n { color: #fff; }
+
+#s-demo .demo-wrap {
+  flex: 1; display: grid;
+  grid-template-columns: 210px 1fr 190px;
+  gap: 20px; padding: 14px 52px 20px; overflow: hidden;
+}
+
+/* Left panel */
+.demo-caps-panel {
+  background: var(--card-bg); border-radius: 14px;
+  padding: 18px; border: 1px solid rgba(255,255,255,.06);
+  display: flex; flex-direction: column; gap: 0;
+}
+.demo-caps-panel h3 {
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px;
+  color: rgba(255,255,255,.35); margin-bottom: 14px; text-transform: uppercase;
+}
+.cap-item {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 10px; color: rgba(255,255,255,.35);
+  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.04);
+  transition: color .4s ease;
+}
+.cap-item:last-child { border-bottom: none; }
+.cap-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(255,255,255,.12);
+  transition: background .35s ease, box-shadow .35s ease;
+}
+.cap-item.done { color: rgba(255,255,255,.82); }
+.cap-item.done .cap-dot {
+  background: var(--green);
+  box-shadow: 0 0 7px rgba(0,184,124,.6);
+}
+.demo-reset-btn {
+  margin-top: 14px;
+  background: none; border: 1px solid rgba(255,255,255,.1);
+  border-radius: 8px; padding: 8px; text-align: center;
+  font-size: 10px; color: rgba(255,255,255,.4); cursor: pointer;
+  transition: all .15s; width: 100%;
+}
+.demo-reset-btn:hover { border-color: var(--ol-red); color: var(--ol-red); }
+
+/* Center: phone shell */
+.phone-shell {
+  background: var(--card-bg); border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.08);
+  display: flex; flex-direction: column; overflow: hidden;
+  max-height: 480px;
+}
+.phone-hdr {
+  background: var(--ol-red); padding: 10px 16px;
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+}
+.bot-av {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--ol-blue); border: 2px solid rgba(255,255,255,.35);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif; font-size: 13px; color: #fff; flex-shrink: 0;
+}
+.bot-nm { font-size: 12px; font-weight: 700; color: #fff; }
+.bot-st { font-size: 9px; color: rgba(255,255,255,.65); }
+.msgs-area {
+  flex: 1; overflow-y: auto; padding: 14px;
+  display: flex; flex-direction: column; gap: 8px;
+  scroll-behavior: smooth;
+}
+.msgs-area::-webkit-scrollbar { width: 3px; }
+.msgs-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+.msg-row { display: flex; }
+.msg-row.bot { align-self: flex-start; max-width: 88%; }
+.msg-row.fan { align-self: flex-end; max-width: 88%; }
+.msg-bub {
+  border-radius: 14px; padding: 8px 12px;
+  font-size: 11px; line-height: 1.55;
+  animation: popIn .2s ease;
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(.95) translateY(5px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0); }
+}
+.msg-row.bot .msg-bub {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+  color: rgba(255,255,255,.9);
+  border-bottom-left-radius: 3px;
+}
+.msg-row.fan .msg-bub {
+  background: var(--ol-blue); color: #fff;
+  border-bottom-right-radius: 3px;
+}
+.typing-row { align-self: flex-start; }
+.typing-bub {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px; border-bottom-left-radius: 3px;
+  padding: 10px 14px;
+  display: flex; gap: 4px; align-items: center;
+}
+.typing-bub span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,.35);
+  animation: typDot .9s infinite;
+}
+.typing-bub span:nth-child(2) { animation-delay: .15s; }
+.typing-bub span:nth-child(3) { animation-delay: .3s; }
+@keyframes typDot {
+  0%,60%,100% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+}
+.qr-zone {
+  padding: 10px 12px; border-top: 1px solid rgba(255,255,255,.05);
+  display: flex; flex-wrap: wrap; gap: 6px;
+  flex-shrink: 0; min-height: 50px; align-content: center;
+}
+.qr-btn {
+  background: rgba(0,61,165,.3); border: 1px solid rgba(0,61,165,.7);
+  color: rgba(255,255,255,.85); font-size: 9.5px; font-weight: 600;
+  padding: 5px 11px; border-radius: 14px; cursor: pointer;
+  transition: all .15s; white-space: nowrap;
+}
+.qr-btn:hover { background: var(--ol-blue); border-color: var(--ol-blue); color: #fff; }
+
+/* Right panel */
+.demo-meta-panel {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.meta-card {
+  background: var(--card-bg); border-radius: 14px;
+  padding: 14px; border: 1px solid rgba(255,255,255,.06);
+}
+.meta-card h3 {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  color: rgba(255,255,255,.3); margin-bottom: 12px; text-transform: uppercase;
+}
+.meta-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.04);
+  font-size: 10px;
+}
+.meta-row:last-child { border-bottom: none; }
+.meta-row .ml { color: rgba(255,255,255,.4); }
+.meta-row .mv {
+  color: #fff; font-weight: 700;
+  font-family: 'Bebas Neue', sans-serif; font-size: 14px;
+}
+.si-note {
+  background: rgba(0,200,255,.05); border: 1px solid rgba(0,200,255,.15);
+  border-radius: 10px; padding: 12px;
+  font-size: 10px; color: rgba(255,255,255,.55); line-height: 1.6;
+}
+.si-note strong { display: block; color: var(--accent); font-size: 10px; margin-bottom: 5px; }
+
+/* ════════════════════════════════════
+   SLIDE 5 — BILLETTERIE & CRM
+════════════════════════════════════ */
+#s5 { background: var(--dark); }
+#s5 .s-hdr { background: var(--mid); }
+#s5 .s-hdr h2 { color: #fff; }
+#s5 .s-hdr .bar { background: var(--accent); }
+#s5 .s-hdr .slide-n { color: #fff; }
+#s5 .body {
+  flex: 1; display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px; padding: 16px 52px 52px;
+}
+.d-card {
+  background: var(--card-bg); border-radius: 14px;
+  padding: 22px; border: 1px solid rgba(255,255,255,.06);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.d-card h3 { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; }
+.d-card .item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.04);
+}
+.d-card .item:last-child { border-bottom: none; }
+.d-card .item .ico { font-size: 18px; flex-shrink: 0; }
+.d-card .item h5 { font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.d-card .item p { font-size: 10px; color: rgba(255,255,255,.55); line-height: 1.5; }
+.d-card .item .tag { margin-top: 5px; }
+
+/* ════════════════════════════════════
+   SLIDE 6 — ANALYTICS & DASHBOARD
+════════════════════════════════════ */
+#s6 { background: var(--light); }
+#s6 .s-hdr { background: var(--ol-navy); }
+#s6 .s-hdr h2 { color: #fff; }
+#s6 .s-hdr .bar { background: var(--gold); }
+#s6 .s-hdr .slide-n { color: #fff; }
+#s6 .body {
+  flex: 1; display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 20px; padding: 16px 52px 52px;
+}
+#s6 .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.kpi-card {
+  background: #fff; border-radius: 12px;
+  padding: 16px; box-shadow: 0 3px 14px rgba(0,0,0,.08);
+  border-left: 4px solid;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.kpi-card .kv { font-family: 'Bebas Neue', sans-serif; font-size: 38px; line-height: 1; }
+.kpi-card .kl { font-size: 10px; color: var(--gray); line-height: 1.4; }
+#s6 .arch-panel {
+  background: var(--dark); border-radius: 14px;
+  padding: 22px; box-shadow: 0 6px 24px rgba(0,0,0,.18);
+}
+#s6 .arch-panel h3 { font-size: 10px; font-weight: 700; color: var(--gold); letter-spacing: 3px; margin-bottom: 16px; }
+.arch-layer {
+  border-radius: 8px; padding: 10px 14px;
+  margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 600; color: #fff; letter-spacing: .3px;
+}
+.arch-layer .al-icon { font-size: 16px; }
+.arch-note {
+  background: rgba(232,184,0,.08);
+  border: 1px solid rgba(232,184,0,.25);
+  border-radius: 8px; padding: 10px 14px;
+  font-size: 10px; color: rgba(255,255,255,.65); line-height: 1.6; margin-top: 12px;
+}
+
+/* ════════════════════════════════════
+   SLIDE 7 — INTÉGRATION SI
+════════════════════════════════════ */
+#s7 { background: var(--dark); }
+#s7 .s-hdr { background: var(--card-bg); border-left: 6px solid var(--green); }
+#s7 .s-hdr h2 { color: #fff; }
+#s7 .s-hdr .bar { background: var(--green); display: none; }
+#s7 .s-hdr .slide-n { color: #fff; }
+#s7 .body {
+  flex: 1; display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 16px; padding: 16px 52px 16px;
+}
+.int-card {
+  background: var(--card-bg); border-radius: 14px;
+  padding: 20px; border: 1px solid rgba(0,184,124,.25);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.int-card .ic-hdr { display: flex; align-items: center; gap: 10px; }
+.int-card .ic-hdr .ico { font-size: 26px; }
+.int-card .ic-hdr h4 { font-size: 13px; font-weight: 700; color: var(--green); }
+.int-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.int-card ul li { font-size: 10px; color: rgba(255,255,255,.7); padding-left: 14px; position: relative; line-height: 1.5; }
+.int-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--green); }
+.int-card .caveat {
+  background: rgba(232,184,0,.08); border: 1px solid rgba(232,184,0,.2);
+  border-radius: 8px; padding: 9px 12px;
+  font-size: 9px; color: rgba(255,255,255,.55); line-height: 1.5;
+}
+#s7 .sla-row {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 12px; padding: 0 52px 20px;
+}
+.sla-pill {
+  background: var(--card-bg); border-radius: 10px;
+  padding: 12px 16px; text-align: center; border-top: 2px solid;
+}
+.sla-pill .pv { font-family: 'Bebas Neue', sans-serif; font-size: 28px; }
+.sla-pill .pl { font-size: 9px; color: rgba(255,255,255,.5); margin-top: 3px; line-height: 1.4; }
+
+/* ════════════════════════════════════
+   SLIDE 8 — ROADMAP
+════════════════════════════════════ */
+#s8 { background: var(--light); }
+#s8 .s-hdr { background: var(--ol-blue); }
+#s8 .s-hdr h2 { color: #fff; }
+#s8 .s-hdr .bar { background: var(--gold); }
+#s8 .s-hdr .slide-n { color: #fff; }
+#s8 .phases {
+  flex: 1; display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 14px; padding: 16px 52px 52px;
+}
+.phase { border-radius: 14px; overflow: hidden; box-shadow: 0 5px 18px rgba(0,0,0,.1); display: flex; flex-direction: column; }
+.phase-hdr { padding: 14px 16px; text-align: center; }
+.phase-hdr .pn { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #fff; line-height: 1; }
+.phase-hdr .pp { font-size: 9px; color: rgba(255,255,255,.8); letter-spacing: 1px; margin-top: 2px; }
+.phase-body {
+  flex: 1; background: #fff;
+  border: 1px solid rgba(0,0,0,.07); border-top: none;
+  padding: 14px 16px; border-radius: 0 0 14px 14px;
+}
+.phase-body h4 { font-size: 11px; font-weight: 700; margin-bottom: 10px; }
+.phase-body ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.phase-body ul li { font-size: 10px; color: var(--gray); padding-left: 14px; position: relative; line-height: 1.4; }
+.phase-body ul li::before { content: '→'; position: absolute; left: 0; }
+.phase-body .effort { margin-top: 12px; padding: 8px 10px; border-radius: 7px; font-size: 9px; font-weight: 700; text-align: center; }
+
+/* ════════════════════════════════════
+   SLIDE 9 — ROI
+════════════════════════════════════ */
+#s9 { background: var(--dark); }
+#s9 .s-hdr { background: var(--ol-red); }
+#s9 .s-hdr h2 { color: #fff; }
+#s9 .s-hdr .bar { background: #fff; }
+#s9 .s-hdr .slide-n { color: #fff; }
+#s9 .kpis {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 14px; padding: 16px 52px 14px;
+}
+.kpi-orb {
+  border-radius: 50%; width: 130px; height: 130px;
+  margin: 0 auto; border: 2.5px solid;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.kpi-orb .ov { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: #fff; line-height: 1; }
+.kpi-orb .ol { font-size: 9px; color: rgba(255,255,255,.65); text-align: center; line-height: 1.4; margin-top: 4px; }
+#s9 .val-cols {
+  flex: 1; display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; padding: 0 52px 52px;
+}
+.val-card { background: var(--card-bg); border-radius: 14px; padding: 20px; border: 1.5px solid; }
+.val-card h3 { font-size: 12px; font-weight: 700; margin-bottom: 14px; }
+.val-card ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
+.val-card ul li { font-size: 11px; color: rgba(255,255,255,.7); padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.04); }
+.val-card ul li::before { content: '✓  '; }
+.val-card ul li:last-child { border-bottom: none; }
+
+/* ════════════════════════════════════
+   SLIDE 10 — CONCLUSION
+════════════════════════════════════ */
+#s10 { background: var(--dark); }
+#s10 .top { padding: 30px 52px 20px; border-left: 7px solid var(--ol-red); }
+#s10 .top h2 { font-size: 28px; font-weight: 900; color: #fff; line-height: 1.2; }
+#s10 .top h2 em { color: var(--accent); font-style: normal; }
+#s10 .top p { color: rgba(255,255,255,.45); font-size: 12px; margin-top: 6px; }
+#s10 .grid {
+  flex: 1; display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px; padding: 0 52px 16px;
+}
+.reason {
+  background: var(--card-bg); border-radius: 14px;
+  padding: 20px; display: flex; gap: 14px;
+  border: 1.5px solid; align-items: flex-start;
+  box-shadow: 0 5px 20px rgba(0,0,0,.25);
+}
+.reason .rn {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif; font-size: 20px;
+  color: #fff; flex-shrink: 0;
+}
+.reason h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+.reason p { font-size: 10px; color: rgba(255,255,255,.6); line-height: 1.6; }
+#s10 .next-steps {
+  margin: 0 52px 20px;
+  background: rgba(210,0,26,.12); border: 1px solid rgba(210,0,26,.4);
+  border-radius: 12px; padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+}
+#s10 .next-steps .ns-text { font-size: 13px; font-weight: 700; color: #fff; }
+#s10 .next-steps .ns-text span { color: var(--ol-red); }
+#s10 .next-steps .ns-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+#s10 .next-steps .nsc {
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 20px; padding: 4px 12px;
+  font-size: 10px; color: rgba(255,255,255,.7);
+}
+
+/* ─── PRINT ─── */
+@media print {
+  body { overflow: visible; }
+  .nav, #progress-bar { display: none; }
+  .slide { display: flex !important; position: relative; page-break-after: always; width: 100%; height: 100vh; opacity: 1 !important; }
+}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<div class="deck">
+
+<!-- ══════════════ SLIDE 1 — COVER ══════════════ -->
+<div class="slide active" id="s1">
+  <div class="stripe"></div>
+  <div class="left">
+    <div class="topline"></div>
+    <div class="brand">H'APPI</div>
+    <div class="tagline">Chatbots IA sur-mesure &nbsp;·&nbsp; CX &amp; Fan Engagement &nbsp;·&nbsp; Next.js</div>
+    <div class="candidature-note">Démonstration de vision SI applicatif &nbsp;·&nbsp; Candidature Responsable SI Applicatif</div>
+    <h1>Transformer l'expérience digitale<br>de <em>l'Olympique Lyonnais</em><br>avec l'IA conversationnelle</h1>
+    <div class="chips">
+      <span class="chip chip-r">🤖 Chatbot Fan IA</span>
+      <span class="chip chip-b">🎟️ Billetterie Intelligente</span>
+      <span class="chip chip-a">📊 Analytics Temps Réel</span>
+      <span class="chip chip-g">🔗 Intégration CRM OL</span>
+    </div>
+    <div class="meta">
+      <strong>Présenté à :</strong> Direction des Systèmes d'Information — Eagle Football Group / OL<br>
+      <strong>Par :</strong> N. Bayonne &nbsp;·&nbsp; Fondateur H'appi &nbsp;·&nbsp; Mars 2026<br>
+      <strong>Contact :</strong> contact@happi-bot.com &nbsp;·&nbsp; happi-bot.com
+    </div>
+    <div class="fbar">CHATBOT IA &nbsp;·&nbsp; FAN ENGAGEMENT &nbsp;·&nbsp; CRM &nbsp;·&nbsp; ANALYTICS &nbsp;·&nbsp; NEXT.JS</div>
+  </div>
+  <div class="right">
+    <div class="ol-badge">
+      <div class="ol-big">OL</div>
+      <div class="ol-sub">LYON</div>
+    </div>
+    <div class="ol-info">
+      <strong>Olympique Lyonnais</strong>
+      Eagle Football Group · Ligue 1<br>
+      Groupama Stadium · 59 000 places<br>
+      ~8M fans dans le monde<br>
+      <br>
+      <span style="color:var(--accent); font-weight:700; font-size:12px;">Vision SI Applicatif<br>par H'appi</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 2 — QUI EST H'APPI ══════════════ -->
+<div class="slide" id="s2">
+  <div class="s-hdr">
+    <div class="bar"></div>
+    <h2>QUI EST H'APPI — CE QU'ON SAIT VRAIMENT FAIRE</h2>
+    <div class="slide-n">02</div>
+  </div>
+  <div class="body">
+    <div class="col">
+      <div class="white-card">
+        <div class="ic">🏗️</div>
+        <div>
+          <h4>Plateforme Next.js — Production Ready</h4>
+          <p>Architecture full-stack moderne déployée en production. SSR, API routes, gestion d'état, optimisation perf. Pas un prototype — un produit.</p>
+        </div>
+      </div>
+      <div class="white-card">
+        <div class="ic">🤖</div>
+        <div>
+          <h4>Chatbots IA sur-mesure (LLM)</h4>
+          <p>Intégration Claude / GPT-4o via API. Prompting avancé, gestion de contexte, mémoire conversationnelle, fallback humain intégré.</p>
+        </div>
+      </div>
+      <div class="white-card">
+        <div class="ic">🔗</div>
+        <div>
+          <h4>Intégrations API & CRM</h4>
+          <p>Connexion aux systèmes existants via REST / webhooks / MCP servers. Expérience prouvée sur des environnements CX et Supply Chain complexes.</p>
+        </div>
+      </div>
+      <div class="white-card">
+        <div class="ic">📊</div>
+        <div>
+          <h4>Analytics & Dashboards</h4>
+          <p>Collecte et visualisation des interactions : volume, sujets, satisfaction, taux de résolution. Données actionnables pour le CIO et le métier.</p>
+        </div>
+      </div>
+    </div>
+    <div class="dark-panel">
+      <h3>STACK TECHNIQUE H'APPI</h3>
+      <div class="stack-row"><span class="si">⚡</span><span class="st">Next.js 15 — App Router, SSR, API Routes</span><span class="badge-tech">PROD</span></div>
+      <div class="stack-row"><span class="si">🧠</span><span class="st">LLM : Claude Sonnet / GPT-4o via API</span><span class="badge-tech">PROD</span></div>
+      <div class="stack-row"><span class="si">🔗</span><span class="st">MCP Servers — intégrations API tierces</span><span class="badge-tech">PROD</span></div>
+      <div class="stack-row"><span class="si">💬</span><span class="st">Widget chatbot embeddable (web, iframe)</span><span class="badge-tech">PROD</span></div>
+      <div class="stack-row"><span class="si">📊</span><span class="st">Dashboard analytics — interactions / KPIs</span><span class="badge-tech">PROD</span></div>
+      <div class="stack-row"><span class="si">🔒</span><span class="st">Auth, RGPD, chiffrement données en transit</span><span class="badge-tech">PROD</span></div>
+      <div class="stack-row"><span class="si">☁️</span><span class="st">Déploiement Vercel / Azure / cloud OL</span><span class="badge-tech">FLEXIBLE</span></div>
+      <div class="stack-row"><span class="si">📱</span><span class="st">WhatsApp Business API — chatbot natif</span><span class="badge-tech">PROD</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 3 — DIAGNOSTIC OL ══════════════ -->
+<div class="slide" id="s3">
+  <div class="s-hdr">
+    <div class="bar"></div>
+    <h2>CE QUE VOIT LE FAN OL AUJOURD'HUI — ET CE QU'IL DEVRAIT VIVRE</h2>
+    <div class="slide-n">03</div>
+  </div>
+  <p class="sub">Diagnostic honnête des friction points digitaux — là où H'appi peut intervenir concrètement</p>
+  <div class="diag-grid">
+    <div class="diag-card" style="border-color: var(--ol-red);">
+      <h4 style="color:var(--ol-red);">🎟️ Billetterie & FAQ</h4>
+      <p class="pain">Les fans cherchent des infos sur les matchs, les tarifs, les abonnements, les places PMR. Ils tombent sur des pages statiques, des FAQ obsolètes, ou pire — ils n'appellent pas. Ils abandonnent.</p>
+      <div class="sol"><strong>→ Solution H'appi</strong>Chatbot disponible 24/7, connecté au catalogue de billetterie en temps réel. Réponse instantanée + redirection vers l'achat.</div>
+    </div>
+    <div class="diag-card" style="border-color: var(--accent);">
+      <h4 style="color:var(--accent);">💬 Support fan jour de match</h4>
+      <p class="pain">Le jour J : accès stade, parkings, restauration, programme. Le fan envoie des mails qui n'ont pas de réponse avant 48h. Les équipes support sont débordées sur les 5 000 requêtes habituelles.</p>
+      <div class="sol"><strong>→ Solution H'appi</strong>Bot contextuel activé le jour du match. Répond aux 80% de questions récurrentes — libère l'équipe pour les 20% complexes.</div>
+    </div>
+    <div class="diag-card" style="border-color: var(--gold);">
+      <h4 style="color:var(--gold);">📊 Données fans inexploitées</h4>
+      <p class="pain">L'OL collecte des interactions (web, app, ticketing) mais la data reste silotée. Le CIO n'a pas de vue unifiée sur les requêtes fans, les sujets chauds, les pics de demande.</p>
+      <div class="sol"><strong>→ Solution H'appi</strong>Dashboard analytics centralisé : volume de requêtes, topics fréquents, satisfaction, taux escalade. Reporté au CIO chaque semaine.</div>
+    </div>
+  </div>
+  <div class="bottom-note">
+    <span style="font-size:20px;">⚠️</span>
+    <span><strong>Ce qu'on ne promet PAS :</strong> analyse vidéo de joueurs, IoT stade, IA prédictive des blessures — ce n'est pas notre domaine. H'appi se concentre sur le CX digital et le SI conversationnel. On le fait bien.</span>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 4 — CHATBOT FAN ══════════════ -->
+<div class="slide" id="s4">
+  <div class="s-hdr">
+    <div class="bar"></div>
+    <h2>🤖 CHATBOT FAN IA — CE QU'ON LIVRE CONCRÈTEMENT</h2>
+    <div class="slide-n">04</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box" style="background:var(--dark); color:var(--accent);">
+      <div class="sv">80%</div>
+      <div class="sl" style="color:rgba(255,255,255,.6);">Questions<br>résolues auto</div>
+    </div>
+    <div class="stat-box" style="background:var(--ol-blue); color:#fff;">
+      <div class="sv">24/7</div>
+      <div class="sl">Disponibilité<br>sans interruption</div>
+    </div>
+    <div class="stat-box" style="background:var(--ol-red); color:#fff;">
+      <div class="sv">&lt;2s</div>
+      <div class="sl">Temps de<br>réponse moyen</div>
+    </div>
+    <div class="stat-box" style="background:#047857; color:#fff;">
+      <div class="sv">-60%</div>
+      <div class="sl">Charge équipe<br>support fan</div>
+    </div>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card"><h4>💬 Widget Web Embeddable</h4><p>Script JS à coller sur ol.fr. S'intègre en 1h sur n'importe quel CMS. Design aux couleurs OL, configurable sans code.</p><span class="feas">✅ Livrable J+15</span></div>
+    <div class="feat-card"><h4>📱 WhatsApp Business</h4><p>Chatbot natif WhatsApp via API officielle Meta. Le fan pose sa question là où il est déjà. Zéro app à télécharger.</p><span class="feas">✅ Livrable J+30</span></div>
+    <div class="feat-card"><h4>🎟️ Infos Matchs & Billetterie</h4><p>Connecté au calendrier et catalogue de billets OL via API. Répond aux questions prix, disponibilité, catégories, PMR, parking.</p><span class="feas">✅ Selon accès API OL</span></div>
+    <div class="feat-card"><h4>🗺️ Guide Stade Groupama</h4><p>Base de connaissance configurable : accès, portes d'entrée, restauration, boutique, règles d'accès. Actualisable sans dev.</p><span class="feas">✅ Livrable J+10</span></div>
+    <div class="feat-card"><h4>🔄 Escalade Humaine</h4><p>Si le bot ne sait pas répondre, il route vers un agent humain avec le contexte complet de la conversation. Aucune perte d'info.</p><span class="feas">✅ Livrable J+20</span></div>
+    <div class="feat-card"><h4>🌍 Multilingue FR / EN</h4><p>Détection automatique de la langue. Réponses en français et anglais nativement. Autres langues sur demande (supporters européens).</p><span class="feas">✅ Livrable J+20</span></div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE DEMO — INTERACTIVE ══════════════ -->
+<div class="slide" id="s-demo">
+  <div class="s-hdr">
+    <div class="bar"></div>
+    <h2>💬 DÉMO LIVE — LE BOT OL EN ACTION · INTERAGISSEZ MAINTENANT</h2>
+    <div class="slide-n">05</div>
+  </div>
+  <div class="demo-wrap">
+
+    <!-- Left: capability tracker -->
+    <div>
+      <div class="demo-caps-panel">
+        <h3>Capacités démontrées</h3>
+        <div class="cap-item" id="cap0"><span class="cap-dot"></span>Compréhension contexte OL</div>
+        <div class="cap-item" id="cap1"><span class="cap-dot"></span>Guidage par quick replies</div>
+        <div class="cap-item" id="cap2"><span class="cap-dot"></span>API billetterie connectée</div>
+        <div class="cap-item" id="cap3"><span class="cap-dot"></span>Escalade humaine fluide</div>
+        <div class="cap-item" id="cap4"><span class="cap-dot"></span>Réponse &lt; 2 secondes</div>
+      </div>
+      <button class="demo-reset-btn" onclick="demoReset()">↺ Recommencer</button>
+    </div>
+
+    <!-- Center: chat window -->
+    <div class="phone-shell">
+      <div class="phone-hdr">
+        <div class="bot-av">OL</div>
+        <div>
+          <div class="bot-nm">Bot OL — Assistance Fans</div>
+          <div class="bot-st">● En ligne 24/7</div>
+        </div>
+        <div style="margin-left:auto; background:rgba(255,255,255,.12); border-radius:6px; padding:3px 8px; font-size:9px; color:rgba(255,255,255,.7);">⚡ Simulation</div>
+      </div>
+      <div class="msgs-area" id="demo-msgs"></div>
+      <div class="qr-zone" id="demo-qr"></div>
+    </div>
+
+    <!-- Right: SI context -->
+    <div class="demo-meta-panel">
+      <div class="meta-card">
+        <h3>Métriques live</h3>
+        <div class="meta-row"><span class="ml">Réponse</span><span class="mv" id="meta-time">—</span></div>
+        <div class="meta-row"><span class="ml">Canal</span><span class="mv">WEB</span></div>
+        <div class="meta-row"><span class="ml">Langue</span><span class="mv">FR</span></div>
+        <div class="meta-row"><span class="ml">Tour n°</span><span class="mv" id="meta-turn">0</span></div>
+      </div>
+      <div class="si-note">
+        <strong>👁 Vision SI Applicatif</strong>
+        Ce bot illustre la couche conversationnelle du SI Client — sans refonte du CRM ni de la billetterie existante.
+      </div>
+      <div class="si-note" style="border-color:rgba(232,184,0,.2); background:rgba(232,184,0,.05);">
+        <strong style="color:var(--gold);">🔗 Domaine SI Client</strong>
+        Intégration read-only API OL en phase 1. Enrichissement CRM par interaction en phase 2.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 5 — BILLETTERIE & CRM ══════════════ -->
+<div class="slide" id="s5">
+  <div class="s-hdr">
+    <div class="bar"></div>
+    <h2>🎟️ BILLETTERIE INTELLIGENTE & INTÉGRATION CRM</h2>
+    <div class="slide-n">06</div>
+  </div>
+  <div class="body">
+    <div class="d-card">
+      <h3 style="color:var(--accent);">CE QUE LE CHATBOT FAIT CÔTÉ BILLETTERIE</h3>
+      <div class="item"><span class="ico">🔍</span><div><h5>Recherche & Info Tickets</h5><p>Le fan demande "un billet pour OL-PSG en tribune Nord" — le bot répond avec dispo, prix, lien direct d'achat.</p><span class="tag" style="background:rgba(0,184,124,.12); color:var(--green); border:1px solid rgba(0,184,124,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Via API billetterie OL existante</span></div></div>
+      <div class="item"><span class="ico">🔔</span><div><h5>Alertes Disponibilité</h5><p>Le fan s'inscrit pour une alerte si des places se libèrent. Bot envoie un message WhatsApp ou email automatiquement.</p><span class="tag" style="background:rgba(0,200,255,.1); color:var(--accent); border:1px solid rgba(0,200,255,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Webhook sortant</span></div></div>
+      <div class="item"><span class="ico">🎁</span><div><h5>Upsell Contextuel</h5><p>Fan abonné Tribune → le bot lui propose l'upgrade VIP disponible ou le pack famille avant le match. Message ciblé, pas spam.</p><span class="tag" style="background:rgba(232,184,0,.1); color:var(--gold); border:1px solid rgba(232,184,0,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Segmentation CRM OL</span></div></div>
+      <div class="item"><span class="ico">❓</span><div><h5>FAQ Abonnement Automatisée</h5><p>Renouvellement, modification de siège, suspension, remboursement — les 50 questions les plus posées, répondues instantanément.</p><span class="tag" style="background:rgba(0,184,124,.12); color:var(--green); border:1px solid rgba(0,184,124,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Base de connaissance</span></div></div>
+    </div>
+    <div class="d-card">
+      <h3 style="color:var(--gold);">INTÉGRATION CRM — COMMENT ÇA MARCHE</h3>
+      <div class="item"><span class="ico">🔗</span><div><h5>Connexion API REST</h5><p>H'appi se connecte au CRM existant de l'OL via API. On lit les données fan (abonnement, historique) pour personnaliser les réponses. On n'écrase rien.</p><span class="tag" style="background:rgba(0,200,255,.1); color:var(--accent); border:1px solid rgba(0,200,255,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Read-only au départ</span></div></div>
+      <div class="item"><span class="ico">✏️</span><div><h5>Enrichissement Fan Profile</h5><p>Chaque interaction chatbot enrichit le profil CRM : sujets demandés, satisfaction, préférences. Data propriétaire de l'OL.</p><span class="tag" style="background:rgba(232,184,0,.1); color:var(--gold); border:1px solid rgba(232,184,0,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Phase 2 — write access</span></div></div>
+      <div class="item"><span class="ico">🛡️</span><div><h5>Sécurité & Conformité RGPD</h5><p>Données traitées selon le cadre légal. Consentement explicite. Possibilité d'héberger on-premise si requis par le DSI OL.</p><span class="tag" style="background:rgba(0,184,124,.12); color:var(--green); border:1px solid rgba(0,184,124,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">RGPD compliant</span></div></div>
+      <div class="item"><span class="ico">⚠️</span><div><h5>Prérequis côté OL</h5><p>Accès à la documentation API CRM/billetterie OL. Un référent technique OL pour 2-3 sessions d'intégration. C'est tout.</p><span class="tag" style="background:rgba(210,0,26,.15); color:#ff6b6b; border:1px solid rgba(210,0,26,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Besoin accès API OL</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 6 — ANALYTICS ══════════════ -->
+<div class="slide" id="s6">
+  <div class="s-hdr">
+    <div class="bar"></div>
+    <h2>📊 ANALYTICS & DASHBOARD — CE QUE LE CIO VOIT CHAQUE SEMAINE</h2>
+    <div class="slide-n">07</div>
+  </div>
+  <div class="body">
+    <div>
+      <p style="font-size:11px; color:var(--gray); margin-bottom:14px; font-style:italic;">Métriques disponibles dès la mise en prod — aucun BI tool externe requis</p>
+      <div class="kpi-grid">
+        <div class="kpi-card" style="border-color:var(--ol-red);"><div class="kv" style="color:var(--ol-red);">4 821</div><div class="kl">Conversations<br>cette semaine</div></div>
+        <div class="kpi-card" style="border-color:var(--green);"><div class="kv" style="color:var(--green);">83%</div><div class="kl">Taux résolution<br>sans agent humain</div></div>
+        <div class="kpi-card" style="border-color:var(--accent);"><div class="kv" style="color:var(--accent);">4.4/5</div><div class="kl">Score satisfaction<br>fan moyen</div></div>
+        <div class="kpi-card" style="border-color:var(--gold);"><div class="kv" style="color:var(--gold);">217</div><div class="kl">Escalades vers<br>agent humain</div></div>
+        <div class="kpi-card" style="border-color:var(--ol-blue);"><div class="kv" style="color:var(--ol-blue);">1.8s</div><div class="kl">Temps réponse<br>moyen bot</div></div>
+        <div class="kpi-card" style="border-color:#6D28D9;"><div class="kv" style="color:#6D28D9;">+34%</div><div class="kl">Conversations vs<br>mois précédent</div></div>
+      </div>
+      <p style="font-size:9px; color:rgba(100,116,139,.7); margin-top:10px; font-style:italic;">* Chiffres simulés à titre indicatif — basés sur des benchmarks sectoriels</p>
+    </div>
+    <div class="arch-panel">
+      <h3>ARCHITECTURE DATA H'APPI</h3>
+      <div class="arch-layer" style="background:var(--ol-red);"><span class="al-icon">💬</span> COLLECTE &nbsp;·&nbsp; Chatbot Web · WhatsApp · App OL</div>
+      <div class="arch-layer" style="background:var(--ol-blue);"><span class="al-icon">⚙️</span> TRAITEMENT &nbsp;·&nbsp; LLM · Classif. intention · Scoring</div>
+      <div class="arch-layer" style="background:#047857;"><span class="al-icon">💾</span> STOCKAGE &nbsp;·&nbsp; BDD H'appi · CRM OL · Logs RGPD</div>
+      <div class="arch-layer" style="background:#6D28D9;"><span class="al-icon">📊</span> DASHBOARD &nbsp;·&nbsp; KPIs CIO · Alertes · Export CSV</div>
+      <div class="arch-layer" style="background:var(--gold); color:var(--dark);"><span class="al-icon">👥</span> USAGE &nbsp;·&nbsp; Équipe support · Marketing · CIO · DSI</div>
+      <div class="arch-note">💡 <strong>Accès rôles :</strong> Le CIO accède à un dashboard dédié (web sécurisé). L'équipe support voit les conversations en cours. Marketing voit les topics et tendances. Tout séparé, tout cloisonné.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 7 — INTÉGRATION SI ══════════════ -->
+<div class="slide" id="s7">
+  <div class="s-hdr">
+    <div class="bar"></div>
+    <h2>🔗 INTÉGRATION SI — COMMENT H'APPI S'INSÈRE DANS L'EXISTANT</h2>
+    <div class="slide-n">08</div>
+  </div>
+  <div class="body">
+    <div class="int-card">
+      <div class="ic-hdr"><span class="ico">🌐</span><h4>Site Web OL (ol.fr)</h4></div>
+      <ul>
+        <li>Widget JS à intégrer en 1 ligne de code</li>
+        <li>Compatible tous CMS (WordPress, custom)</li>
+        <li>Design configurable sans toucher au code OL</li>
+        <li>Chargement asynchrone — zéro impact perf site</li>
+        <li>CNAME / domaine OL possible si requis</li>
+      </ul>
+      <div class="caveat">⏱ Délai : 1 à 2 jours ouvrés après accès</div>
+    </div>
+    <div class="int-card">
+      <div class="ic-hdr"><span class="ico">📱</span><h4>WhatsApp Business</h4></div>
+      <ul>
+        <li>Numéro WhatsApp Business dédié OL</li>
+        <li>API Meta officielle — conforme aux CGU</li>
+        <li>Templates messages approuvés Meta</li>
+        <li>Opt-in fans requis (RGPD)</li>
+        <li>Intégrable à la stratégie CRM OL existante</li>
+      </ul>
+      <div class="caveat">⏱ Délai : ~1 semaine (validation Meta)</div>
+    </div>
+    <div class="int-card">
+      <div class="ic-hdr"><span class="ico">🔒</span><h4>Sécurité & Hébergement</h4></div>
+      <ul>
+        <li>HTTPS, chiffrement TLS 1.3 en transit</li>
+        <li>Données hébergées EU (Azure/OVH)</li>
+        <li>Hébergement on-premise OL possible</li>
+        <li>Logs d'audit complets pour conformité</li>
+        <li>Droit à l'effacement RGPD intégré</li>
+      </ul>
+      <div class="caveat">🔐 Audit sécu disponible sur demande DSI</div>
+    </div>
+  </div>
+  <div class="sla-row">
+    <div class="sla-pill" style="border-color:var(--green);"><div class="pv" style="color:var(--green);">99.5%</div><div class="pl">SLA uptime<br>garanti contractuel</div></div>
+    <div class="sla-pill" style="border-color:var(--accent);"><div class="pv" style="color:var(--accent);">&lt;2s</div><div class="pl">Temps réponse<br>API max</div></div>
+    <div class="sla-pill" style="border-color:var(--gold);"><div class="pv" style="color:var(--gold);">J+1</div><div class="pl">Support correctif<br>incidents critiques</div></div>
+    <div class="sla-pill" style="border-color:var(--ol-red);"><div class="pv" style="color:var(--ol-red);">EU</div><div class="pl">Données hébergées<br>en Europe uniquement</div></div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 8 — ROADMAP ══════════════ -->
+<div class="slide" id="s8">
+  <div class="s-hdr">
+    <div class="bar"></div>
+    <h2>📅 ROADMAP RÉALISTE — DE LA SIGNATURE AU LIVE</h2>
+    <div class="slide-n">09</div>
+  </div>
+  <div class="phases">
+    <div class="phase">
+      <div class="phase-hdr" style="background:var(--ol-red);"><div class="pn">PHASE 1</div><div class="pp">SEMAINES 1–2</div></div>
+      <div class="phase-body">
+        <h4 style="color:var(--ol-red);">Setup & Cadrage</h4>
+        <ul><li>Kick-off avec équipe DSI OL</li><li>Accès API billetterie & CRM</li><li>Définition des 50 FAQ prioritaires</li><li>Config base de connaissance</li><li>Choix canaux (web, WhatsApp)</li></ul>
+        <div class="effort" style="background:rgba(210,0,26,.08); color:var(--ol-red);">👥 1 dev H'appi + 1 ref tech OL</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-hdr" style="background:var(--ol-blue);"><div class="pn">PHASE 2</div><div class="pp">SEMAINES 3–4</div></div>
+      <div class="phase-body">
+        <h4 style="color:var(--ol-blue);">Intégration & Tests</h4>
+        <ul><li>Déploiement widget sur ol.fr (staging)</li><li>Connexion API billetterie OL</li><li>Tests conversations end-to-end</li><li>Validation UX avec équipe OL</li><li>Fine-tuning prompts & réponses</li></ul>
+        <div class="effort" style="background:rgba(0,61,165,.08); color:var(--ol-blue);">🔁 2–3 sessions de test OL + H'appi</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-hdr" style="background:#047857;"><div class="pn">PHASE 3</div><div class="pp">MOIS 2</div></div>
+      <div class="phase-body">
+        <h4 style="color:#047857;">Go Live & Apprentissage</h4>
+        <ul><li>Mise en production sur ol.fr</li><li>Activation WhatsApp Business OL</li><li>Dashboard CIO en accès live</li><li>Monitoring quotidien J1–J30</li><li>Ajustements rapides selon data</li></ul>
+        <div class="effort" style="background:rgba(4,120,87,.08); color:#047857;">📊 Rapport hebdo CIO automatique</div>
+      </div>
+    </div>
+    <div class="phase">
+      <div class="phase-hdr" style="background:#6D28D9;"><div class="pn">PHASE 4</div><div class="pp">MOIS 3–6</div></div>
+      <div class="phase-body">
+        <h4 style="color:#6D28D9;">Scale & Enrichissement</h4>
+        <ul><li>Enrichissement CRM via interactions</li><li>Personnalisation par segment fan</li><li>Intégration app mobile OL</li><li>Campagnes proactives (matchs à venir)</li><li>Extension à OL Féminin si pertinent</li></ul>
+        <div class="effort" style="background:rgba(109,40,217,.08); color:#6D28D9;">🚀 Résultats mesurables à M+3</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 9 — ROI ══════════════ -->
+<div class="slide" id="s9">
+  <div class="s-hdr">
+    <div class="bar"></div>
+    <h2>💰 ROI — DES CHIFFRES RÉALISTES, PAS DES PROMESSES EN L'AIR</h2>
+    <div class="slide-n">10</div>
+  </div>
+  <div class="kpis">
+    <div><div class="kpi-orb" style="border-color:var(--gold); background:rgba(232,184,0,.08);"><div class="ov" style="color:var(--gold);">-60%</div><div class="ol">Volume tickets<br>support fan récurrents</div></div></div>
+    <div><div class="kpi-orb" style="border-color:var(--green); background:rgba(0,184,124,.08);"><div class="ov" style="color:var(--green);">24/7</div><div class="ol">Disponibilité<br>sans coût additionnel</div></div></div>
+    <div><div class="kpi-orb" style="border-color:var(--accent); background:rgba(0,200,255,.08);"><div class="ov" style="color:var(--accent);">+15%</div><div class="ol">Conversion billet<br>via chatbot (estimé)</div></div></div>
+    <div><div class="kpi-orb" style="border-color:var(--ol-red); background:rgba(210,0,26,.1);"><div class="ov" style="color:var(--ol-red);">M+3</div><div class="ol">Premier retour<br>mesurable garanti</div></div></div>
+  </div>
+  <div class="val-cols">
+    <div class="val-card" style="border-color:var(--accent);">
+      <h3 style="color:var(--accent);">🔧 Ce que le CIO gagne côté SI</h3>
+      <ul>
+        <li>Une couche conversationnelle sans refonte du SI existant</li>
+        <li>Données d'usage fans centralisées — enfin accessibles</li>
+        <li>Réduction de la charge sur les équipes support internes</li>
+        <li>Déploiement rapide — pas un projet de 18 mois</li>
+        <li>SLA contractuel et monitoring en temps réel</li>
+      </ul>
+    </div>
+    <div class="val-card" style="border-color:var(--gold);">
+      <h3 style="color:var(--gold);">📈 Ce que l'OL gagne côté business</h3>
+      <ul>
+        <li>Fan experience digitale au niveau des top clubs européens</li>
+        <li>Support disponible même lors des pics (matchs Champions League)</li>
+        <li>Data fan propriétaire enrichie à chaque interaction</li>
+        <li>Upsell et relance automatisés — revenus billetterie +</li>
+        <li>Image tech moderne — différenciateur pour les sponsors</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 10 — CONCLUSION ══════════════ -->
+<div class="slide" id="s10">
+  <div class="top">
+    <h2>POURQUOI H'APPI &amp; POURQUOI MAINTENANT<br>POUR <em>L'OLYMPIQUE LYONNAIS</em> ?</h2>
+    <p>On ne vend pas de la technologie futuriste. On livre un produit qui fonctionne, intégré en 4 semaines.</p>
+  </div>
+  <div class="grid">
+    <div class="reason" style="border-color:var(--ol-red);">
+      <div class="rn" style="background:var(--ol-red);">01</div>
+      <div><h4 style="color:var(--ol-red);">On fait ce qu'on maîtrise</h4><p>Chatbots IA, CX digital, intégrations CRM — c'est notre coeur de métier. On ne promet pas l'analyse vidéo ou l'IoT. On promet un bot fan qui fonctionne dès le premier match.</p></div>
+    </div>
+    <div class="reason" style="border-color:var(--accent);">
+      <div class="rn" style="background:var(--ol-blue);">02</div>
+      <div><h4 style="color:var(--accent);">Stack Next.js — intégration rapide</h4><p>Notre architecture est conçue pour s'insérer dans n'importe quel SI existant. Pas de remplacement, pas de migration. On se branche dessus et on apporte de la valeur immédiatement.</p></div>
+    </div>
+    <div class="reason" style="border-color:var(--green);">
+      <div class="rn" style="background:#047857;">03</div>
+      <div><h4 style="color:var(--green);">Tarification adaptée à l'OL</h4><p>Modèle SaaS mensuel ou projet forfaitaire. Pas de coûts cachés. Le CIO voit le ROI avant de commiter sur la phase suivante. On s'engage sur des résultats mesurables.</p></div>
+    </div>
+    <div class="reason" style="border-color:var(--gold);">
+      <div class="rn" style="background:var(--gold); color:var(--dark);">04</div>
+      <div><h4 style="color:var(--gold);">Partenaire long terme, pas un prestataire</h4><p>On grandit avec l'OL. Chaque interaction fan améliore le modèle. Phase 1 : billetterie et FAQ. Phase 4 : personnalisation, proactif, data enrichie. La roadmap est co-construite.</p></div>
+    </div>
+  </div>
+  <div class="next-steps">
+    <div class="ns-text">Prochaine étape : <span>atelier technique avec votre équipe DSI</span> — 1h, on répond à toutes les questions d'intégration</div>
+    <div class="ns-chips">
+      <span class="nsc">📅 Démo live</span>
+      <span class="nsc">🔗 Accès API sandbox</span>
+      <span class="nsc">📄 Proposition commerciale</span>
+      <span class="nsc">🤝 POC 30 jours</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- ─── NAV ─── -->
+<nav class="nav">
+  <button onclick="go(-1)">&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <span class="count" id="cnt">1 / 11</span>
+  <button onclick="go(1)">&#8594;</button>
+</nav>
+
+<script>
+/* ══════════════════════════════════════
+   SLIDE ENGINE
+══════════════════════════════════════ */
+const slides = document.querySelectorAll('.slide');
+const N = slides.length;
+let cur = 0;
+
+const dotsEl = document.getElementById('dots');
+const cntEl  = document.getElementById('cnt');
+const bar    = document.getElementById('progress-bar');
+
+for (let i = 0; i < N; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' on' : '');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+}
+
+function updateProgress() {
+  bar.style.width = ((cur + 1) / N * 100) + '%';
+}
+
+function goTo(n) {
+  slides[cur].classList.remove('active');
+  dotsEl.children[cur].classList.remove('on');
+  cur = (n + N) % N;
+  slides[cur].classList.add('active');
+  dotsEl.children[cur].classList.add('on');
+  cntEl.textContent = (cur + 1) + ' / ' + N;
+  updateProgress();
+}
+function go(d) { goTo(cur + d); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+  if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   go(-1);
+});
+
+/* Swipe support */
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+});
+
+updateProgress();
+
+/* ══════════════════════════════════════
+   DEMO CHATBOT
+══════════════════════════════════════ */
+const STEPS = {
+  start: {
+    bot: "Bonjour ! 👋 Je suis le Bot OL, votre assistant digital. Comment puis-je vous aider aujourd'hui ?",
+    caps: [0, 4],
+    opts: [
+      ["🎟️ Billetterie & Abonnement", "billet"],
+      ["🏟️ Infos stade Groupama",     "stade"],
+      ["📅 Prochain match OL",         "match"],
+    ]
+  },
+  billet: {
+    fan: "🎟️ Billetterie & Abonnement",
+    bot: "Bien sûr ! Votre question porte sur :",
+    caps: [1],
+    opts: [
+      ["Renouveler mon abonnement",    "renew"],
+      ["Places disponibles OL–PSG",    "psg"],
+      ["Remboursement billet",         "remb"],
+    ]
+  },
+  renew: {
+    fan: "Renouveler mon abonnement",
+    bot: "Pour renouveler votre abonnement Tribune Nord 🏟️\n\nRendez-vous sur <b>ol.fr → Mon Compte → Mes Abonnements</b>.\n\nPériode prioritaire ouverte jusqu'au <b>30 avril 2026</b>. Je vous transmets le lien ?",
+    caps: [2],
+    opts: [
+      ["✅ Envoyer le lien",           "link"],
+      ["📞 Parler à un conseiller",    "escalade"],
+    ]
+  },
+  link: {
+    fan: "✅ Envoyer le lien",
+    bot: "Lien envoyé ↗️<br><span style='color:var(--accent)'>ol.fr/abonnements/renouvellement</span><br><br>Un email de confirmation vous sera adressé sous 5 min.",
+    caps: [],
+    opts: [
+      ["🎟️ Billets OL–PSG",           "psg"],
+      ["✅ C'est parfait, merci !",     "end"],
+    ]
+  },
+  escalade: {
+    fan: "📞 Parler à un conseiller",
+    bot: "Je transfère votre conversation avec l'historique complet 📋<br><br>⏱ Temps estimé : <b>~4 min</b>. Souhaitez-vous être rappelé(e) ?",
+    caps: [3],
+    opts: [
+      ["📱 Oui, me rappeler",          "end"],
+      ["⏳ J'attends en ligne",        "end"],
+    ]
+  },
+  psg: {
+    fan: "Places disponibles OL–PSG",
+    bot: "Match <b>OL – PSG</b> · Ligue 1 · 15 mars 2026 ⚽<br><br>✅ Tribune Nord : 47 places dispo<br>✅ Tribune Est : 12 places dispo<br>❌ Tribune VIP : complet<br><br>Voulez-vous réserver ou être alerté ?",
+    caps: [2],
+    opts: [
+      ["🎟️ Réserver 2 places",         "reserve"],
+      ["🔔 Alerte si VIP dispo",        "alerte"],
+    ]
+  },
+  reserve: {
+    fan: "🎟️ Réserver 2 places",
+    bot: "Redirection vers la billetterie officielle ↗️<br><span style='color:var(--accent)'>billetterie.ol.fr/ol-psg-0315</span><br><br>2 places Tribune Nord sélectionnées.",
+    caps: [],
+    opts: [
+      ["✅ Parfait, merci !",           "end"],
+      ["↩️ Retour au menu",            "start_silent"],
+    ]
+  },
+  alerte: {
+    fan: "🔔 Alerte si VIP dispo",
+    bot: "Inscription enregistrée ✅<br>Vous recevrez une notification WhatsApp dès qu'une place VIP se libère pour OL–PSG.",
+    caps: [3],
+    opts: [
+      ["✅ Super, merci !",             "end"],
+    ]
+  },
+  stade: {
+    fan: "🏟️ Infos stade Groupama",
+    bot: "Stade Groupama 🏟️ — Décines-Charpieu<br><br>📍 <b>Accès :</b> Tram T7 — arrêt « Stade OL »<br>🅿️ <b>Parkings :</b> P1–P6, ouverture J-2h<br>🍔 <b>Restauration :</b> 36 points disponibles<br>♿ <b>PMR :</b> entrées dédiées portes C & F",
+    caps: [2],
+    opts: [
+      ["🎟️ Billetterie",               "billet"],
+      ["✅ Parfait, merci !",           "end"],
+    ]
+  },
+  match: {
+    fan: "📅 Prochain match OL",
+    bot: "Prochain match à domicile 🔴🔵<br><br><b>OL – PSG</b><br>📅 15 mars 2026 · 21h00<br>🏟️ Groupama Stadium<br>🎟️ Places disponibles : Tribunes Nord & Est",
+    caps: [2],
+    opts: [
+      ["🎟️ Acheter des billets",        "psg"],
+      ["🏟️ Infos stade",               "stade"],
+    ]
+  },
+  remb: {
+    fan: "Remboursement billet",
+    bot: "Pour un remboursement :<br><br>• Match annulé → automatique sous 5–7 jours<br>• Abandon volontaire → non remboursable<br>• Cas particulier → je vous mets en contact",
+    caps: [3],
+    opts: [
+      ["📞 Contacter un agent",         "escalade"],
+      ["✅ Compris, merci",             "end"],
+    ]
+  },
+  end: {
+    bot: "Avec plaisir ! ⚽ <b>Allez l'OL !</b> N'hésitez pas à revenir si vous avez d'autres questions.",
+    caps: [],
+    opts: [
+      ["↺ Recommencer la démo",        "restart"],
+    ]
+  },
+};
+
+const msgsEl  = document.getElementById('demo-msgs');
+const qrEl    = document.getElementById('demo-qr');
+const metaTime = document.getElementById('meta-time');
+const metaTurn = document.getElementById('meta-turn');
+let turnCount = 0;
+let demoLocked = false;
+
+function demoReset() {
+  msgsEl.innerHTML = '';
+  qrEl.innerHTML = '';
+  turnCount = 0;
+  demoLocked = false;
+  metaTime.textContent = '—';
+  metaTurn.textContent = '0';
+  document.querySelectorAll('.cap-item').forEach(el => el.classList.remove('done'));
+  setTimeout(() => playStep('start'), 200);
+}
+
+function addMsg(type, html) {
+  const row = document.createElement('div');
+  row.className = 'msg-row ' + type;
+  const bub = document.createElement('div');
+  bub.className = 'msg-bub';
+  bub.innerHTML = html;
+  row.appendChild(bub);
+  msgsEl.appendChild(row);
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+}
+
+function showTyping() {
+  const row = document.createElement('div');
+  row.className = 'msg-row bot typing-row';
+  row.id = 'typing-indicator';
+  row.innerHTML = '<div class="typing-bub"><span></span><span></span><span></span></div>';
+  msgsEl.appendChild(row);
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+}
+
+function hideTyping() {
+  const t = document.getElementById('typing-indicator');
+  if (t) t.remove();
+}
+
+function unlockReplies(opts) {
+  qrEl.innerHTML = '';
+  opts.forEach(([label, next]) => {
+    const btn = document.createElement('button');
+    btn.className = 'qr-btn';
+    btn.textContent = label;
+    btn.onclick = () => {
+      if (demoLocked) return;
+      demoLocked = true;
+      qrEl.querySelectorAll('.qr-btn').forEach(b => b.style.opacity = '.4');
+      playStep(next, label);
+    };
+    qrEl.appendChild(btn);
+  });
+}
+
+function markCaps(indices) {
+  indices.forEach(i => {
+    const el = document.getElementById('cap' + i);
+    if (el) el.classList.add('done');
+  });
+}
+
+function playStep(key, fanText) {
+  if (key === 'restart') { demoReset(); return; }
+  if (key === 'start_silent') { playStep('start'); return; }
+
+  const step = STEPS[key];
+  if (!step) return;
+
+  const t0 = Date.now();
+
+  if (fanText || step.fan) {
+    addMsg('fan', fanText || step.fan);
+    turnCount++;
+    metaTurn.textContent = turnCount;
+  }
+
+  showTyping();
+  const delay = 900 + Math.random() * 500;
+
+  setTimeout(() => {
+    hideTyping();
+    addMsg('bot', step.bot);
+    const elapsed = ((Date.now() - t0) / 1000).toFixed(1) + 's';
+    metaTime.textContent = elapsed;
+    if (step.caps && step.caps.length) markCaps(step.caps);
+    if (step.opts && step.opts.length) {
+      setTimeout(() => {
+        unlockReplies(step.opts);
+        demoLocked = false;
+      }, 250);
+    }
+  }, delay);
+}
+
+// Auto-start when demo slide becomes visible
+const demoSlide = document.getElementById('s-demo');
+const observer = new MutationObserver(() => {
+  if (demoSlide.classList.contains('active') && msgsEl.children.length === 0) {
+    setTimeout(() => playStep('start'), 400);
+  }
+});
+observer.observe(demoSlide, { attributes: true, attributeFilter: ['class'] });
+</script>
+</body>
+</html>
