@@ -196,15 +196,15 @@ html, body {
 }
 #s2 .col { display: flex; flex-direction: column; gap: 14px; }
 .white-card {
-  background: #fff; border-radius: 12px;
-  padding: 16px 20px;
-  box-shadow: 0 3px 16px rgba(0,0,0,.08);
+  background: #fff; border-radius: 14px;
+  padding: 18px 22px;
+  box-shadow: 0 4px 20px rgba(0,61,165,.1);
   border-left: 4px solid var(--ol-blue);
-  display: flex; gap: 12px; align-items: flex-start;
+  display: flex; gap: 14px; align-items: flex-start;
 }
-.white-card .ic { font-size: 22px; flex-shrink: 0; padding-top: 2px; }
-.white-card h4 { font-size: 13px; font-weight: 700; color: var(--ol-navy); margin-bottom: 4px; }
-.white-card p { font-size: 11px; color: var(--gray); line-height: 1.55; }
+.white-card .ic { font-size: 24px; flex-shrink: 0; padding-top: 2px; }
+.white-card h4 { font-size: 13.5px; font-weight: 700; color: var(--ol-navy); margin-bottom: 6px; letter-spacing: -.1px; }
+.white-card p { font-size: 11.5px; color: var(--gray); line-height: 1.65; }
 .dark-panel {
   background: var(--dark); border-radius: 14px;
   padding: 24px; box-shadow: 0 8px 28px rgba(0,0,0,.22);
@@ -241,18 +241,24 @@ html, body {
 }
 .diag-card {
   background: var(--card-bg); border-radius: 14px;
-  padding: 20px; display: flex; flex-direction: column; gap: 12px;
+  padding: 22px 20px; display: flex; flex-direction: column; gap: 14px;
   border-top: 3px solid;
 }
-.diag-card h4 { font-size: 13px; font-weight: 700; }
-.diag-card .pain { font-size: 10px; color: rgba(255,255,255,.6); line-height: 1.6; flex: 1; }
+.diag-card h4 { font-size: 13.5px; font-weight: 700; letter-spacing: -.1px; }
+.diag-card .pain { font-size: 11px; color: rgba(255,255,255,.68); line-height: 1.68; flex: 1; }
 .diag-card .sol {
-  background: rgba(0,200,255,.07);
-  border: 1px solid rgba(0,200,255,.2);
-  border-radius: 8px; padding: 10px 12px;
-  font-size: 10px; color: var(--accent); line-height: 1.5;
+  background: rgba(0,200,255,.06);
+  border: none;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 14px;
+  font-size: 11px; color: rgba(255,255,255,.85); line-height: 1.6;
 }
-.diag-card .sol strong { display: block; margin-bottom: 3px; color: var(--accent); font-size: 11px; }
+.diag-card .sol strong {
+  display: block; margin-bottom: 6px;
+  color: var(--accent); font-size: 9px;
+  letter-spacing: 2px; text-transform: uppercase;
+}
 #s3 .bottom-note {
   margin: 0 52px 20px;
   background: rgba(210,0,26,.15); border: 1px solid rgba(210,0,26,.4);
@@ -285,17 +291,18 @@ html, body {
   gap: 13px; padding: 0 52px 52px;
 }
 .feat-card {
-  background: #fff; border-radius: 12px;
-  padding: 16px 18px;
-  box-shadow: 0 3px 14px rgba(0,0,0,.07);
+  background: #fff; border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.07);
   border-top: 3px solid var(--ol-red);
   display: flex; flex-direction: column; gap: 8px;
 }
-.feat-card h4 { font-size: 12px; font-weight: 700; color: var(--ol-navy); }
-.feat-card p { font-size: 10px; color: var(--gray); line-height: 1.6; flex: 1; }
+.feat-card h4 { font-size: 12.5px; font-weight: 700; color: var(--ol-navy); letter-spacing: -.1px; }
+.feat-card p { font-size: 10.5px; color: var(--gray); line-height: 1.65; flex: 1; }
 .feat-card .feas {
   display: inline-flex; align-items: center; gap: 5px;
-  font-size: 9px; font-weight: 700; color: var(--green); margin-top: 4px;
+  font-size: 9.5px; font-weight: 700; color: var(--green); margin-top: 6px;
+  border-top: 1px solid rgba(0,184,124,.15); padding-top: 8px;
 }
 
 /* ════════════════════════════════════
@@ -514,7 +521,7 @@ html, body {
   background: var(--dark); border-radius: 14px;
   padding: 22px; box-shadow: 0 6px 24px rgba(0,0,0,.18);
 }
-#s6 .arch-panel h3 { font-size: 10px; font-weight: 700; color: var(--gold); letter-spacing: 3px; margin-bottom: 16px; }
+#s6 .arch-panel h3 { font-size: 10px; font-weight: 700; color: var(--ol-red); letter-spacing: 3px; margin-bottom: 16px; }
 .arch-layer {
   border-radius: 8px; padding: 10px 14px;
   margin-bottom: 8px; display: flex; align-items: center; gap: 10px;
@@ -522,20 +529,21 @@ html, body {
 }
 .arch-layer .al-icon { font-size: 16px; }
 .arch-note {
-  background: rgba(232,184,0,.08);
-  border: 1px solid rgba(232,184,0,.25);
-  border-radius: 8px; padding: 10px 14px;
-  font-size: 10px; color: rgba(255,255,255,.65); line-height: 1.6; margin-top: 12px;
+  background: rgba(0,61,165,.1);
+  border: 1px solid rgba(0,61,165,.3);
+  border-left: 3px solid var(--ol-red);
+  border-radius: 0 8px 8px 0; padding: 10px 14px;
+  font-size: 10.5px; color: rgba(255,255,255,.75); line-height: 1.65; margin-top: 12px;
 }
 
 /* ════════════════════════════════════
    SLIDE 7 — INTÉGRATION SI
 ════════════════════════════════════ */
 #s7 { background: var(--dark); }
-#s7 .s-hdr { background: var(--card-bg); border-left: 6px solid var(--green); }
+#s7 .s-hdr { background: var(--ol-red); border-left: none; }
 #s7 .s-hdr h2 { color: #fff; }
-#s7 .s-hdr .bar { background: var(--green); display: none; }
-#s7 .s-hdr .slide-n { color: #fff; }
+#s7 .s-hdr .bar { background: rgba(255,255,255,.5); display: block; }
+#s7 .s-hdr .slide-n { color: rgba(255,255,255,.12); }
 #s7 .body {
   flex: 1; display: grid;
   grid-template-columns: repeat(3,1fr);
@@ -543,19 +551,20 @@ html, body {
 }
 .int-card {
   background: var(--card-bg); border-radius: 14px;
-  padding: 20px; border: 1px solid rgba(0,184,124,.25);
+  padding: 22px; border: 1px solid rgba(0,61,165,.35);
+  border-top: 3px solid var(--ol-blue);
   display: flex; flex-direction: column; gap: 14px;
 }
 .int-card .ic-hdr { display: flex; align-items: center; gap: 10px; }
 .int-card .ic-hdr .ico { font-size: 26px; }
-.int-card .ic-hdr h4 { font-size: 13px; font-weight: 700; color: var(--green); }
+.int-card .ic-hdr h4 { font-size: 13.5px; font-weight: 700; color: var(--white); }
 .int-card ul { list-style: none; display: flex; flex-direction: column; gap: 7px; flex: 1; }
-.int-card ul li { font-size: 10px; color: rgba(255,255,255,.7); padding-left: 14px; position: relative; line-height: 1.5; }
-.int-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--green); }
+.int-card ul li { font-size: 11px; color: rgba(255,255,255,.8); padding-left: 16px; position: relative; line-height: 1.65; }
+.int-card ul li::before { content: '▸'; position: absolute; left: 0; color: var(--ol-red); font-size: 10px; top: 1px; }
 .int-card .caveat {
-  background: rgba(232,184,0,.08); border: 1px solid rgba(232,184,0,.2);
+  background: rgba(0,61,165,.12); border: 1px solid rgba(0,61,165,.3);
   border-radius: 8px; padding: 9px 12px;
-  font-size: 9px; color: rgba(255,255,255,.55); line-height: 1.5;
+  font-size: 10px; color: rgba(255,255,255,.65); line-height: 1.5;
 }
 #s7 .sla-row {
   display: grid; grid-template-columns: repeat(4,1fr);
@@ -574,8 +583,8 @@ html, body {
 #s8 { background: var(--light); }
 #s8 .s-hdr { background: var(--ol-blue); }
 #s8 .s-hdr h2 { color: #fff; }
-#s8 .s-hdr .bar { background: var(--gold); }
-#s8 .s-hdr .slide-n { color: #fff; }
+#s8 .s-hdr .bar { background: var(--ol-red); }
+#s8 .s-hdr .slide-n { color: rgba(255,255,255,.12); }
 #s8 .phases {
   flex: 1; display: grid;
   grid-template-columns: repeat(4,1fr);
@@ -592,8 +601,8 @@ html, body {
 }
 .phase-body h4 { font-size: 11px; font-weight: 700; margin-bottom: 10px; }
 .phase-body ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
-.phase-body ul li { font-size: 10px; color: var(--gray); padding-left: 14px; position: relative; line-height: 1.4; }
-.phase-body ul li::before { content: '→'; position: absolute; left: 0; }
+.phase-body ul li { font-size: 10.5px; color: #4B5563; padding-left: 16px; position: relative; line-height: 1.6; }
+.phase-body ul li::before { content: '▸'; position: absolute; left: 0; font-size: 10px; top: 1px; opacity: .55; }
 .phase-body .effort { margin-top: 12px; padding: 8px 10px; border-radius: 7px; font-size: 9px; font-weight: 700; text-align: center; }
 
 /* ════════════════════════════════════
@@ -623,8 +632,8 @@ html, body {
 .val-card { background: var(--card-bg); border-radius: 14px; padding: 20px; border: 1.5px solid; }
 .val-card h3 { font-size: 12px; font-weight: 700; margin-bottom: 14px; }
 .val-card ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
-.val-card ul li { font-size: 11px; color: rgba(255,255,255,.7); padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.04); }
-.val-card ul li::before { content: '✓  '; }
+.val-card ul li { font-size: 11.5px; color: rgba(255,255,255,.82); padding: 9px 0 9px 22px; border-bottom: 1px solid rgba(255,255,255,.05); position: relative; line-height: 1.5; }
+.val-card ul li::before { content: '✓'; position: absolute; left: 0; font-size: 11px; color: var(--ol-red); font-weight: 700; }
 .val-card ul li:last-child { border-bottom: none; }
 
 /* ════════════════════════════════════
@@ -633,7 +642,7 @@ html, body {
 #s10 { background: var(--dark); }
 #s10 .top { padding: 30px 52px 20px; border-left: 7px solid var(--ol-red); }
 #s10 .top h2 { font-size: 28px; font-weight: 900; color: #fff; line-height: 1.2; }
-#s10 .top h2 em { color: var(--accent); font-style: normal; }
+#s10 .top h2 em { color: var(--ol-red); font-style: normal; }
 #s10 .top p { color: rgba(255,255,255,.45); font-size: 12px; margin-top: 6px; }
 #s10 .grid {
   flex: 1; display: grid;
@@ -746,7 +755,32 @@ html, body {
 }
 
 /* ─── PROGRESS BAR GRADIENT ─── */
-#progress-bar { background: linear-gradient(90deg, var(--ol-red), var(--gold)); }
+#progress-bar { background: linear-gradient(90deg, var(--ol-red), var(--ol-blue)); }
+
+/* ─── OL WATERMARK ─── */
+#s2::before, #s4::before, #s6::before, #s7::before, #s8::before, #s9::before, #s10::before {
+  content: 'OL';
+  position: absolute; right: 40px; bottom: 60px; z-index: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 160px; line-height: 1;
+  color: var(--ol-red); opacity: .03;
+  pointer-events: none; user-select: none;
+  letter-spacing: 8px;
+}
+#s3::before {
+  content: 'OL';
+  position: absolute; right: 40px; bottom: 60px; z-index: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 160px; line-height: 1;
+  color: var(--ol-red); opacity: .04;
+  pointer-events: none; user-select: none;
+  letter-spacing: 8px;
+}
+
+/* ─── BANDE ROUGE OL EN BAS DE CHAQUE SLIDE DE CONTENU ─── */
+#s2, #s3, #s4, #s6, #s7, #s8, #s9, #s10 {
+  border-bottom: 3px solid var(--ol-red);
+}
 
 /* ─── NAV DOT PULSE ─── */
 .nav .dot.on { animation: dotPulse 2.5s ease-in-out infinite; }
@@ -770,11 +804,192 @@ html, body {
   to   { transform: scale(1); }
 }
 
+/* ══════════════════════════════════════
+   SPORTS ENERGY — DIAGONAL SYSTEM
+══════════════════════════════════════ */
+
+/* 1. Transition cinématique View Transitions API */
+@keyframes vt-out-left  { to   { transform: translateX(-48px); opacity: 0; } }
+@keyframes vt-in-right  { from { transform: translateX(48px);  opacity: 0; } }
+@keyframes vt-out-right { to   { transform: translateX(48px);  opacity: 0; } }
+@keyframes vt-in-left   { from { transform: translateX(-48px); opacity: 0; } }
+
+::view-transition-old(root) {
+  animation: 220ms cubic-bezier(.4,0,1,1) both vt-out-left;
+}
+::view-transition-new(root) {
+  animation: 280ms cubic-bezier(0,.2,.2,1) 60ms both vt-in-right;
+}
+[data-dir="back"] ::view-transition-old(root) { animation-name: vt-out-right; }
+[data-dir="back"] ::view-transition-new(root) { animation-name: vt-in-left; }
+
+/* 2. Diagonal stripe sous le header — remplace la ligne plate */
+.s-hdr::after {
+  height: 3px;
+  background: linear-gradient(90deg, var(--ol-red) 0%, var(--ol-blue) 55%, transparent 100%);
+  clip-path: polygon(0 0, 100% 0, 97% 100%, 0 100%);
+}
+
+/* 3. Phase-hdr : coupe diagonale en bas */
+.phase-hdr {
+  clip-path: polygon(0 0, 100% 0, 100% 78%, 0 100%);
+  padding-bottom: 18px;
+}
+
+/* 4. Stat-box : parallelogramme sport */
+.stat-box {
+  clip-path: polygon(4% 0%, 100% 0%, 96% 100%, 0% 100%);
+  border-radius: 0;
+}
+.stat-box .sv { font-size: 52px; }
+
+/* 5. Texture diagonale sur les slides claires */
+#s2, #s4, #s8 {
+  background-image:
+    linear-gradient(var(--light), var(--light)),
+    repeating-linear-gradient(
+      -52deg,
+      transparent,
+      transparent 22px,
+      rgba(0,61,165,.018) 22px,
+      rgba(0,61,165,.018) 23px
+    );
+  background-blend-mode: normal;
+  background: var(--light)
+    repeating-linear-gradient(
+      -52deg,
+      transparent,
+      transparent 22px,
+      rgba(0,61,165,.018) 22px,
+      rgba(0,61,165,.018) 23px
+    );
+}
+
+/* 6. Éclairage directionnel sur les slides sombres */
+#s3, #s7, #s9, #s10 {
+  background-image:
+    linear-gradient(135deg, rgba(210,0,26,.06) 0%, transparent 38%),
+    linear-gradient(315deg, rgba(0,61,165,.06) 0%, transparent 38%);
+}
+
+/* 7. Streak décoratif rouge sur les white-cards */
+.white-card {
+  position: relative;
+  overflow: hidden;
+}
+.white-card::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 3px; height: 100%;
+  background: linear-gradient(180deg, var(--ol-red), transparent);
+  opacity: .35;
+}
+
+/* 8. KPI orbs légèrement penchés — effet dynamique */
+.kpi-orb {
+  transform: rotate(-2deg);
+}
+.kpi-orb:hover {
+  transform: rotate(0deg) scale(1.06) !important;
+}
+
+/* 9. SLA pills : forme diagonale */
+.sla-pill {
+  clip-path: polygon(4% 0%, 100% 0%, 96% 100%, 0% 100%);
+  border-radius: 0;
+  border-top: 2px solid;
+}
+
+/* 10. Numéro de slide visible comme décoration */
+.s-hdr .slide-n {
+  font-size: 56px;
+  opacity: .06;
+}
+
+/* 11. Reason cards (conclusion) : accent diagonal en coin */
+.reason {
+  position: relative;
+  overflow: hidden;
+}
+.reason::before {
+  content: '';
+  position: absolute;
+  top: -30px; right: -20px;
+  width: 80px; height: 140%;
+  background: rgba(255,255,255,.025);
+  transform: rotate(15deg);
+  pointer-events: none;
+}
+
+/* 12. Phase effort badge : coupe diagonale */
+.phase-body .effort {
+  clip-path: polygon(0 0, 96% 0, 100% 100%, 4% 100%);
+  border-radius: 0;
+  padding: 9px 16px;
+}
+
+/* 13. Ligne diagonale rouge sur le h2 des slides à fond blanc */
+#s2 .s-hdr h2,
+#s4 .s-hdr h2,
+#s8 .s-hdr h2 {
+  text-shadow: none;
+}
+
 /* ─── PRINT ─── */
 @media print {
   body { overflow: visible; }
   .nav, #progress-bar { display: none; }
   .slide { display: flex !important; position: relative; page-break-after: always; width: 100%; height: 100vh; opacity: 1 !important; }
+}
+
+/* ─── REFINEMENTS GLOBAUX ─── */
+
+/* Dark panel : séparateur et aération */
+.dark-panel h3 {
+  letter-spacing: 3px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0,200,255,.1);
+  margin-bottom: 4px;
+}
+
+/* Stack rows plus aérés */
+.stack-row { padding: 12px 0; }
+.stack-row .st { font-size: 11.5px; }
+
+/* d-card items */
+.d-card .item h5 { font-size: 12.5px; letter-spacing: -.1px; }
+.d-card .item p { font-size: 11px; line-height: 1.6; }
+
+/* Reason cards (conclusion) */
+.reason h4 { font-size: 13.5px; letter-spacing: -.1px; }
+.reason p { font-size: 11px; line-height: 1.65; color: rgba(255,255,255,.65); }
+
+/* Sub-title */
+#s3 .sub { font-size: 12px; letter-spacing: .1px; }
+
+/* KPI cards */
+.kpi-card .kl { font-size: 10.5px; line-height: 1.5; }
+
+/* Arch note */
+.arch-note { font-size: 10.5px; line-height: 1.65; }
+
+/* Val-card h3 */
+.val-card h3 { font-size: 10px; letter-spacing: 2px; margin-bottom: 16px; }
+
+/* Phase effort badge */
+.phase-body .effort { font-size: 9.5px; padding: 9px 12px; }
+
+/* SLA pills */
+.sla-pill .pl { font-size: 9.5px; line-height: 1.45; }
+
+/* Caveat dans int-card */
+.int-card .caveat { font-size: 10px; line-height: 1.55; }
+
+/* Focus accessible */
+button:focus-visible, .qr-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 </style>
 </head>
@@ -891,7 +1106,7 @@ html, body {
 <div class="slide" id="s2">
   <div class="s-hdr enter-hdr">
     <div class="bar"></div>
-    <h2>CE QUE J'APPORTE — COMPÉTENCES &amp; RÉALISATIONS EN PRODUCTION</h2>
+    <h2>COMPÉTENCES &amp; RÉALISATIONS EN PRODUCTION</h2>
     <div class="slide-n">02</div>
   </div>
   <div class="body">
@@ -900,28 +1115,28 @@ html, body {
         <div class="ic">🏗️</div>
         <div>
           <h4>Applications full-stack en production</h4>
-          <p>J'ai conçu et déployé des plateformes Next.js complètes en production. SSR, API routes, état global, optimisation perf — pas des prototypes, des produits.</p>
+          <p>Plateformes Next.js conçues et déployées en production : SSR, API routes, gestion d'état global et optimisation des performances. Des produits réels, pas des prototypes.</p>
         </div>
       </div>
       <div class="white-card enter-2">
         <div class="ic">🤖</div>
         <div>
           <h4>Intégration IA conversationnelle (LLM)</h4>
-          <p>J'ai intégré Claude / GPT-4o via API dans des produits réels. Prompting avancé, gestion de contexte, mémoire conversationnelle, fallback humain.</p>
+          <p>Claude et GPT-4o intégrés via API dans des produits à usage réel. Prompting avancé, gestion de contexte, mémoire conversationnelle et fallback humain.</p>
         </div>
       </div>
       <div class="white-card enter-3">
         <div class="ic">🔗</div>
         <div>
-          <h4>Intégrations API & systèmes existants</h4>
-          <p>Connexion aux SI existants via REST / webhooks / MCP servers. Expérience prouvée sur des environnements CX et Supply Chain complexes.</p>
+          <h4>Intégrations API &amp; systèmes existants</h4>
+          <p>Connexion aux SI existants via REST, webhooks et MCP servers. Expérience éprouvée sur des environnements CX et Supply Chain complexes.</p>
         </div>
       </div>
       <div class="white-card enter-4">
         <div class="ic">📊</div>
         <div>
-          <h4>Analytics & tableaux de bord SI</h4>
-          <p>Conception de dashboards métier : KPIs, alertes, exports. Je construis des outils que le CIO et les équipes utilisent vraiment.</p>
+          <h4>Analytics &amp; tableaux de bord SI</h4>
+          <p>Conception de dashboards métier : KPIs temps réel, alertes et exports. Des outils que le CIO et les équipes opérationnelles utilisent au quotidien.</p>
         </div>
       </div>
     </div>
@@ -931,8 +1146,8 @@ html, body {
       <div class="stack-row"><span class="si">🧠</span><span class="st">LLM : Claude Sonnet / GPT-4o via API</span><span class="badge-tech">PROD</span></div>
       <div class="stack-row"><span class="si">🔗</span><span class="st">MCP Servers — intégrations API tierces</span><span class="badge-tech">PROD</span></div>
       <div class="stack-row"><span class="si">💬</span><span class="st">Widget chatbot embeddable (web, iframe)</span><span class="badge-tech">PROD</span></div>
-      <div class="stack-row"><span class="si">📊</span><span class="st">Dashboard analytics — interactions / KPIs</span><span class="badge-tech">PROD</span></div>
-      <div class="stack-row"><span class="si">🔒</span><span class="st">Auth, RGPD, chiffrement données en transit</span><span class="badge-tech">PROD</span></div>
+      <div class="stack-row"><span class="si">📊</span><span class="st">Dashboard analytics — interactions et KPIs</span><span class="badge-tech">PROD</span></div>
+      <div class="stack-row"><span class="si">🔒</span><span class="st">Auth, RGPD, chiffrement des données en transit</span><span class="badge-tech">PROD</span></div>
       <div class="stack-row"><span class="si">☁️</span><span class="st">Déploiement Vercel / Azure / cloud OL</span><span class="badge-tech">FLEXIBLE</span></div>
       <div class="stack-row"><span class="si">📱</span><span class="st">WhatsApp Business API — chatbot natif</span><span class="badge-tech">PROD</span></div>
     </div>
@@ -943,30 +1158,30 @@ html, body {
 <div class="slide" id="s3">
   <div class="s-hdr">
     <div class="bar"></div>
-    <h2>CE QUE VOIT LE FAN OL AUJOURD'HUI — ET CE QU'IL DEVRAIT VIVRE</h2>
+    <h2>CE QUE VIT LE FAN OL AUJOURD'HUI — ET CE QU'IL DEVRAIT VIVRE</h2>
     <div class="slide-n">03</div>
   </div>
-  <p class="sub">Ma lecture des friction points SI OL — et comment je les résoudrais en interne dans ce poste</p>
+  <p class="sub">Lecture des points de friction SI de l'OL, et ma vision pour les résoudre depuis ce poste</p>
   <div class="diag-grid">
     <div class="diag-card enter-1" style="border-color: var(--ol-red);">
-      <h4 style="color:var(--ol-red);">🎟️ SI Client — Billetterie & FAQ</h4>
-      <p class="pain">Les fans cherchent des infos matchs, tarifs, abonnements, PMR. Ils tombent sur des pages statiques, FAQ obsolètes, ou abandonnent. Aucun SI conversationnel ne capture ces intentions.</p>
-      <div class="sol"><strong>→ Ce que je mettrais en place</strong>Couche conversationnelle sur le SI Client existant. Chatbot 24/7 connecté au catalogue billetterie — sans refonte du CRM ni de la billetterie actuelle.</div>
+      <h4 style="color:var(--ol-red);">🎟️ SI Client — Billetterie &amp; FAQ</h4>
+      <p class="pain">Les fans cherchent des informations sur les matchs, les tarifs, les abonnements ou l'accessibilité PMR. Ils tombent sur des pages statiques, des FAQ obsolètes et abandonnent. Aucun outil conversationnel ne capte ces intentions.</p>
+      <div class="sol"><strong>Ce que je mettrais en place</strong>Une couche conversationnelle greffée sur le SI Client existant : chatbot 24/7 connecté au catalogue billetterie, sans refonte du CRM ni de la billetterie en place.</div>
     </div>
-    <div class="diag-card enter-2" style="border-color: var(--accent);">
-      <h4 style="color:var(--accent);">💬 SI Support — Jour de match</h4>
-      <p class="pain">Le jour J : accès stade, parkings, programme. Les équipes support reçoivent 5 000 requêtes récurrentes. Aucun outil ne les pré-filtre — chaque agent traite du volume à faible valeur.</p>
-      <div class="sol"><strong>→ Ce que je construirais</strong>Bot contextuel activé le jour J. Traite les 80% de demandes récurrentes — libère les équipes internes pour les 20% à vraie valeur ajoutée.</div>
+    <div class="diag-card enter-2" style="border-color: var(--ol-blue);">
+      <h4 style="color:var(--white);">💬 SI Support — Jour de match</h4>
+      <p class="pain">Le jour du match : accès stade, parkings, programme. Les équipes support absorbent jusqu'à 5 000 requêtes récurrentes. Aucun filtre ne les pré-traite. Chaque agent gère un volume à faible valeur ajoutée.</p>
+      <div class="sol" style="border-left-color:var(--ol-blue);"><strong>Ce que je construirais</strong>Un bot contextuel activé le jour J : il prend en charge 80 % des demandes récurrentes et libère les équipes pour les 20 % à vraie valeur.</div>
     </div>
-    <div class="diag-card enter-3" style="border-color: var(--gold);">
-      <h4 style="color:var(--gold);">📊 SI Data — Interactions inexploitées</h4>
-      <p class="pain">L'OL collecte des interactions (web, app, ticketing) mais la donnée reste silotée. Le DSI n'a pas de vue unifiée sur les sujets chauds, les pics de demande, la satisfaction réelle des fans.</p>
-      <div class="sol"><strong>→ Ma vision interne</strong>Dashboard unifié cross-SI : volume requêtes, topics, taux résolution, satisfaction. Rapport hebdo automatique vers le DSI — données propriétaires OL.</div>
+    <div class="diag-card enter-3" style="border-color: var(--ol-navy);">
+      <h4 style="color:rgba(255,255,255,.85);">📊 SI Data — Interactions inexploitées</h4>
+      <p class="pain">L'OL collecte des interactions via le web, l'app et la billetterie, mais la donnée reste silotée. Le DSI ne dispose pas d'une vue unifiée sur les sujets chauds, les pics de demande ou la satisfaction réelle des fans.</p>
+      <div class="sol" style="border-left-color:var(--ol-navy); background:rgba(0,26,78,.2);"><strong>Ma vision interne</strong>Un dashboard unifié cross-SI : volume de requêtes, topics, taux de résolution, satisfaction. Rapport hebdomadaire automatique transmis au DSI, en données propriétaires de l'OL.</div>
     </div>
   </div>
   <div class="bottom-note enter-4">
     <span style="font-size:20px;">🎯</span>
-    <span><strong>Mon périmètre d'action :</strong> SI Client, SI Support, SI Opérations et SI Sportif — les 4 domaines définis dans la fiche de poste. Je ne promets pas l'IA vidéo ou l'IoT stade. Je construis ce que je maîtrise, vite et bien.</span>
+    <span><strong>Mon périmètre d'action :</strong> SI Client, SI Support, SI Opérations et SI Sportif, les 4 domaines définis dans la fiche de poste. Je ne promets pas l'IA vidéo ni l'IoT stade. Je construis ce que je maîtrise, vite et bien.</span>
   </div>
 </div>
 
@@ -974,13 +1189,13 @@ html, body {
 <div class="slide" id="s4">
   <div class="s-hdr enter-hdr">
     <div class="bar"></div>
-    <h2>🤖 CE QUE J'AI DÉJÀ CONSTRUIT — PREUVE PAR L'EXEMPLE</h2>
+    <h2>CE QUE J'AI DÉJÀ CONSTRUIT — LA PREUVE PAR L'EXEMPLE</h2>
     <div class="slide-n">04</div>
   </div>
   <div class="stats-row">
     <div class="stat-box enter-1" style="background:var(--dark); color:var(--accent);">
       <div class="sv">80%</div>
-      <div class="sl" style="color:rgba(255,255,255,.6);">Questions<br>résolues auto</div>
+      <div class="sl" style="color:rgba(255,255,255,.6);">Questions<br>résolues automatiquement</div>
     </div>
     <div class="stat-box enter-2" style="background:var(--ol-blue); color:#fff;">
       <div class="sv">24/7</div>
@@ -988,20 +1203,20 @@ html, body {
     </div>
     <div class="stat-box enter-3" style="background:var(--ol-red); color:#fff;">
       <div class="sv">&lt;2s</div>
-      <div class="sl">Temps de<br>réponse moyen</div>
+      <div class="sl">Temps de réponse<br>moyen</div>
     </div>
     <div class="stat-box enter-4" style="background:#047857; color:#fff;">
       <div class="sv">-60%</div>
-      <div class="sl">Charge équipe<br>support fan</div>
+      <div class="sl">Charge de l'équipe<br>support fan</div>
     </div>
   </div>
   <div class="feat-grid">
-    <div class="feat-card enter-1"><h4>💬 Widget Web Embeddable</h4><p>J'ai livré ce composant en production : script JS s'intégrant en 1h sur n'importe quel CMS. Design personnalisable, chargement asynchrone.</p><span class="feas">✅ Déjà en prod</span></div>
-    <div class="feat-card enter-2"><h4>📱 WhatsApp Business</h4><p>Chatbot natif via API officielle Meta intégré dans H'appi. Le fan pose sa question là où il est déjà — zéro app à télécharger.</p><span class="feas">✅ Déjà en prod</span></div>
-    <div class="feat-card enter-3"><h4>🎟️ Connexion API billetterie</h4><p>Connecté au catalogue de billets via API. Répond en temps réel aux questions prix, disponibilité, catégories, PMR, parking.</p><span class="feas">✅ Architecture maîtrisée</span></div>
-    <div class="feat-card enter-4"><h4>🗺️ Base de connaissance configurable</h4><p>Système de KB que l'équipe métier peut alimenter sans dev. Actualisable en autonomie — aucune dépendance technique permanente.</p><span class="feas">✅ Déjà en prod</span></div>
-    <div class="feat-card enter-5"><h4>🔄 Escalade humaine fluide</h4><p>Routing vers agent humain avec historique complet de la conversation. Aucune perte de contexte, aucune friction pour l'utilisateur.</p><span class="feas">✅ Déjà en prod</span></div>
-    <div class="feat-card enter-6"><h4>🌍 Multilingue FR / EN</h4><p>Détection automatique de langue, réponses nativement bilingues. Extensible à d'autres langues selon les marchés OL Europe.</p><span class="feas">✅ Déjà en prod</span></div>
+    <div class="feat-card enter-1"><h4>💬 Widget Web Embeddable</h4><p>Déployé en production : un script JS intégrable en une heure sur n'importe quel CMS, avec un design personnalisable et un chargement asynchrone.</p><span class="feas">✅ Déjà en prod</span></div>
+    <div class="feat-card enter-2"><h4>📱 WhatsApp Business</h4><p>Chatbot natif via l'API officielle Meta, intégré dans H'appi. Le fan pose sa question là où il se trouve déjà, sans application à télécharger.</p><span class="feas">✅ Déjà en prod</span></div>
+    <div class="feat-card enter-3"><h4>🎟️ Connexion API billetterie</h4><p>Connecté au catalogue de billets via API. Réponses en temps réel sur les prix, disponibilités, catégories, accessibilité PMR et parkings.</p><span class="feas">✅ Architecture maîtrisée</span></div>
+    <div class="feat-card enter-4"><h4>🗺️ Base de connaissance configurable</h4><p>Base de connaissance que l'équipe métier alimente elle-même, sans développement. Actualisable en autonomie, sans dépendance technique permanente.</p><span class="feas">✅ Déjà en prod</span></div>
+    <div class="feat-card enter-5"><h4>🔄 Escalade humaine fluide</h4><p>Routing vers agent humain avec l'historique complet de la conversation. Aucune perte de contexte, aucune friction pour l'utilisateur.</p><span class="feas">✅ Déjà en prod</span></div>
+    <div class="feat-card enter-6"><h4>🌍 Multilingue FR / EN</h4><p>Détection automatique de langue, réponses nativement bilingues. Extensible selon les marchés de l'OL en Europe.</p><span class="feas">✅ Déjà en prod</span></div>
   </div>
 </div>
 
@@ -1067,23 +1282,23 @@ html, body {
 <div class="slide" id="s5">
   <div class="s-hdr">
     <div class="bar"></div>
-    <h2>🎟️ BILLETTERIE INTELLIGENTE & INTÉGRATION CRM</h2>
+    <h2>BILLETTERIE INTELLIGENTE &amp; INTÉGRATION CRM</h2>
     <div class="slide-n">06</div>
   </div>
   <div class="body">
     <div class="d-card">
-      <h3 style="color:var(--accent);">CE QUE LE CHATBOT FAIT CÔTÉ BILLETTERIE</h3>
-      <div class="item"><span class="ico">🔍</span><div><h5>Recherche & Info Tickets</h5><p>Le fan demande "un billet pour OL-PSG en tribune Nord" — le bot répond avec dispo, prix, lien direct d'achat.</p><span class="tag" style="background:rgba(0,184,124,.12); color:var(--green); border:1px solid rgba(0,184,124,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Via API billetterie OL existante</span></div></div>
-      <div class="item"><span class="ico">🔔</span><div><h5>Alertes Disponibilité</h5><p>Le fan s'inscrit pour une alerte si des places se libèrent. Bot envoie un message WhatsApp ou email automatiquement.</p><span class="tag" style="background:rgba(0,200,255,.1); color:var(--accent); border:1px solid rgba(0,200,255,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Webhook sortant</span></div></div>
-      <div class="item"><span class="ico">🎁</span><div><h5>Upsell Contextuel</h5><p>Fan abonné Tribune → le bot lui propose l'upgrade VIP disponible ou le pack famille avant le match. Message ciblé, pas spam.</p><span class="tag" style="background:rgba(232,184,0,.1); color:var(--gold); border:1px solid rgba(232,184,0,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Segmentation CRM OL</span></div></div>
-      <div class="item"><span class="ico">❓</span><div><h5>FAQ Abonnement Automatisée</h5><p>Renouvellement, modification de siège, suspension, remboursement — les 50 questions les plus posées, répondues instantanément.</p><span class="tag" style="background:rgba(0,184,124,.12); color:var(--green); border:1px solid rgba(0,184,124,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Base de connaissance</span></div></div>
+      <h3 style="color:var(--ol-red);">CE QUE LE CHATBOT FAIT CÔTÉ BILLETTERIE</h3>
+      <div class="item"><span class="ico">🔍</span><div><h5>Recherche &amp; Info Tickets</h5><p>Le fan formule sa demande en langage naturel. Le bot répond en temps réel avec disponibilités, tarifs et lien direct d'achat, via l'API billetterie existante.</p><span class="tag" style="background:rgba(0,184,124,.12); color:var(--green); border:1px solid rgba(0,184,124,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Via API billetterie OL existante</span></div></div>
+      <div class="item"><span class="ico">🔔</span><div><h5>Alertes de Disponibilité</h5><p>Le fan s'inscrit à une alerte. Un message WhatsApp ou email est envoyé automatiquement dès que des places se libèrent.</p><span class="tag" style="background:rgba(0,200,255,.1); color:var(--accent); border:1px solid rgba(0,200,255,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Webhook sortant</span></div></div>
+      <div class="item"><span class="ico">🎁</span><div><h5>Upsell Contextuel</h5><p>L'abonné Tribune reçoit une proposition ciblée : upgrade VIP disponible ou pack famille avant le match. Un message personnalisé, jamais intrusif.</p><span class="tag" style="background:rgba(232,184,0,.1); color:var(--gold); border:1px solid rgba(232,184,0,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Segmentation CRM OL</span></div></div>
+      <div class="item"><span class="ico">❓</span><div><h5>FAQ Abonnement Automatisée</h5><p>Renouvellement, changement de siège, suspension, remboursement : les cinquante questions les plus fréquentes, traitées instantanément.</p><span class="tag" style="background:rgba(0,184,124,.12); color:var(--green); border:1px solid rgba(0,184,124,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Base de connaissance</span></div></div>
     </div>
     <div class="d-card">
-      <h3 style="color:var(--gold);">INTÉGRATION CRM — COMMENT ÇA MARCHE</h3>
-      <div class="item"><span class="ico">🔗</span><div><h5>Connexion API REST</h5><p>H'appi se connecte au CRM existant de l'OL via API. On lit les données fan (abonnement, historique) pour personnaliser les réponses. On n'écrase rien.</p><span class="tag" style="background:rgba(0,200,255,.1); color:var(--accent); border:1px solid rgba(0,200,255,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Read-only au départ</span></div></div>
-      <div class="item"><span class="ico">✏️</span><div><h5>Enrichissement Fan Profile</h5><p>Chaque interaction chatbot enrichit le profil CRM : sujets demandés, satisfaction, préférences. Data propriétaire de l'OL.</p><span class="tag" style="background:rgba(232,184,0,.1); color:var(--gold); border:1px solid rgba(232,184,0,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Phase 2 — write access</span></div></div>
-      <div class="item"><span class="ico">🛡️</span><div><h5>Sécurité & Conformité RGPD</h5><p>Données traitées selon le cadre légal. Consentement explicite. Possibilité d'héberger on-premise si requis par le DSI OL.</p><span class="tag" style="background:rgba(0,184,124,.12); color:var(--green); border:1px solid rgba(0,184,124,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">RGPD compliant</span></div></div>
-      <div class="item"><span class="ico">⚠️</span><div><h5>Prérequis côté OL</h5><p>Accès à la documentation API CRM/billetterie OL. Un référent technique OL pour 2-3 sessions d'intégration. C'est tout.</p><span class="tag" style="background:rgba(210,0,26,.15); color:#ff6b6b; border:1px solid rgba(210,0,26,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Besoin accès API OL</span></div></div>
+      <h3 style="color:var(--ol-blue); letter-spacing:2px;">INTÉGRATION CRM — COMMENT ÇA MARCHE</h3>
+      <div class="item"><span class="ico">🔗</span><div><h5>Connexion API REST</h5><p>H'appi se connecte au CRM OL via API. Les données fan (abonnement, historique) sont lues pour personnaliser chaque réponse, sans modifier l'existant.</p><span class="tag" style="background:rgba(0,200,255,.1); color:var(--accent); border:1px solid rgba(0,200,255,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Read-only au départ</span></div></div>
+      <div class="item"><span class="ico">✏️</span><div><h5>Enrichissement du Profil Fan</h5><p>Chaque interaction enrichit le profil CRM : sujets abordés, niveau de satisfaction, préférences exprimées. Une donnée propriétaire, au service de l'OL.</p><span class="tag" style="background:rgba(232,184,0,.1); color:var(--gold); border:1px solid rgba(232,184,0,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Phase 2 — write access</span></div></div>
+      <div class="item"><span class="ico">🛡️</span><div><h5>Sécurité &amp; Conformité RGPD</h5><p>Les données sont traitées dans le respect du cadre légal, avec consentement explicite. Un hébergement on-premise est possible si le DSI l'exige.</p><span class="tag" style="background:rgba(0,184,124,.12); color:var(--green); border:1px solid rgba(0,184,124,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">RGPD compliant</span></div></div>
+      <div class="item"><span class="ico">⚠️</span><div><h5>Prérequis côté OL</h5><p>Un accès à la documentation API CRM et billetterie OL, et un référent technique pour deux à trois sessions d'intégration. Rien de plus.</p><span class="tag" style="background:rgba(210,0,26,.15); color:#ff6b6b; border:1px solid rgba(210,0,26,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Besoin accès API OL</span></div></div>
     </div>
   </div>
 </div>
@@ -1092,30 +1307,30 @@ html, body {
 <div class="slide" id="s6">
   <div class="s-hdr">
     <div class="bar"></div>
-    <h2>📊 ANALYTICS & DASHBOARD — CE QUE LE CIO VOIT CHAQUE SEMAINE</h2>
+    <h2>ANALYTICS &amp; DASHBOARD — CE QUE LE CIO VOIT CHAQUE SEMAINE</h2>
     <div class="slide-n">07</div>
   </div>
   <div class="body">
     <div>
-      <p style="font-size:11px; color:var(--gray); margin-bottom:14px; font-style:italic;">Métriques disponibles dès la mise en prod — aucun BI tool externe requis</p>
+      <p style="font-size:11px; color:var(--gray); margin-bottom:14px; font-style:italic;">Métriques disponibles dès la mise en production, sans outil BI externe.</p>
       <div class="kpi-grid">
         <div class="kpi-card" style="border-color:var(--ol-red);"><div class="kv" style="color:var(--ol-red);">4 821</div><div class="kl">Conversations<br>cette semaine</div></div>
-        <div class="kpi-card" style="border-color:var(--green);"><div class="kv" style="color:var(--green);">83%</div><div class="kl">Taux résolution<br>sans agent humain</div></div>
-        <div class="kpi-card" style="border-color:var(--accent);"><div class="kv" style="color:var(--accent);">4.4/5</div><div class="kl">Score satisfaction<br>fan moyen</div></div>
-        <div class="kpi-card" style="border-color:var(--gold);"><div class="kv" style="color:var(--gold);">217</div><div class="kl">Escalades vers<br>agent humain</div></div>
-        <div class="kpi-card" style="border-color:var(--ol-blue);"><div class="kv" style="color:var(--ol-blue);">1.8s</div><div class="kl">Temps réponse<br>moyen bot</div></div>
-        <div class="kpi-card" style="border-color:#6D28D9;"><div class="kv" style="color:#6D28D9;">+34%</div><div class="kl">Conversations vs<br>mois précédent</div></div>
+        <div class="kpi-card" style="border-color:var(--ol-blue);"><div class="kv" style="color:var(--ol-blue);">83%</div><div class="kl">Taux de résolution<br>sans agent humain</div></div>
+        <div class="kpi-card" style="border-color:var(--ol-navy);"><div class="kv" style="color:var(--ol-navy);">4.4/5</div><div class="kl">Score de satisfaction<br>fan moyen</div></div>
+        <div class="kpi-card" style="border-color:var(--ol-red);"><div class="kv" style="color:var(--ol-red);">217</div><div class="kl">Escalades vers<br>agent humain</div></div>
+        <div class="kpi-card" style="border-color:var(--ol-blue);"><div class="kv" style="color:var(--ol-blue);">1.8s</div><div class="kl">Temps de réponse<br>moyen du bot</div></div>
+        <div class="kpi-card" style="border-color:var(--ol-navy);"><div class="kv" style="color:var(--ol-navy);">+34%</div><div class="kl">Conversations vs<br>mois précédent</div></div>
       </div>
-      <p style="font-size:9px; color:rgba(100,116,139,.7); margin-top:10px; font-style:italic;">* Chiffres simulés à titre indicatif — basés sur des benchmarks sectoriels</p>
+      <p style="font-size:9px; color:rgba(100,116,139,.7); margin-top:10px; font-style:italic;">Chiffres simulés à titre indicatif, basés sur des benchmarks sectoriels.</p>
     </div>
     <div class="arch-panel">
       <h3>ARCHITECTURE DATA H'APPI</h3>
       <div class="arch-layer" style="background:var(--ol-red);"><span class="al-icon">💬</span> COLLECTE &nbsp;·&nbsp; Chatbot Web · WhatsApp · App OL</div>
-      <div class="arch-layer" style="background:var(--ol-blue);"><span class="al-icon">⚙️</span> TRAITEMENT &nbsp;·&nbsp; LLM · Classif. intention · Scoring</div>
-      <div class="arch-layer" style="background:#047857;"><span class="al-icon">💾</span> STOCKAGE &nbsp;·&nbsp; BDD H'appi · CRM OL · Logs RGPD</div>
-      <div class="arch-layer" style="background:#6D28D9;"><span class="al-icon">📊</span> DASHBOARD &nbsp;·&nbsp; KPIs CIO · Alertes · Export CSV</div>
-      <div class="arch-layer" style="background:var(--gold); color:var(--dark);"><span class="al-icon">👥</span> USAGE &nbsp;·&nbsp; Équipe support · Marketing · CIO · DSI</div>
-      <div class="arch-note">💡 <strong>Accès rôles :</strong> Le CIO accède à un dashboard dédié (web sécurisé). L'équipe support voit les conversations en cours. Marketing voit les topics et tendances. Tout séparé, tout cloisonné.</div>
+      <div class="arch-layer" style="background:var(--ol-blue);"><span class="al-icon">⚙️</span> TRAITEMENT &nbsp;·&nbsp; LLM · Classification d'intention · Scoring</div>
+      <div class="arch-layer" style="background:var(--ol-navy);"><span class="al-icon">💾</span> STOCKAGE &nbsp;·&nbsp; BDD H'appi · CRM OL · Logs RGPD</div>
+      <div class="arch-layer" style="background:#080D1A; border:1px solid rgba(210,0,26,.4);"><span class="al-icon">📊</span> DASHBOARD &nbsp;·&nbsp; KPIs CIO · Alertes · Export CSV</div>
+      <div class="arch-layer" style="background:#fff; color:var(--ol-navy);"><span class="al-icon">👥</span> USAGE &nbsp;·&nbsp; Support · Marketing · CIO · DSI</div>
+      <div class="arch-note">💡 <strong>Accès par rôles :</strong> le CIO dispose d'un dashboard dédié (interface web sécurisée). L'équipe support visualise les conversations en cours. Le marketing accède aux topics et tendances. Chaque périmètre est strictement cloisonné.</div>
     </div>
   </div>
 </div>
@@ -1124,48 +1339,48 @@ html, body {
 <div class="slide" id="s7">
   <div class="s-hdr">
     <div class="bar"></div>
-    <h2>🔗 INTÉGRATION SI — COMMENT H'APPI S'INSÈRE DANS L'EXISTANT</h2>
+    <h2>INTÉGRATION SI — COMMENT H'APPI S'INSÈRE DANS L'EXISTANT</h2>
     <div class="slide-n">08</div>
   </div>
   <div class="body">
     <div class="int-card">
       <div class="ic-hdr"><span class="ico">🌐</span><h4>Site Web OL (ol.fr)</h4></div>
       <ul>
-        <li>Widget JS à intégrer en 1 ligne de code</li>
-        <li>Compatible tous CMS (WordPress, custom)</li>
-        <li>Design configurable sans toucher au code OL</li>
-        <li>Chargement asynchrone — zéro impact perf site</li>
-        <li>CNAME / domaine OL possible si requis</li>
+        <li>Widget JS intégré en une seule ligne de code</li>
+        <li>Compatible avec tous les CMS (WordPress, custom)</li>
+        <li>Design configurable sans modifier le code OL</li>
+        <li>Chargement asynchrone, sans impact sur les performances du site</li>
+        <li>Hébergement sur CNAME ou domaine OL disponible</li>
       </ul>
       <div class="caveat">⏱ Délai : 1 à 2 jours ouvrés après accès</div>
     </div>
     <div class="int-card">
       <div class="ic-hdr"><span class="ico">📱</span><h4>WhatsApp Business</h4></div>
       <ul>
-        <li>Numéro WhatsApp Business dédié OL</li>
-        <li>API Meta officielle — conforme aux CGU</li>
-        <li>Templates messages approuvés Meta</li>
-        <li>Opt-in fans requis (RGPD)</li>
+        <li>Numéro WhatsApp Business dédié à l'OL</li>
+        <li>API Meta officielle, conforme aux conditions d'utilisation</li>
+        <li>Templates de messages approuvés par Meta</li>
+        <li>Opt-in fans requis, conformité RGPD assurée</li>
         <li>Intégrable à la stratégie CRM OL existante</li>
       </ul>
-      <div class="caveat">⏱ Délai : ~1 semaine (validation Meta)</div>
+      <div class="caveat">⏱ Délai : environ 1 semaine (validation Meta)</div>
     </div>
     <div class="int-card">
-      <div class="ic-hdr"><span class="ico">🔒</span><h4>Sécurité & Hébergement</h4></div>
+      <div class="ic-hdr"><span class="ico">🔒</span><h4>Sécurité &amp; Hébergement</h4></div>
       <ul>
         <li>HTTPS, chiffrement TLS 1.3 en transit</li>
-        <li>Données hébergées EU (Azure/OVH)</li>
-        <li>Hébergement on-premise OL possible</li>
-        <li>Logs d'audit complets pour conformité</li>
-        <li>Droit à l'effacement RGPD intégré</li>
+        <li>Données hébergées en Europe (Azure ou OVH)</li>
+        <li>Hébergement on-premise OL disponible sur demande</li>
+        <li>Logs d'audit complets pour conformité réglementaire</li>
+        <li>Droit à l'effacement RGPD nativement intégré</li>
       </ul>
-      <div class="caveat">🔐 Audit sécu disponible sur demande DSI</div>
+      <div class="caveat">🔐 Audit sécurité disponible sur demande DSI</div>
     </div>
   </div>
   <div class="sla-row">
-    <div class="sla-pill" style="border-color:var(--green);"><div class="pv" style="color:var(--green);">99.5%</div><div class="pl">SLA uptime<br>garanti contractuel</div></div>
-    <div class="sla-pill" style="border-color:var(--accent);"><div class="pv" style="color:var(--accent);">&lt;2s</div><div class="pl">Temps réponse<br>API max</div></div>
-    <div class="sla-pill" style="border-color:var(--gold);"><div class="pv" style="color:var(--gold);">J+1</div><div class="pl">Support correctif<br>incidents critiques</div></div>
+    <div class="sla-pill" style="border-color:var(--ol-blue);"><div class="pv" style="color:var(--ol-blue);">99.5%</div><div class="pl">SLA uptime<br>garanti contractuellement</div></div>
+    <div class="sla-pill" style="border-color:var(--ol-red);"><div class="pv" style="color:var(--ol-red);">&lt;2s</div><div class="pl">Temps de réponse<br>API maximum</div></div>
+    <div class="sla-pill" style="border-color:var(--ol-navy);"><div class="pv" style="color:var(--ol-navy);">J+1</div><div class="pl">Support correctif<br>incidents critiques</div></div>
     <div class="sla-pill" style="border-color:var(--ol-red);"><div class="pv" style="color:var(--ol-red);">EU</div><div class="pl">Données hébergées<br>en Europe uniquement</div></div>
   </div>
 </div>
@@ -1174,40 +1389,64 @@ html, body {
 <div class="slide" id="s8">
   <div class="s-hdr enter-hdr">
     <div class="bar"></div>
-    <h2>📅 MA VISION SI — LES 4 PREMIÈRES PHASES APRÈS MA PRISE DE POSTE</h2>
+    <h2>MA VISION SI — LES 4 PREMIÈRES PHASES APRÈS MA PRISE DE POSTE</h2>
     <div class="slide-n">09</div>
   </div>
   <div class="phases">
     <div class="phase enter-1">
       <div class="phase-hdr" style="background:var(--ol-red);"><div class="pn">PHASE 1</div><div class="pp">SEMAINES 1–3</div></div>
       <div class="phase-body">
-        <h4 style="color:var(--ol-red);">Audit & Immersion SI</h4>
-        <ul><li>Rencontres équipes DSI, métier, support</li><li>Cartographie des 4 domaines SI existants</li><li>Identification des points de friction critiques</li><li>Audit des intégrations et dette technique</li><li>Priorisation des quick wins par domaine</li></ul>
-        <div class="effort" style="background:rgba(210,0,26,.08); color:var(--ol-red);">🎯 Livrable : plan d'action SI 90 jours</div>
+        <h4 style="color:var(--ol-red);">Audit &amp; Immersion SI</h4>
+        <ul>
+          <li>Rencontrer les équipes DSI, métier et support</li>
+          <li>Cartographier les 4 domaines SI existants</li>
+          <li>Identifier les points de friction prioritaires</li>
+          <li>Auditer les intégrations et la dette technique</li>
+          <li>Définir les quick wins par domaine</li>
+        </ul>
+        <div class="effort" style="background:rgba(210,0,26,.08); color:var(--ol-red);">🎯 Livrable : plan d'action SI à 90 jours</div>
       </div>
     </div>
     <div class="phase enter-2">
       <div class="phase-hdr" style="background:var(--ol-blue);"><div class="pn">PHASE 2</div><div class="pp">SEMAINES 4–8</div></div>
       <div class="phase-body">
         <h4 style="color:var(--ol-blue);">Premières Initiatives</h4>
-        <ul><li>Déploiement couche conversationnelle SI Client</li><li>Mise en place dashboard DSI unifié</li><li>Automatisation SI Support (80% requêtes rép.)</li><li>Documentation SI — base de connaissance interne</li><li>KPIs par domaine définis et trackés</li></ul>
-        <div class="effort" style="background:rgba(0,61,165,.08); color:var(--ol-blue);">📊 Premiers résultats mesurables M+2</div>
+        <ul>
+          <li>Déployer la couche conversationnelle SI Client</li>
+          <li>Mettre en place le dashboard DSI unifié</li>
+          <li>Automatiser le SI Support (80 % des requêtes)</li>
+          <li>Créer la base de connaissance SI interne</li>
+          <li>Définir et suivre les KPIs par domaine</li>
+        </ul>
+        <div class="effort" style="background:rgba(0,61,165,.08); color:var(--ol-blue);">📊 Premiers résultats mesurables à M+2</div>
       </div>
     </div>
     <div class="phase enter-3">
-      <div class="phase-hdr" style="background:#047857;"><div class="pn">PHASE 3</div><div class="pp">MOIS 3–4</div></div>
+      <div class="phase-hdr" style="background:var(--ol-navy);"><div class="pn">PHASE 3</div><div class="pp">MOIS 3–4</div></div>
       <div class="phase-body">
-        <h4 style="color:#047857;">Consolidation & Mesure</h4>
-        <ul><li>Déploiement SI Sportif (outils équipe technique)</li><li>Intégration app mobile OL — SI Client</li><li>Formation équipes internes aux nouveaux outils</li><li>Bilan ROI par domaine, présentation DSI</li><li>Ajustements roadmap selon retours terrain</li></ul>
-        <div class="effort" style="background:rgba(4,120,87,.08); color:#047857;">✅ Rapport ROI DSI à M+4</div>
+        <h4 style="color:var(--ol-navy);">Consolidation &amp; Mesure</h4>
+        <ul>
+          <li>Déployer les outils SI Sportif pour l'équipe technique</li>
+          <li>Intégrer l'app mobile OL au SI Client</li>
+          <li>Former les équipes internes aux nouveaux outils</li>
+          <li>Présenter le bilan ROI par domaine au DSI</li>
+          <li>Ajuster la roadmap selon les retours terrain</li>
+        </ul>
+        <div class="effort" style="background:rgba(0,26,78,.08); color:var(--ol-navy);">✅ Rapport ROI DSI à M+4</div>
       </div>
     </div>
     <div class="phase enter-4">
-      <div class="phase-hdr" style="background:#6D28D9;"><div class="pn">PHASE 4</div><div class="pp">MOIS 5–12</div></div>
+      <div class="phase-hdr" style="background:var(--dark); border-top:3px solid var(--ol-red);"><div class="pn">PHASE 4</div><div class="pp">MOIS 5–12</div></div>
       <div class="phase-body">
-        <h4 style="color:#6D28D9;">Transformation & Roadmap 2027</h4>
-        <ul><li>SI unifié cross-domaines — vision cohérente</li><li>IA embarquée dans les 4 domaines SI</li><li>Extension à Eagle Football Group (autres clubs)</li><li>Construction roadmap SI 2027 avec le DSI</li><li>Management équipe SI applicatif montante</li></ul>
-        <div class="effort" style="background:rgba(109,40,217,.08); color:#6D28D9;">🚀 Vision long terme co-construite DSI</div>
+        <h4 style="color:var(--ol-red);">Transformation &amp; Roadmap 2027</h4>
+        <ul>
+          <li>Construire un SI unifié cross-domaines, cohérent et durable</li>
+          <li>Embarquer l'IA dans les 4 domaines SI</li>
+          <li>Étendre à Eagle Football Group (autres clubs)</li>
+          <li>Co-construire la roadmap SI 2027 avec le DSI</li>
+          <li>Structurer et animer l'équipe SI applicatif</li>
+        </ul>
+        <div class="effort" style="background:rgba(210,0,26,.07); color:var(--ol-red);">🚀 Vision long terme co-construite avec le DSI</div>
       </div>
     </div>
   </div>
@@ -1217,34 +1456,34 @@ html, body {
 <div class="slide" id="s9">
   <div class="s-hdr">
     <div class="bar"></div>
-    <h2>💰 ROI — DES CHIFFRES RÉALISTES, PAS DES PROMESSES EN L'AIR</h2>
+    <h2>ROI — DES RÉSULTATS RÉALISTES, PAS DES PROMESSES EN L'AIR</h2>
     <div class="slide-n">10</div>
   </div>
   <div class="kpis">
-    <div><div class="kpi-orb" style="border-color:var(--gold); background:rgba(232,184,0,.08);"><div class="ov" style="color:var(--gold);">-60%</div><div class="ol">Volume tickets<br>support fan récurrents</div></div></div>
-    <div><div class="kpi-orb" style="border-color:var(--green); background:rgba(0,184,124,.08);"><div class="ov" style="color:var(--green);">24/7</div><div class="ol">Disponibilité<br>sans coût additionnel</div></div></div>
-    <div><div class="kpi-orb" style="border-color:var(--accent); background:rgba(0,200,255,.08);"><div class="ov" style="color:var(--accent);">+15%</div><div class="ol">Conversion billet<br>via chatbot (estimé)</div></div></div>
+    <div><div class="kpi-orb" style="border-color:var(--ol-blue); background:rgba(0,61,165,.1);"><div class="ov" style="color:var(--ol-blue);">-60%</div><div class="ol">Tickets support fan<br>récurrents</div></div></div>
+    <div><div class="kpi-orb" style="border-color:var(--ol-red); background:rgba(210,0,26,.1);"><div class="ov" style="color:var(--ol-red);">24/7</div><div class="ol">Disponibilité<br>sans coût additionnel</div></div></div>
+    <div><div class="kpi-orb" style="border-color:var(--ol-navy); background:rgba(0,26,78,.15);"><div class="ov" style="color:#fff;">+15%</div><div class="ol">Conversion billet<br>via chatbot (estimé)</div></div></div>
     <div><div class="kpi-orb" style="border-color:var(--ol-red); background:rgba(210,0,26,.1);"><div class="ov" style="color:var(--ol-red);">M+3</div><div class="ol">Premier retour<br>mesurable garanti</div></div></div>
   </div>
   <div class="val-cols">
-    <div class="val-card" style="border-color:var(--accent);">
-      <h3 style="color:var(--accent);">🔧 Ce que le CIO gagne côté SI</h3>
+    <div class="val-card" style="border-color:var(--ol-blue);">
+      <h3 style="color:var(--ol-blue);">CE QUE LE CIO GAGNE CÔTÉ SI</h3>
       <ul>
         <li>Une couche conversationnelle sans refonte du SI existant</li>
-        <li>Données d'usage fans centralisées — enfin accessibles</li>
-        <li>Réduction de la charge sur les équipes support internes</li>
-        <li>Déploiement rapide — pas un projet de 18 mois</li>
-        <li>SLA contractuel et monitoring en temps réel</li>
+        <li>Des données d'usage fans centralisées, enfin accessibles</li>
+        <li>Une charge opérationnelle réduite pour les équipes support</li>
+        <li>Un déploiement rapide, en quelques semaines, pas dix-huit mois</li>
+        <li>Un SLA contractuel avec monitoring en temps réel</li>
       </ul>
     </div>
-    <div class="val-card" style="border-color:var(--gold);">
-      <h3 style="color:var(--gold);">📈 Ce que l'OL gagne côté business</h3>
+    <div class="val-card" style="border-color:var(--ol-red);">
+      <h3 style="color:var(--ol-red);">CE QUE L'OL GAGNE CÔTÉ BUSINESS</h3>
       <ul>
-        <li>Fan experience digitale au niveau des top clubs européens</li>
-        <li>Support disponible même lors des pics (matchs Champions League)</li>
-        <li>Data fan propriétaire enrichie à chaque interaction</li>
-        <li>Upsell et relance automatisés — revenus billetterie +</li>
-        <li>Image tech moderne — différenciateur pour les sponsors</li>
+        <li>Une fan experience digitale au niveau des meilleurs clubs européens</li>
+        <li>Un support disponible même lors des pics de trafic, Champions League incluse</li>
+        <li>Une data fan propriétaire enrichie à chaque interaction</li>
+        <li>Upsell et relances automatisés pour augmenter les revenus billetterie</li>
+        <li>Une image tech moderne, différenciateur fort auprès des partenaires</li>
       </ul>
     </div>
   </div>
@@ -1254,28 +1493,28 @@ html, body {
 <div class="slide" id="s10">
   <div class="top">
     <h2>POURQUOI CE POSTE — ET POURQUOI<br><em>JE SUIS LE BON PROFIL</em></h2>
-    <p>Ce n'est pas un pitch commercial. C'est une candidature sincère — avec des réalisations concrètes pour le prouver.</p>
+    <p>Ce n'est pas un pitch commercial. C'est une candidature sincère, appuyée sur des réalisations concrètes.</p>
   </div>
   <div class="grid">
     <div class="reason enter-1" style="border-color:var(--ol-red);">
       <div class="rn" style="background:var(--ol-red);">01</div>
-      <div><h4 style="color:var(--ol-red);">Je construis ce que je gère</h4><p>J'ai conçu et déployé des systèmes SI en production — pas des POC. Je comprends les contraintes techniques autant que les enjeux métier. Un Responsable SI qui code, ça change tout.</p></div>
+      <div><h4 style="color:var(--ol-red);">Je construis ce que je gère</h4><p>J'ai conçu et déployé des systèmes SI en production, pas des POC. Je comprends les contraintes techniques autant que les enjeux métier. Un Responsable SI qui code, ça change tout.</p></div>
     </div>
-    <div class="reason enter-2" style="border-color:var(--accent);">
+    <div class="reason enter-2" style="border-color:var(--ol-blue);">
       <div class="rn" style="background:var(--ol-blue);">02</div>
-      <div><h4 style="color:var(--accent);">4 domaines SI, une vision cohérente</h4><p>Opérations, support, client, sportif — je vois les connexions entre les systèmes. Mon approche : cohérence SI avant feature velocity. Pas de silos, pas de doublons, une roadmap unifiée.</p></div>
+      <div><h4 style="color:var(--white);">4 domaines SI, une vision cohérente</h4><p>Opérations, support, client, sportif : je perçois les connexions entre les systèmes. Ma priorité est la cohérence SI avant la vélocité feature. Pas de silos, pas de doublons, une roadmap unifiée.</p></div>
     </div>
-    <div class="reason enter-3" style="border-color:var(--green);">
-      <div class="rn" style="background:#047857;">03</div>
-      <div><h4 style="color:var(--green);">L'IA comme outil, pas comme objectif</h4><p>Je n'applique pas l'IA pour être moderne. Je l'utilise là où elle réduit la charge opérationnelle, améliore l'expérience fan, ou génère de la donnée actionnnable pour le DSI.</p></div>
+    <div class="reason enter-3" style="border-color:var(--ol-navy);">
+      <div class="rn" style="background:var(--ol-navy);">03</div>
+      <div><h4 style="color:rgba(255,255,255,.85);">L'IA comme outil, pas comme objectif</h4><p>Je n'applique pas l'IA pour paraître moderne. Je l'utilise là où elle réduit la charge opérationnelle, améliore l'expérience fan et génère des données actionnables pour le DSI.</p></div>
     </div>
-    <div class="reason enter-4" style="border-color:var(--gold);">
-      <div class="rn" style="background:var(--gold); color:var(--dark);">04</div>
-      <div><h4 style="color:var(--gold);">Je veux construire quelque chose qui dure</h4><p>Pas une mission de 6 mois. Une transformation SI sur 3 ans avec une équipe. Je veux que dans 3 ans, les systèmes OL soient un exemple pour les autres clubs d'Eagle Football Group.</p></div>
+    <div class="reason enter-4" style="border-color:var(--ol-red);">
+      <div class="rn" style="background:var(--ol-red);">04</div>
+      <div><h4 style="color:var(--white);">Construire quelque chose qui dure</h4><p>Pas une mission de six mois. Une transformation SI sur trois ans, avec une équipe. Dans trois ans, les systèmes OL doivent être un modèle pour les autres clubs d'Eagle Football Group.</p></div>
     </div>
   </div>
   <div class="next-steps">
-    <div class="ns-text">Prochaine étape : <span>un échange avec votre DSI et votre équipe RH</span> — 45 min pour qu'on se rencontre vraiment</div>
+    <div class="ns-text">Prochaine étape : <span>un échange avec votre DSI et votre équipe RH</span>, 45 minutes pour une vraie rencontre</div>
     <div class="ns-chips">
       <span class="nsc">📅 Entretien RH</span>
       <span class="nsc">🤝 Rencontre DSI OL</span>
@@ -1319,13 +1558,22 @@ function updateProgress() {
 }
 
 function goTo(n) {
-  slides[cur].classList.remove('active');
-  dotsEl.children[cur].classList.remove('on');
-  cur = (n + N) % N;
-  slides[cur].classList.add('active');
-  dotsEl.children[cur].classList.add('on');
-  cntEl.textContent = (cur + 1) + ' / ' + N;
-  updateProgress();
+  const next = (n + N) % N;
+  document.documentElement.dataset.dir = next > cur ? 'fwd' : 'back';
+  const update = () => {
+    slides[cur].classList.remove('active');
+    dotsEl.children[cur].classList.remove('on');
+    cur = next;
+    slides[cur].classList.add('active');
+    dotsEl.children[cur].classList.add('on');
+    cntEl.textContent = (cur + 1) + ' / ' + N;
+    updateProgress();
+  };
+  if (document.startViewTransition) {
+    document.startViewTransition(update);
+  } else {
+    update();
+  }
 }
 function go(d) { goTo(cur + d); }
 
