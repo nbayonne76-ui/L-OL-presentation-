@@ -936,6 +936,176 @@ html, body {
   text-shadow: none;
 }
 
+/* ══════════════════════════════════════
+   RESPONSIVE — MOBILE & TABLET
+══════════════════════════════════════ */
+
+/* ── Tablet (≤ 1100px) ── */
+@media (max-width: 1100px) {
+  .s-hdr { padding: 14px 28px; }
+  #s1 .right { width: 240px; }
+  #s2 .body, #s5 .body, #s9 .val-cols { padding: 14px 28px 52px; }
+  #s3 .diag-grid, #s4 .feat-grid, #s6 .body, #s7 .body,
+  #s8 .phases, #s10 .grid { padding-left: 28px; padding-right: 28px; }
+  .stats-row, #s7 .sla-row, #s9 .kpis { padding-left: 28px; padding-right: 28px; }
+  #s10 .top, #s10 .next-steps { padding-left: 28px; padding-right: 28px; margin-left: 0; margin-right: 0; }
+}
+
+/* ── Mobile (≤ 768px) ── */
+@media (max-width: 768px) {
+
+  /* --- Core engine: slides become scrollable --- */
+  .slide.active {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 64px; /* room for nav */
+  }
+
+  /* Disable clip-path on mobile (causes overflow issues) */
+  .stat-box, .sla-pill, .phase-hdr, .phase-body .effort { clip-path: none !important; }
+  .phase-hdr { border-radius: 12px 12px 0 0; }
+
+  /* --- Nav bar --- */
+  .nav { padding: 6px 14px; gap: 8px; bottom: 10px; }
+  .nav .count { min-width: 36px; font-size: 11px; }
+  #lang-btn { font-size: 11px !important; padding: 3px 9px !important; }
+
+  /* --- Shared header --- */
+  .s-hdr { padding: 12px 16px; gap: 8px; }
+  .s-hdr h2 { font-size: 13px; line-height: 1.25; }
+  .s-hdr .bar { height: 26px; }
+  .s-hdr .slide-n { display: none; }
+
+  /* ═══ SLIDE 1 — COVER ═══ */
+  #s1 { flex-direction: column; }
+  #s1 .right { display: none; }
+  #s1 .left { padding: 22px 18px 70px; }
+  #s1 .brand { font-size: 40px; letter-spacing: 3px; }
+  #s1 .tagline { font-size: 10.5px; margin-bottom: 6px; }
+  #s1 .candidature-note { font-size: 9px; margin-bottom: 18px; }
+  #s1 h1 { font-size: 21px; margin-bottom: 16px; }
+  #s1 .chips { gap: 5px; margin-bottom: 16px; }
+  #s1 .chip { padding: 4px 10px; font-size: 9px; }
+  #s1 .meta { font-size: 10px; line-height: 1.7; }
+  #s1 .fbar { font-size: 8px; letter-spacing: 1px; height: 30px; }
+
+  /* ═══ SLIDE 2 ═══ */
+  #s2 .body { grid-template-columns: 1fr; padding: 12px 16px 16px; gap: 10px; }
+  .white-card { padding: 14px 14px; gap: 10px; }
+  .white-card h4 { font-size: 12px; }
+  .white-card p { font-size: 10.5px; }
+  .dark-panel { padding: 14px; }
+  .dark-panel h3 { font-size: 9px; }
+  .stack-row { padding: 9px 0; }
+  .stack-row .st { font-size: 10px; }
+
+  /* ═══ SLIDE 3 ═══ */
+  #s3 .sub { padding: 0 16px 10px; font-size: 10.5px; }
+  #s3 .diag-grid { grid-template-columns: 1fr; padding: 0 16px 16px; gap: 10px; }
+  .diag-card { padding: 14px 14px; gap: 10px; }
+  .diag-card h4 { font-size: 12px; }
+  .diag-card .pain { font-size: 10.5px; }
+  #s3 .bottom-note { margin: 0 16px 16px; padding: 12px 14px; font-size: 10.5px; }
+
+  /* ═══ SLIDE 4 ═══ */
+  .stats-row { grid-template-columns: repeat(2,1fr); padding: 12px 16px; gap: 10px; }
+  .stat-box .sv { font-size: 34px !important; }
+  .stat-box .sl { font-size: 10px; }
+  .feat-grid { grid-template-columns: 1fr 1fr; padding: 10px 16px 16px; gap: 10px; }
+  .feat-card { padding: 12px 14px; }
+  .feat-card h4 { font-size: 11px; }
+  .feat-card p { font-size: 9.5px; }
+
+  /* ═══ SLIDE DEMO ═══ */
+  #s-demo .demo-wrap {
+    grid-template-columns: 1fr;
+    padding: 12px 16px 16px;
+    gap: 12px;
+    overflow: visible;
+  }
+  .demo-caps-panel { display: none; }  /* hide on mobile: focus on chat */
+  .demo-meta-panel { display: none; }  /* hide on mobile: focus on chat */
+  .phone-shell { max-height: none; height: 60vh; }
+
+  /* ═══ SLIDE 6 (s5 — Billetterie) ═══ */
+  #s5 .body { grid-template-columns: 1fr; padding: 12px 16px 16px; gap: 12px; }
+  .d-card { padding: 14px; }
+  .d-card h3 { font-size: 10px; }
+  .d-card .item h5 { font-size: 11px; }
+  .d-card .item p { font-size: 9.5px; }
+
+  /* ═══ SLIDE 7 (s6 — Analytics) ═══ */
+  #s6 .body { grid-template-columns: 1fr; padding: 12px 16px 16px; gap: 12px; }
+  #s6 .body > div > p { font-size: 10px; margin-bottom: 10px; }
+  #s6 .kpi-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .kpi-card { padding: 12px; }
+  .kpi-card .kv { font-size: 20px; }
+  .kpi-card .kl { font-size: 9.5px; }
+  #s6 .arch-panel { padding: 14px; }
+  .arch-layer { font-size: 9px; padding: 8px 10px; }
+  .arch-note { font-size: 9.5px; }
+
+  /* ═══ SLIDE 8 (s7 — Intégration SI) ═══ */
+  #s7 .body { flex-direction: column; padding: 12px 16px 0; gap: 10px; }
+  #s7 .body { display: flex; } /* override grid if needed */
+  .int-card { padding: 14px; }
+  .int-card .ic-hdr h4 { font-size: 12px; }
+  .int-card ul li { font-size: 10px; }
+  .int-card .caveat { font-size: 9.5px; }
+  #s7 .sla-row { grid-template-columns: repeat(2,1fr); padding: 10px 16px 16px; gap: 8px; }
+  .sla-pill { padding: 10px 12px; }
+  .sla-pill .pv { font-size: 22px; }
+  .sla-pill .pl { font-size: 9px; }
+
+  /* ═══ SLIDE 9 (s8 — Roadmap) ═══ */
+  #s8 .phases { grid-template-columns: 1fr 1fr; padding: 12px 16px 16px; gap: 10px; }
+  .phase-hdr { padding: 12px 10px 14px; }
+  .phase-hdr .pn { font-size: 20px; }
+  .phase-hdr .pp { font-size: 8px; }
+  .phase-body { padding: 10px 12px; }
+  .phase-body h4 { font-size: 10px; margin-bottom: 6px; }
+  .phase-body ul li { font-size: 9px; }
+  .phase-body .effort { font-size: 9px; padding: 7px 10px; }
+
+  /* ═══ SLIDE 10 (s9 — ROI) ═══ */
+  #s9 .kpis { grid-template-columns: repeat(2,1fr); padding: 12px 16px 10px; gap: 10px; }
+  .kpi-orb { width: 100px; height: 100px; }
+  .kpi-orb .ov { font-size: 28px; }
+  .kpi-orb .ol { font-size: 8px; }
+  #s9 .val-cols { grid-template-columns: 1fr; padding: 10px 16px 16px; gap: 10px; }
+  .val-card { padding: 14px; }
+  .val-card h3 { font-size: 9px; }
+  .val-card ul li { font-size: 10px; padding: 7px 0 7px 18px; }
+
+  /* ═══ SLIDE 11 (s10 — Conclusion) ═══ */
+  #s10 .top { padding: 18px 16px 12px; }
+  #s10 .top h2 { font-size: 17px; }
+  #s10 .top p { font-size: 11px; }
+  #s10 .grid { grid-template-columns: 1fr; padding: 0 16px 10px; gap: 10px; }
+  .reason { padding: 14px; }
+  .reason .rn { width: 34px; height: 34px; font-size: 17px; }
+  .reason h4 { font-size: 12px; }
+  .reason p { font-size: 10px; }
+  #s10 .next-steps {
+    margin: 0 16px 16px; padding: 12px 14px;
+    flex-direction: column; align-items: flex-start; gap: 8px;
+  }
+  #s10 .next-steps .ns-text { font-size: 11px; }
+  #s10 .next-steps .ns-chips { gap: 6px; }
+  #s10 .next-steps .nsc { font-size: 9.5px; padding: 4px 10px; }
+}
+
+/* ── Small phones (≤ 390px) ── */
+@media (max-width: 390px) {
+  .s-hdr h2 { font-size: 11.5px; }
+  #s1 .brand { font-size: 34px; }
+  #s1 h1 { font-size: 18px; }
+  .feat-grid { grid-template-columns: 1fr; }
+  #s8 .phases { grid-template-columns: 1fr; }
+  #s9 .kpis { grid-template-columns: 1fr 1fr; }
+}
+
 /* ─── PRINT ─── */
 @media print {
   body { overflow: visible; }
