@@ -1199,59 +1199,78 @@ button:focus-visible, .qr-btn:focus-visible {
     <!-- OL logo — bouclier officiel SVG -->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 228" width="160" height="183" style="filter:drop-shadow(0 6px 20px rgba(0,0,0,.65));flex-shrink:0;">
       <defs>
-        <clipPath id="sc"><path d="M 12,7 H 188 V 146 C 188,184 153,206 100,221 C 47,206 12,184 12,146 Z"/></clipPath>
-        <clipPath id="lc"><circle cx="66" cy="163" r="52"/></clipPath>
+        <clipPath id="olSC">
+          <path d="M 12,7 H 188 V 148 C 188,186 153,208 100,222 C 47,208 12,186 12,148 Z"/>
+        </clipPath>
       </defs>
-      <!-- Bordure or du bouclier -->
-      <path d="M 7,2 H 193 V 148 C 193,190 156,212 100,226 C 44,212 7,190 7,148 Z" fill="#C9940A"/>
-      <!-- Section rouge en haut -->
-      <rect x="12" y="7" width="176" height="88" clip-path="url(#sc)" fill="#D2001A"/>
+      <!-- Bordure or -->
+      <path d="M 7,2 H 193 V 150 C 193,192 156,214 100,228 C 44,214 7,192 7,150 Z" fill="#C9940A"/>
+      <!-- Zone rouge -->
+      <rect x="12" y="7" width="176" height="88" clip-path="url(#olSC)" fill="#D2001A"/>
+      <!-- Textes dans la zone rouge -->
+      <text x="100" y="50" text-anchor="middle" font-family="'Arial Black',Impact,sans-serif" font-size="27" font-weight="900" fill="white" letter-spacing="1">OLYMPIQUE</text>
+      <text x="100" y="84" text-anchor="middle" font-family="'Arial Black',Impact,sans-serif" font-size="27" font-weight="900" fill="white" letter-spacing="2">LYONNAIS</text>
       <!-- Séparateur or -->
       <rect x="12" y="94" width="176" height="5" fill="#C9940A"/>
-      <!-- Section bleue en bas -->
-      <path d="M 12,99 H 188 V 146 C 188,184 153,206 100,221 C 47,206 12,184 12,146 Z" fill="#003DA5"/>
-      <!-- OLYMPIQUE -->
-      <text x="100" y="48" text-anchor="middle" font-family="'Arial Black',Impact,sans-serif" font-size="28" font-weight="900" fill="white" letter-spacing="1">OLYMPIQUE</text>
-      <!-- LYONNAIS -->
-      <text x="100" y="83" text-anchor="middle" font-family="'Arial Black',Impact,sans-serif" font-size="28" font-weight="900" fill="white" letter-spacing="2">LYONNAIS</text>
-      <!-- Cercle blanc = le O de OL -->
-      <circle cx="66" cy="163" r="54" fill="white"/>
-      <!-- Lion héraldique doré clipé dans le cercle blanc -->
-      <g transform="translate(66,163)" fill="#D4950A" clip-path="url(#lc)">
-        <!-- Corps -->
-        <ellipse cx="2" cy="12" rx="16" ry="22" transform="rotate(-8,2,12)"/>
-        <!-- Tête / crinière -->
-        <circle cx="2" cy="-24" r="22" fill="#B87000"/>
-        <circle cx="2" cy="-26" r="16" fill="#D4950A"/>
-        <!-- Oreilles -->
-        <ellipse cx="-12" cy="-42" rx="5" ry="7" fill="#D4950A" transform="rotate(-20,-12,-42)"/>
-        <ellipse cx="16" cy="-42" rx="5" ry="7" fill="#D4950A" transform="rotate(20,16,-42)"/>
-        <!-- Yeux -->
-        <circle cx="-6" cy="-28" r="3" fill="#1A0800"/>
-        <circle cx="-5" cy="-29" r="1" fill="white"/>
-        <circle cx="10" cy="-28" r="3" fill="#1A0800"/>
-        <circle cx="11" cy="-29" r="1" fill="white"/>
-        <!-- Museau -->
-        <ellipse cx="2" cy="-18" rx="7" ry="5" fill="#C08000"/>
-        <ellipse cx="2" cy="-21" rx="2" ry="1.8" fill="#7A4000"/>
-        <path d="M -4,-15 Q 2,-12 8,-15" fill="none" stroke="#7A4000" stroke-width="1.2" stroke-linecap="round"/>
-        <!-- Bras droit levé -->
-        <ellipse cx="22" cy="-4" rx="7" ry="12" fill="#D4950A" transform="rotate(-35,22,-4)"/>
-        <ellipse cx="33" cy="4" rx="8" ry="5" fill="#C08000"/>
-        <!-- Bras gauche -->
-        <ellipse cx="-18" cy="4" rx="6" ry="10" fill="#D4950A" transform="rotate(20,-18,4)"/>
-        <!-- Jambes -->
-        <ellipse cx="-8" cy="34" rx="8" ry="14" fill="#D4950A" transform="rotate(8,-8,34)"/>
-        <ellipse cx="12" cy="34" rx="8" ry="14" fill="#D4950A" transform="rotate(-8,12,34)"/>
-        <!-- Pattes -->
-        <ellipse cx="-8" cy="49" rx="10" ry="5" fill="#C08000"/>
-        <ellipse cx="12" cy="49" rx="10" ry="5" fill="#C08000"/>
-        <!-- Queue -->
-        <path d="M 18,14 Q 42,4 40,-18 Q 38,-30 28,-24" fill="none" stroke="#D4950A" stroke-width="6" stroke-linecap="round"/>
-        <circle cx="26" cy="-26" r="8" fill="#D4950A"/>
-      </g>
-      <!-- Grand L blanc (côté droit du bouclier) -->
-      <text x="149" y="210" text-anchor="middle" font-family="'Arial Black',Impact,sans-serif" font-size="110" font-weight="900" fill="white" clip-path="url(#sc)">L</text>
+      <!-- Zone bleue bas -->
+      <path d="M 12,99 H 188 V 148 C 188,186 153,208 100,222 C 47,208 12,186 12,148 Z" fill="#003DA5"/>
+      <!-- Cercle blanc = le O -->
+      <circle cx="66" cy="164" r="54" fill="white"/>
+
+      <!-- ══ LION : SVG imbriqué pour clipping fiable ══ -->
+      <!-- Circle center=(66,164) r=54 → nested SVG: x=12 y=110 w=108 h=108 -->
+      <svg x="12" y="110" width="108" height="108" viewBox="-54 -54 108 108" overflow="hidden">
+        <defs>
+          <clipPath id="olLC">
+            <circle cx="0" cy="0" r="52"/>
+          </clipPath>
+        </defs>
+        <g fill="#D4950A" clip-path="url(#olLC)">
+          <!-- Queue arrondie vers le haut-droite -->
+          <path d="M 15,10 C 40,2 46,-14 42,-30 C 38,-46 28,-42 30,-28 C 32,-16 25,-2 15,10 Z"/>
+          <!-- Corps (ovale penché) -->
+          <ellipse cx="3" cy="14" rx="15" ry="21" transform="rotate(-8,3,14)"/>
+          <!-- Cuisse arrière droite -->
+          <ellipse cx="13" cy="37" rx="9" ry="14" transform="rotate(-10,13,37)"/>
+          <!-- Pied arrière droit -->
+          <ellipse cx="13" cy="50" rx="12" ry="6"/>
+          <!-- Cuisse arrière gauche -->
+          <ellipse cx="-7" cy="36" rx="8" ry="13"/>
+          <!-- Pied arrière gauche -->
+          <ellipse cx="-7" cy="48" rx="11" ry="5"/>
+          <!-- Patte avant droite levée -->
+          <ellipse cx="27" cy="1" rx="8" ry="14" transform="rotate(-38,27,1)"/>
+          <ellipse cx="38" cy="-10" rx="11" ry="6" transform="rotate(22,38,-10)"/>
+          <!-- Patte avant gauche (basse) -->
+          <ellipse cx="-16" cy="6" rx="7" ry="12" transform="rotate(18,-16,6)"/>
+          <ellipse cx="-25" cy="15" rx="10" ry="5" transform="rotate(-14,-25,15)"/>
+          <!-- Crinière (cercle sombre) -->
+          <circle cx="4" cy="-20" r="22" fill="#A06500"/>
+          <!-- Tête -->
+          <circle cx="4" cy="-22" r="15" fill="#D4950A"/>
+          <!-- Oreille gauche -->
+          <ellipse cx="-8" cy="-35" rx="5" ry="7" transform="rotate(-18,-8,-35)"/>
+          <!-- Oreille droite -->
+          <ellipse cx="16" cy="-35" rx="5" ry="7" transform="rotate(18,16,-35)"/>
+          <!-- Œil gauche -->
+          <circle cx="-2" cy="-24" r="3" fill="#003DA5"/>
+          <circle cx="-1" cy="-25" r="1.1" fill="white"/>
+          <!-- Œil droit -->
+          <circle cx="10" cy="-24" r="3" fill="#003DA5"/>
+          <circle cx="11" cy="-25" r="1.1" fill="white"/>
+          <!-- Museau -->
+          <ellipse cx="4" cy="-14" rx="7" ry="5" fill="#B07000"/>
+          <!-- Nez -->
+          <ellipse cx="4" cy="-16" rx="2.2" ry="1.8" fill="#5B2800"/>
+          <!-- Bouche -->
+          <path d="M -2,-12 Q 4,-9 10,-12" fill="none" stroke="#5B2800" stroke-width="1.4" stroke-linecap="round"/>
+          <!-- Langue rouge -->
+          <ellipse cx="4" cy="-9" rx="2.5" ry="3.5" fill="#D2001A"/>
+        </g>
+      </svg>
+
+      <!-- Grand L blanc -->
+      <text x="149" y="212" text-anchor="middle" font-family="'Arial Black',Impact,sans-serif" font-size="112" font-weight="900" fill="white" clip-path="url(#olSC)">L</text>
     </svg>
 
     <!-- Knowledge Panel info block -->
