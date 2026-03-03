@@ -1531,6 +1531,7 @@ button:focus-visible, .qr-btn:focus-visible {
   <button onclick="go(-1)">&#8592;</button>
   <div class="dots" id="dots"></div>
   <span class="count" id="cnt">1 / 11</span>
+  <button id="lang-btn" onclick="toggleLang()" title="Switch language" style="font-size:12px;font-weight:700;letter-spacing:.8px;padding:4px 12px;border:1px solid rgba(255,255,255,.2);border-radius:20px;background:rgba(255,255,255,.06);color:#fff;cursor:pointer;transition:background .15s;">🇬🇧 EN</button>
   <button onclick="go(1)">&#8594;</button>
 </nav>
 
@@ -1802,6 +1803,447 @@ function playStep(key, fanText) {
     }
   }, delay);
 }
+
+/* ══════════════════════════════════════
+   LANGUAGE TOGGLE — FR / EN
+══════════════════════════════════════ */
+let lang = localStorage.getItem('pres-lang') || 'fr';
+const langBtn = document.getElementById('lang-btn');
+
+/* Single-element translations */
+const T = [
+  // ── SLIDE 1 ──
+  { s:'#s1 .tagline',
+    fr:'Développeur &amp; Architecte SI &nbsp;·&nbsp; Fondateur H\'appi &nbsp;·&nbsp; Candidat Responsable SI Applicatif',
+    en:'Developer &amp; IS Architect &nbsp;·&nbsp; H\'appi Founder &nbsp;·&nbsp; Applicative IS Manager Candidate' },
+  { s:'#s1 .candidature-note',
+    fr:'Démonstration de vision SI applicatif &nbsp;·&nbsp; Candidature Responsable SI Applicatif — Eagle Football Group',
+    en:'IS Application Vision Demonstration &nbsp;·&nbsp; Applicative IS Manager Candidacy — Eagle Football Group' },
+  { s:'#s1 h1',
+    fr:'Ma vision pour les<br><em>4 domaines SI</em><br>de l\'Eagle Football Group',
+    en:'My vision for the<br><em>4 IS domains</em><br>of Eagle Football Group' },
+  { s:'#s1 .chip-r',   fr:'🏗️ SI Opérations',           en:'🏗️ IS Operations' },
+  { s:'#s1 .chip-b',   fr:'👥 SI Client &amp; Fan',       en:'👥 IS Client &amp; Fan' },
+  { s:'#s1 .chip-a',   fr:'🤝 SI Support Interne',        en:'🤝 IS Internal Support' },
+  { s:'#s1 .chip-g',   fr:'🏆 SI Sportif &amp; Perf',     en:'🏆 IS Sports &amp; Perf' },
+  { s:'#s1 .meta',
+    fr:'<strong>Présenté à :</strong> Direction des Systèmes d\'Information — Eagle Football Group / OL<br><strong>Par :</strong> N. Bayonne &nbsp;·&nbsp; Candidat au poste de Responsable SI Applicatif &nbsp;·&nbsp; Mars 2026<br><strong>Contact :</strong> contact@happi-bot.com &nbsp;·&nbsp; happi-bot.com',
+    en:'<strong>Presented to:</strong> Information Systems Division — Eagle Football Group / OL<br><strong>By:</strong> N. Bayonne &nbsp;·&nbsp; Applicative IS Manager Candidate &nbsp;·&nbsp; March 2026<br><strong>Contact:</strong> contact@happi-bot.com &nbsp;·&nbsp; happi-bot.com' },
+  { s:'#s1 .fbar',
+    fr:'RESPONSABLE SI APPLICATIF &nbsp;·&nbsp; EAGLE FOOTBALL GROUP &nbsp;·&nbsp; VISION 2026–2027',
+    en:'APPLICATIVE IS MANAGER &nbsp;·&nbsp; EAGLE FOOTBALL GROUP &nbsp;·&nbsp; VISION 2026–2027' },
+  { s:'#s1 .rank-text',
+    fr:'3ème &nbsp;·&nbsp; Eagle Football Group',
+    en:'3rd &nbsp;·&nbsp; Eagle Football Group' },
+  { s:'#s1 .ol-info',
+    fr:'Groupama Stadium · 59 000 places<br>~8M fans · Décines-Charpieu<br><br><span style="color:var(--accent);font-weight:700;font-size:12px;">Vision interne<br>Candidature SI</span>',
+    en:'Groupama Stadium · 59,000 seats<br>~8M fans · Décines-Charpieu<br><br><span style="color:var(--accent);font-weight:700;font-size:12px;">Internal Vision<br>IS Candidacy</span>' },
+  // ── SLIDE 2 ──
+  { s:'#s2 .s-hdr h2',
+    fr:'COMPÉTENCES &amp; RÉALISATIONS EN PRODUCTION',
+    en:'SKILLS &amp; PRODUCTION ACHIEVEMENTS' },
+  { s:'#s2 .dark-panel h3',
+    fr:'STACK MAÎTRISÉ — EN PRODUCTION',
+    en:'MASTERED STACK — IN PRODUCTION' },
+  // ── SLIDE 3 ──
+  { s:'#s3 .s-hdr h2',
+    fr:'CE QUE VIT LE FAN OL AUJOURD\'HUI — ET CE QU\'IL DEVRAIT VIVRE',
+    en:'WHAT THE OL FAN EXPERIENCES TODAY — AND WHAT THEY SHOULD EXPERIENCE' },
+  { s:'#s3 .sub',
+    fr:'Lecture des points de friction SI de l\'OL, et ma vision pour les résoudre depuis ce poste',
+    en:'An analysis of OL\'s IS friction points and my vision for resolving them from this position' },
+  { s:'#s3 .bottom-note span:last-child',
+    fr:'<strong>Mon périmètre d\'action :</strong> SI Client, SI Support, SI Opérations et SI Sportif, les 4 domaines définis dans la fiche de poste. Je ne promets pas l\'IA vidéo ni l\'IoT stade. Je construis ce que je maîtrise, vite et bien.',
+    en:'<strong>My scope of action:</strong> IS Client, IS Support, IS Operations and IS Sports — the 4 domains defined in the job description. I don\'t promise video AI or stadium IoT. I build what I master, fast and right.' },
+  // ── SLIDE 4 ──
+  { s:'#s4 .s-hdr h2',
+    fr:'CE QUE J\'AI DÉJÀ CONSTRUIT — LA PREUVE PAR L\'EXEMPLE',
+    en:'WHAT I\'VE ALREADY BUILT — PROOF BY EXAMPLE' },
+  // ── SLIDE DEMO ──
+  { s:'#s-demo .s-hdr h2',
+    fr:'💬 DÉMO LIVE — LE BOT OL EN ACTION · INTERAGISSEZ MAINTENANT',
+    en:'💬 LIVE DEMO — THE OL BOT IN ACTION · INTERACT NOW' },
+  { s:'#s-demo .demo-caps-panel h3', fr:'Capacités démontrées',     en:'Demonstrated capabilities' },
+  { s:'#s-demo .bot-nm',             fr:'Bot OL — Assistance Fans', en:'OL Bot — Fan Support' },
+  { s:'#s-demo .bot-st',             fr:'● En ligne 24/7',          en:'● Online 24/7' },
+  { s:'#s-demo .meta-card h3',       fr:'Métriques live',           en:'Live metrics' },
+  { s:'#s-demo .demo-reset-btn',     fr:'↺ Recommencer',            en:'↺ Restart' },
+  // ── SLIDE 6 (s5 — Billetterie) ──
+  { s:'#s5 .s-hdr h2',
+    fr:'BILLETTERIE INTELLIGENTE &amp; INTÉGRATION CRM',
+    en:'SMART TICKETING &amp; CRM INTEGRATION' },
+  // ── SLIDE 7 (s6 — Analytics) ──
+  { s:'#s6 .s-hdr h2',
+    fr:'ANALYTICS &amp; DASHBOARD — CE QUE LE CIO VOIT CHAQUE SEMAINE',
+    en:'ANALYTICS &amp; DASHBOARD — WHAT THE CIO SEES EVERY WEEK' },
+  { s:'#s6 .arch-panel h3', fr:'ARCHITECTURE DATA H\'APPI', en:'H\'APPI DATA ARCHITECTURE' },
+  { s:'#s6 .arch-note',
+    fr:'💡 <strong>Accès par rôles :</strong> le CIO dispose d\'un dashboard dédié (interface web sécurisée). L\'équipe support visualise les conversations en cours. Le marketing accède aux topics et tendances. Chaque périmètre est strictement cloisonné.',
+    en:'💡 <strong>Role-based access:</strong> the CIO has a dedicated dashboard (secure web interface). The support team views ongoing conversations. Marketing accesses topics and trends. Each scope is strictly partitioned.' },
+  // ── SLIDE 8 (s7 — Intégration SI) ──
+  { s:'#s7 .s-hdr h2',
+    fr:'INTÉGRATION SI — COMMENT H\'APPI S\'INSÈRE DANS L\'EXISTANT',
+    en:'IS INTEGRATION — HOW H\'APPI FITS INTO THE EXISTING SYSTEM' },
+  // ── SLIDE 9 (s8 — Roadmap) ──
+  { s:'#s8 .s-hdr h2',
+    fr:'MA VISION SI — LES 4 PREMIÈRES PHASES APRÈS MA PRISE DE POSTE',
+    en:'MY IS VISION — THE 4 FIRST PHASES AFTER TAKING THE POSITION' },
+  // ── SLIDE 10 (s9 — ROI) ──
+  { s:'#s9 .s-hdr h2',
+    fr:'ROI — DES RÉSULTATS RÉALISTES, PAS DES PROMESSES EN L\'AIR',
+    en:'ROI — REALISTIC RESULTS, NOT EMPTY PROMISES' },
+  // ── SLIDE 11 (s10 — Conclusion) ──
+  { s:'#s10 .top h2',
+    fr:'POURQUOI CE POSTE — ET POURQUOI<br><em>JE SUIS LE BON PROFIL</em>',
+    en:'WHY THIS POSITION — AND WHY<br><em>I AM THE RIGHT CANDIDATE</em>' },
+  { s:'#s10 .top p',
+    fr:'Ce n\'est pas un pitch commercial. C\'est une candidature sincère, appuyée sur des réalisations concrètes.',
+    en:'This is not a sales pitch. It is a sincere application, backed by concrete achievements.' },
+  { s:'#s10 .next-steps .ns-text',
+    fr:'Prochaine étape : <span>un échange avec votre DSI et votre équipe RH</span>, 45 minutes pour une vraie rencontre',
+    en:'Next step: <span>a meeting with your CIO and HR team</span>, 45 minutes for a real conversation' },
+];
+
+/* Multi-element translations (querySelectorAll + index) */
+const TM = [
+  // Slide 2 — white-card h4
+  { s:'#s2 .white-card h4', v:[
+    { fr:'Applications full-stack en production',       en:'Full-stack production applications' },
+    { fr:'Intégration IA conversationnelle (LLM)',      en:'Conversational AI integration (LLM)' },
+    { fr:'Intégrations API &amp; systèmes existants',   en:'API &amp; existing system integrations' },
+    { fr:'Analytics &amp; tableaux de bord SI',         en:'Analytics &amp; IS dashboards' },
+  ]},
+  // Slide 2 — white-card p
+  { s:'#s2 .white-card p', v:[
+    { fr:'Plateformes Next.js conçues et déployées en production : SSR, API routes, gestion d\'état global et optimisation des performances. Des produits réels, pas des prototypes.',
+      en:'Next.js platforms designed and deployed in production: SSR, API routes, global state management and performance optimization. Real products, not prototypes.' },
+    { fr:'Claude et GPT-4o intégrés via API dans des produits à usage réel. Prompting avancé, gestion de contexte, mémoire conversationnelle et fallback humain.',
+      en:'Claude and GPT-4o integrated via API into real-use products. Advanced prompting, context management, conversational memory and human fallback.' },
+    { fr:'Connexion aux SI existants via REST, webhooks et MCP servers. Expérience éprouvée sur des environnements CX et Supply Chain complexes.',
+      en:'Connection to existing IS via REST, webhooks and MCP servers. Proven experience in complex CX and Supply Chain environments.' },
+    { fr:'Conception de dashboards métier : KPIs temps réel, alertes et exports. Des outils que le CIO et les équipes opérationnelles utilisent au quotidien.',
+      en:'Business dashboard design: real-time KPIs, alerts and exports. Tools that the CIO and operational teams use on a daily basis.' },
+  ]},
+  // Slide 2 — stack-row .st
+  { s:'#s2 .stack-row .st', v:[
+    { fr:'Next.js 15 — App Router, SSR, API Routes',               en:'Next.js 15 — App Router, SSR, API Routes' },
+    { fr:'LLM : Claude Sonnet / GPT-4o via API',                   en:'LLM: Claude Sonnet / GPT-4o via API' },
+    { fr:'MCP Servers — intégrations API tierces',                  en:'MCP Servers — third-party API integrations' },
+    { fr:'Widget chatbot embeddable (web, iframe)',                  en:'Embeddable chatbot widget (web, iframe)' },
+    { fr:'Dashboard analytics — interactions et KPIs',              en:'Analytics dashboard — interactions and KPIs' },
+    { fr:'Auth, RGPD, chiffrement des données en transit',          en:'Auth, GDPR, data encryption in transit' },
+    { fr:'Déploiement Vercel / Azure / cloud OL',                   en:'Deployment Vercel / Azure / OL cloud' },
+    { fr:'WhatsApp Business API — chatbot natif',                   en:'WhatsApp Business API — native chatbot' },
+  ]},
+  // Slide 3 — diag-card h4
+  { s:'#s3 .diag-card h4', v:[
+    { fr:'🎟️ SI Client — Billetterie &amp; FAQ', en:'🎟️ IS Client — Ticketing &amp; FAQ' },
+    { fr:'💬 SI Support — Jour de match',         en:'💬 IS Support — Match day' },
+    { fr:'📊 SI Data — Interactions inexploitées', en:'📊 IS Data — Untapped interactions' },
+  ]},
+  // Slide 3 — diag-card .pain
+  { s:'#s3 .diag-card .pain', v:[
+    { fr:'Les fans cherchent des informations sur les matchs, les tarifs, les abonnements ou l\'accessibilité PMR. Ils tombent sur des pages statiques, des FAQ obsolètes et abandonnent. Aucun outil conversationnel ne capte ces intentions.',
+      en:'Fans look for information on matches, prices, subscriptions or disabled access. They land on static pages, outdated FAQs and drop off. No conversational tool captures these intentions.' },
+    { fr:'Le jour du match : accès stade, parkings, programme. Les équipes support absorbent jusqu\'à 5 000 requêtes récurrentes. Aucun filtre ne les pré-traite. Chaque agent gère un volume à faible valeur ajoutée.',
+      en:'On match day: stadium access, parking, programme. Support teams absorb up to 5,000 recurring queries. No filter pre-processes them. Every agent handles a high volume of low-value tasks.' },
+    { fr:'L\'OL collecte des interactions via le web, l\'app et la billetterie, mais la donnée reste silotée. Le DSI ne dispose pas d\'une vue unifiée sur les sujets chauds, les pics de demande ou la satisfaction réelle des fans.',
+      en:'OL collects interactions via web, app and ticketing, but data remains siloed. The CIO has no unified view of hot topics, demand peaks or actual fan satisfaction.' },
+  ]},
+  // Slide 3 — diag-card .sol
+  { s:'#s3 .diag-card .sol', v:[
+    { fr:'<strong>Ce que je mettrais en place</strong>Une couche conversationnelle greffée sur le SI Client existant : chatbot 24/7 connecté au catalogue billetterie, sans refonte du CRM ni de la billetterie en place.',
+      en:'<strong>What I would implement</strong>A conversational layer grafted onto the existing IS Client: 24/7 chatbot connected to the ticketing catalogue, without redesigning the existing CRM or ticketing system.' },
+    { fr:'<strong>Ce que je construirais</strong>Un bot contextuel activé le jour J : il prend en charge 80 % des demandes récurrentes et libère les équipes pour les 20 % à vraie valeur.',
+      en:'<strong>What I would build</strong>A contextual bot activated on match day: it handles 80% of recurring requests and frees teams for the 20% with real value.' },
+    { fr:'<strong>Ma vision interne</strong>Un dashboard unifié cross-SI : volume de requêtes, topics, taux de résolution, satisfaction. Rapport hebdomadaire automatique transmis au DSI, en données propriétaires de l\'OL.',
+      en:'<strong>My internal vision</strong>A unified cross-IS dashboard: query volume, topics, resolution rate, satisfaction. Automatic weekly report sent to the CIO, in OL proprietary data.' },
+  ]},
+  // Slide 4 — stat-box .sl
+  { s:'#s4 .stat-box .sl', v:[
+    { fr:'Questions<br>résolues automatiquement',     en:'Questions<br>resolved automatically' },
+    { fr:'Disponibilité<br>sans interruption',         en:'Availability<br>without interruption' },
+    { fr:'Temps de réponse<br>moyen',                  en:'Average<br>response time' },
+    { fr:'Charge de l\'équipe<br>support fan',         en:'Fan support team<br>load reduction' },
+  ]},
+  // Slide 4 — feat-card h4
+  { s:'#s4 .feat-card h4', v:[
+    { fr:'💬 Widget Web Embeddable',              en:'💬 Embeddable Web Widget' },
+    { fr:'📱 WhatsApp Business',                  en:'📱 WhatsApp Business' },
+    { fr:'🎟️ Connexion API billetterie',          en:'🎟️ Ticketing API connection' },
+    { fr:'🗺️ Base de connaissance configurable',  en:'🗺️ Configurable knowledge base' },
+    { fr:'🔄 Escalade humaine fluide',             en:'🔄 Smooth human escalation' },
+    { fr:'🌍 Multilingue FR / EN',                en:'🌍 Multilingual FR / EN' },
+  ]},
+  // Slide 4 — feat-card p
+  { s:'#s4 .feat-card p', v:[
+    { fr:'Déployé en production : un script JS intégrable en une heure sur n\'importe quel CMS, avec un design personnalisable et un chargement asynchrone.',
+      en:'Deployed in production: a JS script embeddable in one hour on any CMS, with a customizable design and asynchronous loading.' },
+    { fr:'Chatbot natif via l\'API officielle Meta, intégré dans H\'appi. Le fan pose sa question là où il se trouve déjà, sans application à télécharger.',
+      en:'Native chatbot via the official Meta API, integrated into H\'appi. The fan asks their question where they already are, with no app to download.' },
+    { fr:'Connecté au catalogue de billets via API. Réponses en temps réel sur les prix, disponibilités, catégories, accessibilité PMR et parkings.',
+      en:'Connected to the ticket catalogue via API. Real-time responses on prices, availability, categories, disabled access and parking.' },
+    { fr:'Base de connaissance que l\'équipe métier alimente elle-même, sans développement. Actualisable en autonomie, sans dépendance technique permanente.',
+      en:'A knowledge base that the business team populates itself, with no development needed. Updatable autonomously, with no permanent technical dependency.' },
+    { fr:'Routing vers agent humain avec l\'historique complet de la conversation. Aucune perte de contexte, aucune friction pour l\'utilisateur.',
+      en:'Routing to a human agent with the full conversation history. No loss of context, no friction for the user.' },
+    { fr:'Détection automatique de langue, réponses nativement bilingues. Extensible selon les marchés de l\'OL en Europe.',
+      en:'Automatic language detection, natively bilingual responses. Extensible according to OL\'s markets in Europe.' },
+  ]},
+  // Slide 4 — feat-card .feas
+  { s:'#s4 .feat-card .feas', v:[
+    { fr:'✅ Déjà en prod',           en:'✅ Already in prod' },
+    { fr:'✅ Déjà en prod',           en:'✅ Already in prod' },
+    { fr:'✅ Architecture maîtrisée', en:'✅ Architecture mastered' },
+    { fr:'✅ Déjà en prod',           en:'✅ Already in prod' },
+    { fr:'✅ Déjà en prod',           en:'✅ Already in prod' },
+    { fr:'✅ Déjà en prod',           en:'✅ Already in prod' },
+  ]},
+  // Demo slide — cap-items
+  { s:'#s-demo .cap-item', v:[
+    { fr:'<span class="cap-dot"></span>Compréhension contexte OL', en:'<span class="cap-dot"></span>OL context understanding' },
+    { fr:'<span class="cap-dot"></span>Guidage par quick replies',  en:'<span class="cap-dot"></span>Quick reply guidance' },
+    { fr:'<span class="cap-dot"></span>API billetterie connectée',  en:'<span class="cap-dot"></span>Ticketing API connected' },
+    { fr:'<span class="cap-dot"></span>Escalade humaine fluide',    en:'<span class="cap-dot"></span>Smooth human escalation' },
+    { fr:'<span class="cap-dot"></span>Réponse &lt; 2 secondes',   en:'<span class="cap-dot"></span>Response &lt; 2 seconds' },
+  ]},
+  // Demo slide — meta-row labels
+  { s:'#s-demo .meta-row .ml', v:[
+    { fr:'Réponse', en:'Response' },
+    { fr:'Canal',   en:'Channel' },
+    { fr:'Langue',  en:'Language' },
+    { fr:'Tour n°', en:'Turn #' },
+  ]},
+  // Demo slide — si-notes
+  { s:'#s-demo .si-note', v:[
+    { fr:'<strong>👁 Vision SI Applicatif</strong> Ce bot illustre la couche conversationnelle du SI Client — sans refonte du CRM ni de la billetterie existante.',
+      en:'<strong>👁 Applicative IS Vision</strong> This bot illustrates the conversational layer of IS Client — without redesigning the existing CRM or ticketing system.' },
+    { fr:'<strong style="color:var(--gold);">🔗 Domaine SI Client</strong> Intégration read-only API OL en phase 1. Enrichissement CRM par interaction en phase 2.',
+      en:'<strong style="color:var(--gold);">🔗 IS Client Domain</strong> Read-only OL API integration in phase 1. CRM enrichment through interaction in phase 2.' },
+  ]},
+  // Slide 6 (s5 — Billetterie) — d-card h3
+  { s:'#s5 .d-card h3', v:[
+    { fr:'CE QUE LE CHATBOT FAIT CÔTÉ BILLETTERIE', en:'WHAT THE CHATBOT DOES ON THE TICKETING SIDE' },
+    { fr:'INTÉGRATION CRM — COMMENT ÇA MARCHE',     en:'CRM INTEGRATION — HOW IT WORKS' },
+  ]},
+  // Slide 6 (s5) — d-card item h5 (8 total: 4 ticketing + 4 CRM)
+  { s:'#s5 .d-card .item h5', v:[
+    { fr:'Recherche &amp; Info Tickets',       en:'Ticket Search &amp; Info' },
+    { fr:'Alertes de Disponibilité',            en:'Availability Alerts' },
+    { fr:'Upsell Contextuel',                   en:'Contextual Upsell' },
+    { fr:'FAQ Abonnement Automatisée',          en:'Automated Subscription FAQ' },
+    { fr:'Connexion API REST',                  en:'REST API Connection' },
+    { fr:'Enrichissement du Profil Fan',        en:'Fan Profile Enrichment' },
+    { fr:'Sécurité &amp; Conformité RGPD',     en:'Security &amp; GDPR Compliance' },
+    { fr:'Prérequis côté OL',                  en:'Requirements on OL\'s side' },
+  ]},
+  // Slide 6 (s5) — d-card item p (8 total)
+  { s:'#s5 .d-card .item p', v:[
+    { fr:'Le fan formule sa demande en langage naturel. Le bot répond en temps réel avec disponibilités, tarifs et lien direct d\'achat, via l\'API billetterie existante.',
+      en:'The fan formulates their request in natural language. The bot responds in real time with availability, prices and a direct purchase link, via the existing ticketing API.' },
+    { fr:'Le fan s\'inscrit à une alerte. Un message WhatsApp ou email est envoyé automatiquement dès que des places se libèrent.',
+      en:'The fan registers for an alert. A WhatsApp message or email is sent automatically as soon as seats become available.' },
+    { fr:'L\'abonné Tribune reçoit une proposition ciblée : upgrade VIP disponible ou pack famille avant le match. Un message personnalisé, jamais intrusif.',
+      en:'The Tribune subscriber receives a targeted offer: available VIP upgrade or family pack before the match. A personalized message, never intrusive.' },
+    { fr:'Renouvellement, changement de siège, suspension, remboursement : les cinquante questions les plus fréquentes, traitées instantanément.',
+      en:'Renewal, seat change, suspension, refund: the fifty most frequently asked questions, handled instantly.' },
+    { fr:'H\'appi se connecte au CRM OL via API. Les données fan (abonnement, historique) sont lues pour personnaliser chaque réponse, sans modifier l\'existant.',
+      en:'H\'appi connects to the OL CRM via API. Fan data (subscription, history) is read to personalize each response, without modifying the existing system.' },
+    { fr:'Chaque interaction enrichit le profil CRM : sujets abordés, niveau de satisfaction, préférences exprimées. Une donnée propriétaire, au service de l\'OL.',
+      en:'Each interaction enriches the CRM profile: topics addressed, satisfaction level, expressed preferences. Proprietary data, in the service of OL.' },
+    { fr:'Les données sont traitées dans le respect du cadre légal, avec consentement explicite. Un hébergement on-premise est possible si le DSI l\'exige.',
+      en:'Data is processed in compliance with the legal framework, with explicit consent. On-premise hosting is possible if the CIO requires it.' },
+    { fr:'Un accès à la documentation API CRM et billetterie OL, et un référent technique pour deux à trois sessions d\'intégration. Rien de plus.',
+      en:'Access to the OL CRM and ticketing API documentation, and a technical contact for two to three integration sessions. Nothing more.' },
+  ]},
+  // Slide 7 (s6 — Analytics) — kpi-card .kl
+  { s:'#s6 .kpi-card .kl', v:[
+    { fr:'Conversations<br>cette semaine',          en:'Conversations<br>this week' },
+    { fr:'Taux de résolution<br>sans agent humain', en:'Resolution rate<br>without human agent' },
+    { fr:'Score de satisfaction<br>fan moyen',      en:'Average fan<br>satisfaction score' },
+    { fr:'Escalades vers<br>agent humain',          en:'Escalations to<br>human agent' },
+    { fr:'Temps de réponse<br>moyen du bot',        en:'Average bot<br>response time' },
+    { fr:'Conversations vs<br>mois précédent',      en:'Conversations vs<br>previous month' },
+  ]},
+  // Slide 7 (s6 — Analytics) — arch-layers
+  { s:'#s6 .arch-layer', v:[
+    { fr:'<span class="al-icon">💬</span> COLLECTE &nbsp;·&nbsp; Chatbot Web · WhatsApp · App OL',
+      en:'<span class="al-icon">💬</span> COLLECTION &nbsp;·&nbsp; Web Chatbot · WhatsApp · OL App' },
+    { fr:'<span class="al-icon">⚙️</span> TRAITEMENT &nbsp;·&nbsp; LLM · Classification d\'intention · Scoring',
+      en:'<span class="al-icon">⚙️</span> PROCESSING &nbsp;·&nbsp; LLM · Intent Classification · Scoring' },
+    { fr:'<span class="al-icon">💾</span> STOCKAGE &nbsp;·&nbsp; BDD H\'appi · CRM OL · Logs RGPD',
+      en:'<span class="al-icon">💾</span> STORAGE &nbsp;·&nbsp; H\'appi DB · OL CRM · GDPR Logs' },
+    { fr:'<span class="al-icon">📊</span> DASHBOARD &nbsp;·&nbsp; KPIs CIO · Alertes · Export CSV',
+      en:'<span class="al-icon">📊</span> DASHBOARD &nbsp;·&nbsp; CIO KPIs · Alerts · CSV Export' },
+    { fr:'<span class="al-icon">👥</span> USAGE &nbsp;·&nbsp; Support · Marketing · CIO · DSI',
+      en:'<span class="al-icon">👥</span> USAGE &nbsp;·&nbsp; Support · Marketing · CIO · IS Director' },
+  ]},
+  // Slide 7 (s6 — Analytics) — two italic paragraphs
+  { s:'#s6 .body > div > p', v:[
+    { fr:'Métriques disponibles dès la mise en production, sans outil BI externe.',
+      en:'Metrics available from production launch, with no external BI tool.' },
+    { fr:'Chiffres simulés à titre indicatif, basés sur des benchmarks sectoriels.',
+      en:'Simulated figures for illustrative purposes, based on industry benchmarks.' },
+  ]},
+  // Slide 8 (s7 — Intégration SI) — int-card h4
+  { s:'#s7 .int-card h4', v:[
+    { fr:'Site Web OL (ol.fr)',                en:'OL Website (ol.fr)' },
+    { fr:'WhatsApp Business',                  en:'WhatsApp Business' },
+    { fr:'Sécurité &amp; Hébergement',        en:'Security &amp; Hosting' },
+  ]},
+  // Slide 8 (s7) — int-card li (card 1)
+  { s:'#s7 .int-card:nth-child(1) ul li', v:[
+    { fr:'Widget JS intégré en une seule ligne de code',                en:'JS widget integrated in a single line of code' },
+    { fr:'Compatible avec tous les CMS (WordPress, custom)',            en:'Compatible with all CMS (WordPress, custom)' },
+    { fr:'Design configurable sans modifier le code OL',               en:'Configurable design without modifying OL\'s code' },
+    { fr:'Chargement asynchrone, sans impact sur les performances du site', en:'Asynchronous loading, with no impact on site performance' },
+    { fr:'Hébergement sur CNAME ou domaine OL disponible',             en:'CNAME or OL domain hosting available' },
+  ]},
+  // Slide 8 (s7) — int-card li (card 2)
+  { s:'#s7 .int-card:nth-child(2) ul li', v:[
+    { fr:'Numéro WhatsApp Business dédié à l\'OL',                     en:'Dedicated WhatsApp Business number for OL' },
+    { fr:'API Meta officielle, conforme aux conditions d\'utilisation', en:'Official Meta API, compliant with terms of use' },
+    { fr:'Templates de messages approuvés par Meta',                   en:'Message templates approved by Meta' },
+    { fr:'Opt-in fans requis, conformité RGPD assurée',               en:'Fan opt-in required, GDPR compliance ensured' },
+    { fr:'Intégrable à la stratégie CRM OL existante',                en:'Integrable into the existing OL CRM strategy' },
+  ]},
+  // Slide 8 (s7) — int-card li (card 3)
+  { s:'#s7 .int-card:nth-child(3) ul li', v:[
+    { fr:'HTTPS, chiffrement TLS 1.3 en transit',                      en:'HTTPS, TLS 1.3 encryption in transit' },
+    { fr:'Données hébergées en Europe (Azure ou OVH)',                 en:'Data hosted in Europe (Azure or OVH)' },
+    { fr:'Hébergement on-premise OL disponible sur demande',           en:'On-premise OL hosting available on request' },
+    { fr:'Logs d\'audit complets pour conformité réglementaire',       en:'Full audit logs for regulatory compliance' },
+    { fr:'Droit à l\'effacement RGPD nativement intégré',             en:'GDPR right to erasure natively integrated' },
+  ]},
+  // Slide 8 (s7) — int-card .caveat
+  { s:'#s7 .int-card .caveat', v:[
+    { fr:'⏱ Délai : 1 à 2 jours ouvrés après accès',       en:'⏱ Timeline: 1 to 2 business days after access' },
+    { fr:'⏱ Délai : environ 1 semaine (validation Meta)',    en:'⏱ Timeline: approximately 1 week (Meta validation)' },
+    { fr:'🔐 Audit sécurité disponible sur demande DSI',    en:'🔐 Security audit available on CIO request' },
+  ]},
+  // Slide 8 (s7) — sla-pill .pl
+  { s:'#s7 .sla-pill .pl', v:[
+    { fr:'SLA uptime<br>garanti contractuellement',   en:'Uptime SLA<br>contractually guaranteed' },
+    { fr:'Temps de réponse<br>API maximum',            en:'Maximum<br>API response time' },
+    { fr:'Support correctif<br>incidents critiques',   en:'Corrective support<br>critical incidents' },
+    { fr:'Données hébergées<br>en Europe uniquement',  en:'Data hosted<br>in Europe only' },
+  ]},
+  // Slide 9 (s8 — Roadmap) — phase-hdr .pp
+  { s:'#s8 .phase-hdr .pp', v:[
+    { fr:'SEMAINES 1–3', en:'WEEKS 1–3' },
+    { fr:'SEMAINES 4–8', en:'WEEKS 4–8' },
+    { fr:'MOIS 3–4',     en:'MONTHS 3–4' },
+    { fr:'MOIS 5–12',    en:'MONTHS 5–12' },
+  ]},
+  // Slide 9 (s8) — phase-body h4
+  { s:'#s8 .phase-body h4', v:[
+    { fr:'Audit &amp; Immersion SI',          en:'IS Audit &amp; Immersion' },
+    { fr:'Premières Initiatives',             en:'First Initiatives' },
+    { fr:'Consolidation &amp; Mesure',        en:'Consolidation &amp; Measurement' },
+    { fr:'Transformation &amp; Roadmap 2027', en:'Transformation &amp; 2027 Roadmap' },
+  ]},
+  // Slide 9 (s8) — phase-body ul li (20 total: 5 per phase)
+  { s:'#s8 .phase-body ul li', v:[
+    { fr:'Rencontrer les équipes DSI, métier et support',                    en:'Meet the IS, business and support teams' },
+    { fr:'Cartographier les 4 domaines SI existants',                        en:'Map the 4 existing IS domains' },
+    { fr:'Identifier les points de friction prioritaires',                   en:'Identify priority friction points' },
+    { fr:'Auditer les intégrations et la dette technique',                   en:'Audit integrations and technical debt' },
+    { fr:'Définir les quick wins par domaine',                               en:'Define quick wins by domain' },
+    { fr:'Déployer la couche conversationnelle SI Client',                   en:'Deploy the IS Client conversational layer' },
+    { fr:'Mettre en place le dashboard DSI unifié',                          en:'Set up the unified CIO dashboard' },
+    { fr:'Automatiser le SI Support (80 % des requêtes)',                    en:'Automate IS Support (80% of queries)' },
+    { fr:'Créer la base de connaissance SI interne',                         en:'Create the internal IS knowledge base' },
+    { fr:'Définir et suivre les KPIs par domaine',                          en:'Define and track KPIs by domain' },
+    { fr:'Déployer les outils SI Sportif pour l\'équipe technique',         en:'Deploy IS Sports tools for the technical team' },
+    { fr:'Intégrer l\'app mobile OL au SI Client',                          en:'Integrate the OL mobile app into IS Client' },
+    { fr:'Former les équipes internes aux nouveaux outils',                  en:'Train internal teams on the new tools' },
+    { fr:'Présenter le bilan ROI par domaine au DSI',                       en:'Present the ROI review by domain to the CIO' },
+    { fr:'Ajuster la roadmap selon les retours terrain',                    en:'Adjust the roadmap based on field feedback' },
+    { fr:'Construire un SI unifié cross-domaines, cohérent et durable',     en:'Build a unified cross-domain IS, coherent and sustainable' },
+    { fr:'Embarquer l\'IA dans les 4 domaines SI',                          en:'Embed AI across the 4 IS domains' },
+    { fr:'Étendre à Eagle Football Group (autres clubs)',                    en:'Extend to Eagle Football Group (other clubs)' },
+    { fr:'Co-construire la roadmap SI 2027 avec le DSI',                   en:'Co-build the 2027 IS roadmap with the CIO' },
+    { fr:'Structurer et animer l\'équipe SI applicatif',                    en:'Structure and lead the applicative IS team' },
+  ]},
+  // Slide 9 (s8) — phase-body .effort
+  { s:'#s8 .phase-body .effort', v:[
+    { fr:'🎯 Livrable : plan d\'action SI à 90 jours',              en:'🎯 Deliverable: 90-day IS action plan' },
+    { fr:'📊 Premiers résultats mesurables à M+2',                   en:'📊 First measurable results at M+2' },
+    { fr:'✅ Rapport ROI DSI à M+4',                                en:'✅ CIO ROI report at M+4' },
+    { fr:'🚀 Vision long terme co-construite avec le DSI',          en:'🚀 Long-term vision co-built with the CIO' },
+  ]},
+  // Slide 10 (s9 — ROI) — kpi-orb .ol
+  { s:'#s9 .kpi-orb .ol', v:[
+    { fr:'Tickets support fan<br>récurrents',         en:'Recurring fan<br>support tickets' },
+    { fr:'Disponibilité<br>sans coût additionnel',    en:'Availability<br>at no additional cost' },
+    { fr:'Conversion billet<br>via chatbot (estimé)', en:'Ticket conversion<br>via chatbot (estimated)' },
+    { fr:'Premier retour<br>mesurable garanti',       en:'First measurable<br>return guaranteed' },
+  ]},
+  // Slide 10 (s9 — ROI) — val-card h3
+  { s:'#s9 .val-card h3', v:[
+    { fr:'CE QUE LE CIO GAGNE CÔTÉ SI',      en:'WHAT THE CIO GAINS ON THE IS SIDE' },
+    { fr:'CE QUE L\'OL GAGNE CÔTÉ BUSINESS', en:'WHAT OL GAINS ON THE BUSINESS SIDE' },
+  ]},
+  // Slide 10 (s9 — ROI) — val-card ul li (10 total: 5 per card)
+  { s:'#s9 .val-card ul li', v:[
+    { fr:'Une couche conversationnelle sans refonte du SI existant',              en:'A conversational layer without redesigning the existing IS' },
+    { fr:'Des données d\'usage fans centralisées, enfin accessibles',            en:'Centralized fan usage data, finally accessible' },
+    { fr:'Une charge opérationnelle réduite pour les équipes support',           en:'Reduced operational load for support teams' },
+    { fr:'Un déploiement rapide, en quelques semaines, pas dix-huit mois',      en:'Fast deployment, in a few weeks, not eighteen months' },
+    { fr:'Un SLA contractuel avec monitoring en temps réel',                     en:'A contractual SLA with real-time monitoring' },
+    { fr:'Une fan experience digitale au niveau des meilleurs clubs européens',  en:'A digital fan experience on par with the best European clubs' },
+    { fr:'Un support disponible même lors des pics de trafic, Champions League incluse', en:'Support available even during traffic peaks, including Champions League' },
+    { fr:'Une data fan propriétaire enrichie à chaque interaction',             en:'Proprietary fan data enriched with every interaction' },
+    { fr:'Upsell et relances automatisés pour augmenter les revenus billetterie', en:'Automated upselling and follow-ups to increase ticketing revenue' },
+    { fr:'Une image tech moderne, différenciateur fort auprès des partenaires',  en:'A modern tech image, a strong differentiator for partners' },
+  ]},
+  // Slide 11 (s10 — Conclusion) — reason h4
+  { s:'#s10 .reason h4', v:[
+    { fr:'Je construis ce que je gère',          en:'I build what I manage' },
+    { fr:'4 domaines SI, une vision cohérente',  en:'4 IS domains, one coherent vision' },
+    { fr:'L\'IA comme outil, pas comme objectif', en:'AI as a tool, not a goal' },
+    { fr:'Construire quelque chose qui dure',     en:'Building something that lasts' },
+  ]},
+  // Slide 11 (s10 — Conclusion) — reason p
+  { s:'#s10 .reason p', v:[
+    { fr:'J\'ai conçu et déployé des systèmes SI en production, pas des POC. Je comprends les contraintes techniques autant que les enjeux métier. Un Responsable SI qui code, ça change tout.',
+      en:'I have designed and deployed IS systems in production, not POCs. I understand technical constraints as much as business challenges. An IS Manager who codes makes all the difference.' },
+    { fr:'Opérations, support, client, sportif : je perçois les connexions entre les systèmes. Ma priorité est la cohérence SI avant la vélocité feature. Pas de silos, pas de doublons, une roadmap unifiée.',
+      en:'Operations, support, client, sports: I see the connections between systems. My priority is IS coherence before feature velocity. No silos, no duplication, one unified roadmap.' },
+    { fr:'Je n\'applique pas l\'IA pour paraître moderne. Je l\'utilise là où elle réduit la charge opérationnelle, améliore l\'expérience fan et génère des données actionnables pour le DSI.',
+      en:'I don\'t apply AI to appear modern. I use it where it reduces the operational load, improves the fan experience and generates actionable data for the CIO.' },
+    { fr:'Pas une mission de six mois. Une transformation SI sur trois ans, avec une équipe. Dans trois ans, les systèmes OL doivent être un modèle pour les autres clubs d\'Eagle Football Group.',
+      en:'Not a six-month assignment. A three-year IS transformation, with a team. In three years, OL\'s systems should be a model for the other Eagle Football Group clubs.' },
+  ]},
+  // Slide 11 (s10 — Conclusion) — next-step chips
+  { s:'#s10 .nsc', v:[
+    { fr:'📅 Entretien RH',         en:'📅 HR Interview' },
+    { fr:'🤝 Rencontre DSI OL',    en:'🤝 Meeting with OL CIO' },
+    { fr:'📋 Références disponibles', en:'📋 References available' },
+    { fr:'🚀 Disponible rapidement', en:'🚀 Available quickly' },
+  ]},
+];
+
+function setLang(l) {
+  lang = l;
+  localStorage.setItem('pres-lang', l);
+  document.documentElement.lang = l;
+  langBtn.innerHTML = l === 'en' ? '🇫🇷 FR' : '🇬🇧 EN';
+  T.forEach(({s, fr, en}) => {
+    const el = document.querySelector(s);
+    if (el) el.innerHTML = l === 'en' ? en : fr;
+  });
+  TM.forEach(({s, v}) => {
+    document.querySelectorAll(s).forEach((el, i) => {
+      if (v[i]) el.innerHTML = l === 'en' ? v[i].en : v[i].fr;
+    });
+  });
+}
+
+function toggleLang() { setLang(lang === 'fr' ? 'en' : 'fr'); }
+
+// Restore saved language on load
+if (lang === 'en') setLang('en');
 
 // Auto-start when demo slide becomes visible
 const demoSlide = document.getElementById('s-demo');
