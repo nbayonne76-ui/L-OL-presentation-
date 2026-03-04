@@ -125,29 +125,29 @@ html, body {
   font-size: 68px; color: var(--accent);
   letter-spacing: 5px; line-height: 1;
 }
-#s1 .tagline { color: rgba(255,255,255,.45); font-size: 13px; font-style: italic; margin: 6px 0 4px; }
+#s1 .tagline { color: rgba(255,255,255,.55); font-size: 14px; font-style: italic; margin: 6px 0 4px; }
 #s1 .candidature-note {
-  color: rgba(255,255,255,.18);
-  font-size: 10px; letter-spacing: 1.5px;
+  color: rgba(255,255,255,.38);
+  font-size: 12px; letter-spacing: 1.5px;
   margin: 0 0 26px; font-style: italic;
-  border-left: 2px solid rgba(255,255,255,.08);
+  border-left: 2px solid rgba(255,255,255,.15);
   padding-left: 8px;
 }
 #s1 h1 { font-size: 30px; font-weight: 800; color: #fff; line-height: 1.25; margin-bottom: 28px; }
 #s1 h1 em { color: var(--ol-red); font-style: normal; }
 #s1 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-#s1 .chip { padding: 5px 13px; border-radius: 20px; font-size: 10px; font-weight: 700; letter-spacing: .5px; }
+#s1 .chip { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: .5px; }
 .chip-r { background: var(--ol-red); color: #fff; }
 .chip-b { background: var(--ol-blue); color: #fff; }
 .chip-a { background: rgba(0,200,255,.12); color: var(--accent); border: 1px solid rgba(0,200,255,.4); }
 .chip-g { background: rgba(0,184,124,.12); color: var(--green); border: 1px solid rgba(0,184,124,.4); }
-#s1 .meta { color: rgba(255,255,255,.3); font-size: 11px; margin-top: auto; line-height: 1.8; }
-#s1 .meta strong { color: rgba(255,255,255,.55); }
+#s1 .meta { color: rgba(255,255,255,.5); font-size: 13px; margin-top: auto; line-height: 2; }
+#s1 .meta strong { color: rgba(255,255,255,.8); }
 #s1 .fbar {
   position: absolute; bottom: 0; left: 0; right: 0;
   height: 38px; background: var(--ol-blue);
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px; color: rgba(255,255,255,.75); letter-spacing: 2px;
+  font-size: 11px; color: rgba(255,255,255,.85); letter-spacing: 2px;
 }
 /* Club logo image */
 #s1 .ol-logo-img {
@@ -1180,7 +1180,7 @@ button:focus-visible, .qr-btn:focus-visible {
     <div class="topline"></div>
     <div class="brand">N. BAYONNE</div>
     <div class="tagline">Développeur &amp; Architecte SI &nbsp;·&nbsp; Fondateur H'appi &nbsp;·&nbsp; Candidat Responsable SI Applicatif</div>
-    <div class="candidature-note">Démonstration de vision SI applicatif &nbsp;·&nbsp; Candidature Responsable SI Applicatif — Olympique Lyonnais</div>
+    <div class="candidature-note">Démonstration de vision SI applicatif &nbsp;·&nbsp; Candidature Responsable SI Applicatif : Olympique Lyonnais</div>
     <h1>Ma vision pour les<br><em>4 domaines SI</em><br>de l'Olympique Lyonnais</h1>
     <div class="chips">
       <span class="chip chip-r">🏗️ SI Opérations</span>
@@ -1189,9 +1189,9 @@ button:focus-visible, .qr-btn:focus-visible {
       <span class="chip chip-g">🏆 SI Sportif &amp; Perf</span>
     </div>
     <div class="meta">
-      <strong>Présenté à :</strong> Direction des Systèmes d'Information — Olympique Lyonnais<br>
+      <strong>Présenté à :</strong> Direction des Systèmes d'Information : Olympique Lyonnais<br>
       <strong>Par :</strong> N. Bayonne &nbsp;·&nbsp; Candidat au poste de Responsable SI Applicatif &nbsp;·&nbsp; Mars 2026<br>
-      <strong>Contact :</strong> contact@happi-bot.com &nbsp;·&nbsp; happi-bot.com
+      <strong>Contact :</strong> nbayonne76@gmail.com &nbsp;·&nbsp; contact@happi-bot.com &nbsp;·&nbsp; happi-bot.com
     </div>
     <div class="fbar">RESPONSABLE SI APPLICATIF &nbsp;·&nbsp; OLYMPIQUE LYONNAIS &nbsp;·&nbsp; VISION 2026–2027</div>
   </div>
@@ -2034,8 +2034,8 @@ const T = [
     fr:'Développeur &amp; Architecte SI &nbsp;·&nbsp; Fondateur H\'appi &nbsp;·&nbsp; Candidat Responsable SI Applicatif',
     en:'Developer &amp; IS Architect &nbsp;·&nbsp; H\'appi Founder &nbsp;·&nbsp; Applicative IS Manager Candidate' },
   { s:'#s1 .candidature-note',
-    fr:'Démonstration de vision SI applicatif &nbsp;·&nbsp; Candidature Responsable SI Applicatif — Olympique Lyonnais',
-    en:'IS Application Vision Demonstration &nbsp;·&nbsp; Applicative IS Manager Candidacy — Olympique Lyonnais' },
+    fr:'Démonstration de vision SI applicatif &nbsp;·&nbsp; Candidature Responsable SI Applicatif : Olympique Lyonnais',
+    en:'IS Application Vision Demonstration &nbsp;·&nbsp; Applicative IS Manager Candidacy : Olympique Lyonnais' },
   { s:'#s1 h1',
     fr:'Ma vision pour les<br><em>4 domaines SI</em><br>de l\'Olympique Lyonnais',
     en:'My vision for the<br><em>4 IS domains</em><br>of Olympique Lyonnais' },
@@ -2044,8 +2044,8 @@ const T = [
   { s:'#s1 .chip-a',   fr:'🤝 SI Support Interne',        en:'🤝 IS Internal Support' },
   { s:'#s1 .chip-g',   fr:'🏆 SI Sportif &amp; Perf',     en:'🏆 IS Sports &amp; Perf' },
   { s:'#s1 .meta',
-    fr:'<strong>Présenté à :</strong> Direction des Systèmes d\'Information — Olympique Lyonnais<br><strong>Par :</strong> N. Bayonne &nbsp;·&nbsp; Candidat au poste de Responsable SI Applicatif &nbsp;·&nbsp; Mars 2026<br><strong>Contact :</strong> contact@happi-bot.com &nbsp;·&nbsp; happi-bot.com',
-    en:'<strong>Presented to:</strong> Information Systems Division — Olympique Lyonnais<br><strong>By:</strong> N. Bayonne &nbsp;·&nbsp; Applicative IS Manager Candidate &nbsp;·&nbsp; March 2026<br><strong>Contact:</strong> contact@happi-bot.com &nbsp;·&nbsp; happi-bot.com' },
+    fr:'<strong>Présenté à :</strong> Direction des Systèmes d\'Information : Olympique Lyonnais<br><strong>Par :</strong> N. Bayonne &nbsp;·&nbsp; Candidat au poste de Responsable SI Applicatif &nbsp;·&nbsp; Mars 2026<br><strong>Contact :</strong> nbayonne76@gmail.com &nbsp;·&nbsp; contact@happi-bot.com &nbsp;·&nbsp; happi-bot.com',
+    en:'<strong>Presented to:</strong> Information Systems Division : Olympique Lyonnais<br><strong>By:</strong> N. Bayonne &nbsp;·&nbsp; Applicative IS Manager Candidate &nbsp;·&nbsp; March 2026<br><strong>Contact:</strong> nbayonne76@gmail.com &nbsp;·&nbsp; contact@happi-bot.com &nbsp;·&nbsp; happi-bot.com' },
   { s:'#s1 .fbar',
     fr:'RESPONSABLE SI APPLICATIF &nbsp;·&nbsp; OLYMPIQUE LYONNAIS &nbsp;·&nbsp; VISION 2026–2027',
     en:'APPLICATIVE IS MANAGER &nbsp;·&nbsp; OLYMPIQUE LYONNAIS &nbsp;·&nbsp; VISION 2026–2027' },
