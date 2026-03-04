@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>N. Bayonne — Candidature Responsable SI Applicatif | Olympique Lyonnais</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Bebas+Neue&display=swap');
@@ -11,13 +11,13 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --ol-red:    #D2001A;
-  --ol-blue:   #003DA5;
-  --ol-navy:   #001A4E;
+  --ol-red:    #DA001A;   /* PANTONE 2035 C — official OL red */
+  --ol-blue:   #14387F;   /* PANTONE 7687 C — official OL blue */
+  --ol-navy:   #0B1D48;   /* dark variant of official OL blue */
   --dark:      #080D1A;
   --mid:       #0D1630;
-  --accent:    #00C8FF;
-  --gold:      #E8B800;
+  --accent:    #D29D46;   /* PANTONE 4025 CP — official OL gold (replaces cyan) */
+  --gold:      #D29D46;   /* official OL gold */
   --green:     #00B87C;
   --white:     #FFFFFF;
   --light:     #F4F6FA;
@@ -36,7 +36,9 @@ html, body {
 /* ─── PROGRESS BAR ─── */
 #progress-bar {
   position: fixed; top: 0; left: 0;
-  height: 3px; background: var(--ol-red);
+  height: 4px;
+  background: linear-gradient(90deg, var(--ol-red) 0%, var(--accent) 100%);
+  box-shadow: 0 0 12px rgba(210,157,70,0.5);
   transition: width 0.35s ease;
   z-index: 10000;
   border-radius: 0 2px 2px 0;
@@ -59,42 +61,50 @@ html, body {
   position: fixed; bottom: 82px; left: 50%;
   transform: translateX(-50%);
   display: flex; align-items: center; gap: 14px;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(4, 8, 22, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.13);
   border-radius: 40px;
   padding: 8px 22px;
   z-index: 9999;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3), inset 0 0 0 0.5px rgba(255,255,255,0.06);
 }
 .nav button {
   background: none; border: none; color: #fff;
   font-size: 18px; cursor: pointer; padding: 4px 8px;
   border-radius: 6px; transition: background .15s;
+  min-height: 44px; min-width: 36px;
+  display: flex; align-items: center; justify-content: center;
 }
 .nav button:hover { background: rgba(255,255,255,0.12); }
+.nav button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .nav .dots { display: flex; gap: 5px; }
 .nav .dot {
-  width: 6px; height: 6px; border-radius: 50%;
+  width: 8px; height: 8px; border-radius: 50%;
   background: rgba(255,255,255,0.25); cursor: pointer;
-  transition: all .2s;
+  transition: all .25s;
 }
-.nav .dot.on { background: var(--accent); transform: scale(1.4); }
-.nav .count { color: rgba(255,255,255,0.5); font-size: 12px; min-width: 50px; text-align: center; }
+.nav .dot.on {
+  background: var(--accent); transform: scale(1.5);
+  box-shadow: 0 0 10px rgba(210,157,70,0.9), 0 0 22px rgba(210,157,70,0.4);
+}
+.nav .count { color: rgba(255,255,255,0.65); font-size: 13px; font-weight: 700; min-width: 50px; text-align: center; }
 
 /* ════════════════════════════════════
    SHARED COMPONENTS
 ════════════════════════════════════ */
 
 .s-hdr {
-  display: flex; align-items: center; gap: 14px;
-  padding: 18px 52px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 18px;
+  padding: 22px 52px; flex-shrink: 0;
 }
-.s-hdr .bar { width: 4px; height: 36px; border-radius: 2px; flex-shrink: 0; }
-.s-hdr h2 { font-size: 22px; font-weight: 800; line-height: 1.1; }
+.s-hdr .bar { width: 7px; height: 48px; border-radius: 1px; flex-shrink: 0; }
+.s-hdr h2 { font-size: 18px; font-weight: 900; line-height: 1.1; letter-spacing: 1.8px; text-transform: uppercase; }
 .s-hdr .slide-n {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 42px; line-height: 1;
-  margin-left: auto; opacity: .07;
+  font-size: 96px; line-height: 0.9;
+  margin-left: auto; margin-top: -8px; opacity: .13;
 }
 
 .tag {
@@ -114,18 +124,29 @@ html, body {
 }
 #s1 .right {
   width: 320px; background: var(--mid);
-  border-left: 1px solid rgba(0,200,255,.15);
+  border-left: 2px solid rgba(210,157,70,.25);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   padding: 36px 28px; gap: 20px;
 }
-#s1 .topline { height: 2px; background: var(--accent); margin-bottom: 36px; border-radius: 1px; }
+#s1 .left::before {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -60px;
+  width: 320px; height: 320px;
+  background: var(--ol-red);
+  opacity: .04;
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  pointer-events: none; z-index: 0;
+}
+#s1 .topline { height: 4px; background: var(--accent); margin-bottom: 28px; border-radius: 0; }
 #s1 .brand {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 68px; color: var(--accent);
-  letter-spacing: 5px; line-height: 1;
+  font-size: 88px; color: var(--accent);
+  letter-spacing: 8px; line-height: 1;
+  text-shadow: 0 4px 28px rgba(0,0,0,.55);
 }
-#s1 .tagline { color: rgba(255,255,255,.55); font-size: 14px; font-style: italic; margin: 6px 0 4px; }
+#s1 .tagline { color: rgba(255,255,255,.72); font-size: 13.5px; font-style: italic; margin: 6px 0 4px; }
 #s1 .candidature-note {
   color: rgba(255,255,255,.38);
   font-size: 12px; letter-spacing: 1.5px;
@@ -133,13 +154,13 @@ html, body {
   border-left: 2px solid rgba(255,255,255,.15);
   padding-left: 8px;
 }
-#s1 h1 { font-size: 30px; font-weight: 800; color: #fff; line-height: 1.25; margin-bottom: 28px; }
+#s1 h1 { font-size: 34px; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 28px; letter-spacing: -.3px; }
 #s1 h1 em { color: var(--ol-red); font-style: normal; }
 #s1 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-#s1 .chip { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: .5px; }
+#s1 .chip { padding: 7px 16px; border-radius: 4px; font-size: 12px; font-weight: 800; letter-spacing: 1px; }
 .chip-r { background: var(--ol-red); color: #fff; }
 .chip-b { background: var(--ol-blue); color: #fff; }
-.chip-a { background: rgba(0,200,255,.12); color: var(--accent); border: 1px solid rgba(0,200,255,.4); }
+.chip-a { background: rgba(210,157,70,.12); color: var(--accent); border: 1px solid rgba(210,157,70,.4); }
 .chip-g { background: rgba(0,184,124,.12); color: var(--green); border: 1px solid rgba(0,184,124,.4); }
 #s1 .meta { color: rgba(255,255,255,.5); font-size: 13px; margin-top: auto; line-height: 2; }
 #s1 .meta strong { color: rgba(255,255,255,.8); }
@@ -198,14 +219,14 @@ html, body {
 .white-card {
   background: var(--card-bg); border-radius: 14px;
   padding: 18px 22px;
-  box-shadow: 0 4px 20px rgba(0,0,0,.3);
-  border: 1px solid rgba(255,255,255,.06);
-  border-left: 4px solid var(--ol-blue);
+  box-shadow: 0 2px 4px rgba(0,0,0,.45), 0 12px 36px rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.07);
+  border-left: 5px solid var(--ol-blue);
   display: flex; gap: 14px; align-items: flex-start;
 }
 .white-card .ic { font-size: 24px; flex-shrink: 0; padding-top: 2px; }
 .white-card h4 { font-size: 13.5px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -.1px; }
-.white-card p { font-size: 11.5px; color: rgba(255,255,255,.55); line-height: 1.65; }
+.white-card p { font-size: 11.5px; color: rgba(255,255,255,.72); line-height: 1.65; }
 .dark-panel {
   background: var(--dark); border-radius: 14px;
   padding: 24px; box-shadow: 0 8px 28px rgba(0,0,0,.22);
@@ -221,8 +242,8 @@ html, body {
 .stack-row .st { font-size: 11px; color: rgba(255,255,255,.82); }
 .stack-row .badge-tech {
   margin-left: auto;
-  background: rgba(0,200,255,.1); color: var(--accent);
-  border: 1px solid rgba(0,200,255,.3);
+  background: rgba(210,157,70,.1); color: var(--accent);
+  border: 1px solid rgba(210,157,70,.3);
   font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
 }
 
@@ -243,12 +264,12 @@ html, body {
 .diag-card {
   background: var(--card-bg); border-radius: 14px;
   padding: 22px 20px; display: flex; flex-direction: column; gap: 14px;
-  border-top: 3px solid;
+  border-top: 4px solid;
 }
 .diag-card h4 { font-size: 13.5px; font-weight: 700; letter-spacing: -.1px; }
-.diag-card .pain { font-size: 11px; color: rgba(255,255,255,.68); line-height: 1.68; flex: 1; }
+.diag-card .pain { font-size: 11px; color: rgba(255,255,255,.78); line-height: 1.68; flex: 1; }
 .diag-card .sol {
-  background: rgba(0,200,255,.06);
+  background: rgba(210,157,70,.06);
   border: none;
   border-left: 3px solid var(--accent);
   border-radius: 0 8px 8px 0;
@@ -284,7 +305,7 @@ html, body {
   border-radius: 12px; padding: 16px 14px; text-align: center;
   box-shadow: 0 4px 16px rgba(0,0,0,.12);
 }
-.stat-box .sv { font-family: 'Bebas Neue', sans-serif; font-size: 44px; line-height: 1; }
+.stat-box .sv { font-family: 'Bebas Neue', sans-serif; font-size: 56px; line-height: 1; }
 .stat-box .sl { font-size: 10px; margin-top: 5px; opacity: .85; line-height: 1.4; }
 #s4 .feat-grid {
   flex: 1; display: grid;
@@ -296,7 +317,7 @@ html, body {
   padding: 18px 20px;
   box-shadow: 0 4px 18px rgba(0,0,0,.3);
   border: 1px solid rgba(255,255,255,.06);
-  border-top: 3px solid var(--ol-red);
+  border-top: 4px solid var(--ol-red);
   display: flex; flex-direction: column; gap: 8px;
 }
 .feat-card h4 { font-size: 12.5px; font-weight: 700; color: #fff; letter-spacing: -.1px; }
@@ -431,7 +452,7 @@ html, body {
   flex-shrink: 0; min-height: 50px; align-content: center;
 }
 .qr-btn {
-  background: rgba(0,61,165,.3); border: 1px solid rgba(0,61,165,.7);
+  background: rgba(20,56,127,.3); border: 1px solid rgba(20,56,127,.7);
   color: rgba(255,255,255,.85); font-size: 9.5px; font-weight: 600;
   padding: 5px 11px; border-radius: 14px; cursor: pointer;
   transition: all .15s; white-space: nowrap;
@@ -462,7 +483,7 @@ html, body {
   font-family: 'Bebas Neue', sans-serif; font-size: 14px;
 }
 .si-note {
-  background: rgba(0,200,255,.05); border: 1px solid rgba(0,200,255,.15);
+  background: rgba(210,157,70,.05); border: 1px solid rgba(210,157,70,.15);
   border-radius: 10px; padding: 12px;
   font-size: 10px; color: rgba(255,255,255,.55); line-height: 1.6;
 }
@@ -515,10 +536,10 @@ html, body {
   background: var(--card-bg); border-radius: 12px;
   padding: 16px; box-shadow: 0 3px 14px rgba(0,0,0,.3);
   border: 1px solid rgba(255,255,255,.06);
-  border-left: 4px solid;
+  border-left: 5px solid;
   display: flex; flex-direction: column; gap: 6px;
 }
-.kpi-card .kv { font-family: 'Bebas Neue', sans-serif; font-size: 38px; line-height: 1; }
+.kpi-card .kv { font-family: 'Bebas Neue', sans-serif; font-size: 44px; line-height: 1; }
 .kpi-card .kl { font-size: 10px; color: rgba(255,255,255,.5); line-height: 1.4; }
 #s6 .arch-panel {
   background: var(--dark); border-radius: 14px;
@@ -532,8 +553,8 @@ html, body {
 }
 .arch-layer .al-icon { font-size: 16px; }
 .arch-note {
-  background: rgba(0,61,165,.1);
-  border: 1px solid rgba(0,61,165,.3);
+  background: rgba(20,56,127,.1);
+  border: 1px solid rgba(20,56,127,.3);
   border-left: 3px solid var(--ol-red);
   border-radius: 0 8px 8px 0; padding: 10px 14px;
   font-size: 10.5px; color: rgba(255,255,255,.75); line-height: 1.65; margin-top: 12px;
@@ -554,8 +575,8 @@ html, body {
 }
 .int-card {
   background: var(--card-bg); border-radius: 14px;
-  padding: 22px; border: 1px solid rgba(0,61,165,.35);
-  border-top: 3px solid var(--ol-blue);
+  padding: 22px; border: 1px solid rgba(20,56,127,.35);
+  border-top: 4px solid var(--ol-blue);
   display: flex; flex-direction: column; gap: 14px;
 }
 .int-card .ic-hdr { display: flex; align-items: center; gap: 10px; }
@@ -565,7 +586,7 @@ html, body {
 .int-card ul li { font-size: 11px; color: rgba(255,255,255,.8); padding-left: 16px; position: relative; line-height: 1.65; }
 .int-card ul li::before { content: '▸'; position: absolute; left: 0; color: var(--ol-red); font-size: 10px; top: 1px; }
 .int-card .caveat {
-  background: rgba(0,61,165,.12); border: 1px solid rgba(0,61,165,.3);
+  background: rgba(20,56,127,.12); border: 1px solid rgba(20,56,127,.3);
   border-radius: 8px; padding: 9px 12px;
   font-size: 10px; color: rgba(255,255,255,.65); line-height: 1.5;
 }
@@ -577,7 +598,7 @@ html, body {
   background: var(--card-bg); border-radius: 10px;
   padding: 12px 16px; text-align: center; border-top: 2px solid;
 }
-.sla-pill .pv { font-family: 'Bebas Neue', sans-serif; font-size: 28px; }
+.sla-pill .pv { font-family: 'Bebas Neue', sans-serif; font-size: 34px; }
 .sla-pill .pl { font-size: 9px; color: rgba(255,255,255,.5); margin-top: 3px; line-height: 1.4; }
 
 /* ════════════════════════════════════
@@ -593,9 +614,9 @@ html, body {
   grid-template-columns: repeat(4,1fr);
   gap: 14px; padding: 16px 52px 52px;
 }
-.phase { border-radius: 14px; overflow: hidden; box-shadow: 0 5px 18px rgba(0,0,0,.1); display: flex; flex-direction: column; }
+.phase { border-radius: 14px; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,.35); display: flex; flex-direction: column; }
 .phase-hdr { padding: 14px 16px; text-align: center; }
-.phase-hdr .pn { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #fff; line-height: 1; }
+.phase-hdr .pn { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #fff; line-height: 1; }
 .phase-hdr .pp { font-size: 9px; color: rgba(255,255,255,.8); letter-spacing: 1px; margin-top: 2px; }
 .phase-body {
   flex: 1; background: var(--card-bg);
@@ -604,7 +625,7 @@ html, body {
 }
 .phase-body h4 { font-size: 11px; font-weight: 700; margin-bottom: 10px; color: #fff; }
 .phase-body ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
-.phase-body ul li { font-size: 10.5px; color: rgba(255,255,255,.55); padding-left: 16px; position: relative; line-height: 1.6; }
+.phase-body ul li { font-size: 10.5px; color: rgba(255,255,255,.72); padding-left: 16px; position: relative; line-height: 1.6; }
 .phase-body ul li::before { content: '▸'; position: absolute; left: 0; font-size: 10px; top: 1px; opacity: .55; }
 .phase-body .effort { margin-top: 12px; padding: 8px 10px; border-radius: 7px; font-size: 9px; font-weight: 700; text-align: center; }
 
@@ -621,18 +642,18 @@ html, body {
   gap: 14px; padding: 16px 52px 14px;
 }
 .kpi-orb {
-  border-radius: 50%; width: 130px; height: 130px;
-  margin: 0 auto; border: 2.5px solid;
+  border-radius: 50%; width: 150px; height: 150px;
+  margin: 0 auto; border: 3.5px solid;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
 }
-.kpi-orb .ov { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: #fff; line-height: 1; }
+.kpi-orb .ov { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: #fff; line-height: 1; }
 .kpi-orb .ol { font-size: 9px; color: rgba(255,255,255,.65); text-align: center; line-height: 1.4; margin-top: 4px; }
 #s9 .val-cols {
   flex: 1; display: grid; grid-template-columns: 1fr 1fr;
   gap: 16px; padding: 0 52px 52px;
 }
-.val-card { background: var(--card-bg); border-radius: 14px; padding: 20px; border: 1.5px solid; }
+.val-card { background: var(--card-bg); border-radius: 14px; padding: 20px; border: 2px solid; }
 .val-card h3 { font-size: 12px; font-weight: 700; margin-bottom: 14px; }
 .val-card ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
 .val-card ul li { font-size: 11.5px; color: rgba(255,255,255,.82); padding: 9px 0 9px 22px; border-bottom: 1px solid rgba(255,255,255,.05); position: relative; line-height: 1.5; }
@@ -655,13 +676,13 @@ html, body {
 .reason {
   background: var(--card-bg); border-radius: 14px;
   padding: 20px; display: flex; gap: 14px;
-  border: 1.5px solid; align-items: flex-start;
+  border: 2px solid; align-items: flex-start;
   box-shadow: 0 5px 20px rgba(0,0,0,.25);
 }
 .reason .rn {
-  width: 40px; height: 40px; border-radius: 50%;
+  width: 44px; height: 44px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Bebas Neue', sans-serif; font-size: 20px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 22px;
   color: #fff; flex-shrink: 0;
 }
 .reason h4 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
@@ -684,18 +705,18 @@ html, body {
 /* ─── TRANSITIONS & HOVER LIFT ─── */
 .white-card, .d-card, .int-card, .diag-card, .reason, .phase,
 .kpi-card, .val-card, .feat-card, .dark-panel, .meta-card {
-  transition: transform .2s ease, box-shadow .2s ease;
+  transition: transform .25s ease, box-shadow .25s ease;
 }
-.white-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,61,165,.2); }
-.d-card:hover, .val-card:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,0,0,.45); }
-.int-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,184,124,.18); }
-.diag-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.45); }
-.reason:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.45); }
-.phase:hover { transform: translateY(-4px); box-shadow: 0 18px 44px rgba(0,0,0,.32); }
-.kpi-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.18); }
-.feat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.14); }
-.kpi-orb { transition: transform .2s ease, box-shadow .2s ease; }
-.kpi-orb:hover { transform: scale(1.06); box-shadow: 0 0 28px rgba(255,255,255,.1); }
+.white-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,.4), 0 24px 56px rgba(20,56,127,.35); }
+.d-card:hover, .val-card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,.35), 0 16px 40px rgba(210,157,70,.12); }
+.int-card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,.35), 0 16px 40px rgba(0,184,124,.22); }
+.diag-card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,.35), 0 16px 40px rgba(20,56,127,.18); }
+.reason:hover { transform: translateY(-4px); box-shadow: 0 4px 14px rgba(0,0,0,.35), 0 20px 48px rgba(0,0,0,.45); }
+.phase:hover { transform: translateY(-7px); box-shadow: 0 10px 32px rgba(0,0,0,.45); }
+.kpi-card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,.25), 0 14px 32px rgba(210,157,70,.1); }
+.feat-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,.4), 0 24px 56px rgba(218,0,26,.25); }
+.kpi-orb { transition: transform .25s ease, box-shadow .25s ease; }
+.kpi-orb:hover { transform: scale(1.07); box-shadow: 0 0 40px rgba(210,157,70,.25), 0 0 80px rgba(210,157,70,.1); }
 
 /* ─── ENTRANCE ANIMATIONS ─── */
 @keyframes slideUp {
@@ -705,14 +726,14 @@ html, body {
 @keyframes fadeIn {
   from { opacity: 0; } to { opacity: 1; }
 }
-.slide.active .enter-1 { animation: slideUp .45s ease both .08s; }
-.slide.active .enter-2 { animation: slideUp .45s ease both .18s; }
-.slide.active .enter-3 { animation: slideUp .45s ease both .28s; }
-.slide.active .enter-4 { animation: slideUp .45s ease both .38s; }
-.slide.active .enter-5 { animation: slideUp .45s ease both .48s; }
-.slide.active .enter-6 { animation: slideUp .45s ease both .58s; }
-.slide.active .enter-7 { animation: slideUp .45s ease both .68s; }
-.slide.active .enter-8 { animation: slideUp .45s ease both .78s; }
+.slide.active .enter-1 { animation: slideUp .35s cubic-bezier(.22,1,.36,1) both .06s; }
+.slide.active .enter-2 { animation: slideUp .35s cubic-bezier(.22,1,.36,1) both .12s; }
+.slide.active .enter-3 { animation: slideUp .35s cubic-bezier(.22,1,.36,1) both .18s; }
+.slide.active .enter-4 { animation: slideUp .35s cubic-bezier(.22,1,.36,1) both .24s; }
+.slide.active .enter-5 { animation: slideUp .35s cubic-bezier(.22,1,.36,1) both .30s; }
+.slide.active .enter-6 { animation: slideUp .35s cubic-bezier(.22,1,.36,1) both .36s; }
+.slide.active .enter-7 { animation: slideUp .35s cubic-bezier(.22,1,.36,1) both .42s; }
+.slide.active .enter-8 { animation: slideUp .35s cubic-bezier(.22,1,.36,1) both .48s; }
 .slide.active .enter-hdr { animation: fadeIn .35s ease both .04s; }
 
 /* ─── NUMBER POP (stat values) ─── */
@@ -741,16 +762,16 @@ html, body {
   content: '';
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(0,200,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,200,255,.04) 1px, transparent 1px);
+    linear-gradient(rgba(210,157,70,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(210,157,70,.06) 1px, transparent 1px);
   background-size: 44px 44px;
   pointer-events: none; z-index: 0;
 }
 #s1 .stripe, #s1 .left, #s1 .right { position: relative; z-index: 1; }
 .glow-orb {
   position: absolute; z-index: 0;
-  width: 520px; height: 520px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,200,255,.09) 0%, transparent 65%);
+  width: 680px; height: 680px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(210,157,70,.14) 0%, transparent 65%);
   top: -160px; left: 22%; pointer-events: none;
   animation: glowPulse 5s ease-in-out infinite;
 }
@@ -767,8 +788,8 @@ html, body {
   content: 'OL';
   position: absolute; right: 40px; bottom: 60px; z-index: 0;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 160px; line-height: 1;
-  color: var(--ol-red); opacity: .03;
+  font-size: 220px; line-height: 1;
+  color: var(--ol-red); opacity: .055;
   pointer-events: none; user-select: none;
   letter-spacing: 8px;
 }
@@ -776,8 +797,8 @@ html, body {
   content: 'OL';
   position: absolute; right: 40px; bottom: 60px; z-index: 0;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 160px; line-height: 1;
-  color: var(--ol-red); opacity: .04;
+  font-size: 220px; line-height: 1;
+  color: var(--ol-red); opacity: .065;
   pointer-events: none; user-select: none;
   letter-spacing: 8px;
 }
@@ -790,8 +811,8 @@ html, body {
 /* ─── NAV DOT PULSE ─── */
 .nav .dot.on { animation: dotPulse 2.5s ease-in-out infinite; }
 @keyframes dotPulse {
-  0%,100% { box-shadow: 0 0 0 0 rgba(0,200,255,.5); }
-  50%      { box-shadow: 0 0 0 6px rgba(0,200,255,.0); }
+  0%,100% { box-shadow: 0 0 0 0 rgba(210,157,70,.5); }
+  50%      { box-shadow: 0 0 0 6px rgba(210,157,70,.0); }
 }
 
 /* ─── SLIDE HEADER BOTTOM LINE ─── */
@@ -814,31 +835,31 @@ html, body {
 ══════════════════════════════════════ */
 
 /* 1. Transition cinématique View Transitions API */
-@keyframes vt-out-left  { to   { transform: translateX(-48px); opacity: 0; } }
-@keyframes vt-in-right  { from { transform: translateX(48px);  opacity: 0; } }
-@keyframes vt-out-right { to   { transform: translateX(48px);  opacity: 0; } }
-@keyframes vt-in-left   { from { transform: translateX(-48px); opacity: 0; } }
+@keyframes vt-out-left  { to   { transform: translateX(-60px) scale(0.96); opacity: 0; } }
+@keyframes vt-in-right  { from { transform: translateX(60px)  scale(1.04); opacity: 0; } }
+@keyframes vt-out-right { to   { transform: translateX(60px)  scale(0.96); opacity: 0; } }
+@keyframes vt-in-left   { from { transform: translateX(-60px) scale(1.04); opacity: 0; } }
 
 ::view-transition-old(root) {
-  animation: 220ms cubic-bezier(.4,0,1,1) both vt-out-left;
+  animation: 200ms cubic-bezier(.4,0,1,1) both vt-out-left;
 }
 ::view-transition-new(root) {
-  animation: 280ms cubic-bezier(0,.2,.2,1) 60ms both vt-in-right;
+  animation: 260ms cubic-bezier(0,.2,.2,1) 50ms both vt-in-right;
 }
 [data-dir="back"] ::view-transition-old(root) { animation-name: vt-out-right; }
 [data-dir="back"] ::view-transition-new(root) { animation-name: vt-in-left; }
 
 /* 2. Diagonal stripe sous le header — remplace la ligne plate */
 .s-hdr::after {
-  height: 3px;
-  background: linear-gradient(90deg, var(--ol-red) 0%, var(--ol-blue) 55%, transparent 100%);
-  clip-path: polygon(0 0, 100% 0, 97% 100%, 0 100%);
+  height: 4px;
+  background: linear-gradient(90deg, var(--ol-red) 0%, var(--ol-blue) 60%, transparent 100%);
+  clip-path: polygon(0 0, 100% 0, 96% 100%, 0 100%);
 }
 
-/* 3. Phase-hdr : coupe diagonale en bas */
+/* 3. Phase-hdr : coupe diagonale en bas — plus agressive */
 .phase-hdr {
-  clip-path: polygon(0 0, 100% 0, 100% 78%, 0 100%);
-  padding-bottom: 18px;
+  clip-path: polygon(0 0, 100% 0, 100% 72%, 0 100%);
+  padding: 18px 16px 22px;
 }
 
 /* 4. Stat-box : parallelogramme sport */
@@ -846,35 +867,25 @@ html, body {
   clip-path: polygon(4% 0%, 100% 0%, 96% 100%, 0% 100%);
   border-radius: 0;
 }
-.stat-box .sv { font-size: 52px; }
+.stat-box .sv { font-size: 60px; }
 
-/* 5. Texture diagonale sur les slides claires */
+/* 5. Texture diagonale sur les slides sombres */
 #s2, #s4, #s8 {
-  background-image:
-    linear-gradient(var(--light), var(--light)),
+  background: var(--dark)
     repeating-linear-gradient(
       -52deg,
       transparent,
-      transparent 22px,
-      rgba(0,61,165,.018) 22px,
-      rgba(0,61,165,.018) 23px
-    );
-  background-blend-mode: normal;
-  background: var(--light)
-    repeating-linear-gradient(
-      -52deg,
-      transparent,
-      transparent 22px,
-      rgba(0,61,165,.018) 22px,
-      rgba(0,61,165,.018) 23px
+      transparent 36px,
+      rgba(20,56,127,.035) 36px,
+      rgba(20,56,127,.035) 37px
     );
 }
 
 /* 6. Éclairage directionnel sur les slides sombres */
 #s3, #s7, #s9, #s10 {
   background-image:
-    linear-gradient(135deg, rgba(210,0,26,.06) 0%, transparent 38%),
-    linear-gradient(315deg, rgba(0,61,165,.06) 0%, transparent 38%);
+    linear-gradient(135deg, rgba(218,0,26,.09) 0%, transparent 45%),
+    linear-gradient(315deg, rgba(20,56,127,.09) 0%, transparent 45%);
 }
 
 /* 7. Streak décoratif rouge sur les white-cards */
@@ -896,7 +907,8 @@ html, body {
   transform: rotate(-2deg);
 }
 .kpi-orb:hover {
-  transform: rotate(0deg) scale(1.06) !important;
+  transform: rotate(0deg) scale(1.1) !important;
+  box-shadow: 0 0 40px rgba(210,157,70,.25), 0 0 80px rgba(210,157,70,.1) !important;
 }
 
 /* 9. SLA pills : forme diagonale */
@@ -954,6 +966,7 @@ html, body {
   #s8 .phases, #s10 .grid { padding-left: 28px; padding-right: 28px; }
   .stats-row, #s7 .sla-row, #s9 .kpis { padding-left: 28px; padding-right: 28px; }
   #s10 .top, #s10 .next-steps { padding-left: 28px; padding-right: 28px; margin-left: 0; margin-right: 0; }
+  .nav { bottom: 40px; }
 }
 
 /* ── Mobile (≤ 768px) ── */
@@ -972,7 +985,7 @@ html, body {
   .phase-hdr { border-radius: 12px 12px 0 0; }
 
   /* --- Nav bar --- */
-  .nav { padding: 6px 14px; gap: 8px; bottom: 10px; }
+  .nav { padding: 6px 14px; gap: 8px; bottom: max(14px, calc(8px + env(safe-area-inset-bottom))); }
   .nav .count { min-width: 36px; font-size: 11px; }
   #lang-btn { font-size: 11px !important; padding: 3px 9px !important; }
 
@@ -984,16 +997,34 @@ html, body {
 
   /* ═══ SLIDE 1 — COVER ═══ */
   #s1 { flex-direction: column; }
-  #s1 .right { display: none; }
-  #s1 .left { padding: 22px 18px 70px; }
+  #s1 .right {
+    order: -1;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    padding: 10px 18px;
+    gap: 14px;
+    border-left: none;
+    border-bottom: 1px solid rgba(210,157,70,.14);
+    justify-content: flex-start;
+    align-items: center;
+    background: rgba(10, 18, 44, 0.7);
+    flex-shrink: 0;
+  }
+  #s1 .right svg { width: 44px !important; height: 50px !important; flex-shrink: 0; }
+  #s1 .ol-club-name { font-size: 13px; text-align: left; }
+  #s1 .ol-ranking { justify-content: flex-start; margin-top: 2px; }
+  #s1 .ol-divider, #s1 .ol-info { display: none; }
+  #s1 .left { padding: 18px 18px 70px; }
   #s1 .brand { font-size: 40px; letter-spacing: 3px; }
   #s1 .tagline { font-size: 10.5px; margin-bottom: 6px; }
-  #s1 .candidature-note { font-size: 9px; margin-bottom: 18px; }
+  #s1 .candidature-note { font-size: 10px; margin-bottom: 18px; }
   #s1 h1 { font-size: 21px; margin-bottom: 16px; }
   #s1 .chips { gap: 5px; margin-bottom: 16px; }
-  #s1 .chip { padding: 4px 10px; font-size: 9px; }
+  #s1 .chip { padding: 4px 10px; font-size: 10px; }
   #s1 .meta { font-size: 10px; line-height: 1.7; }
-  #s1 .fbar { font-size: 8px; letter-spacing: 1px; height: 30px; }
+  #s1 .fbar { font-size: 10px; letter-spacing: 0.5px; height: 32px; }
 
   /* ═══ SLIDE 2 ═══ */
   #s2 .body { grid-template-columns: 1fr; padding: 12px 16px 16px; gap: 10px; }
@@ -1001,7 +1032,7 @@ html, body {
   .white-card h4 { font-size: 12px; }
   .white-card p { font-size: 10.5px; }
   .dark-panel { padding: 14px; }
-  .dark-panel h3 { font-size: 9px; }
+  .dark-panel h3 { font-size: 10px; }
   .stack-row { padding: 9px 0; }
   .stack-row .st { font-size: 10px; }
 
@@ -1020,7 +1051,7 @@ html, body {
   .feat-grid { grid-template-columns: 1fr 1fr; padding: 10px 16px 16px; gap: 10px; }
   .feat-card { padding: 12px 14px; }
   .feat-card h4 { font-size: 11px; }
-  .feat-card p { font-size: 9.5px; }
+  .feat-card p { font-size: 10px; }
 
   /* ═══ SLIDE DEMO ═══ */
   #s-demo .demo-wrap {
@@ -1038,7 +1069,7 @@ html, body {
   .d-card { padding: 14px; }
   .d-card h3 { font-size: 10px; }
   .d-card .item h5 { font-size: 11px; }
-  .d-card .item p { font-size: 9.5px; }
+  .d-card .item p { font-size: 10px; }
 
   /* ═══ SLIDE 7 (s6 — Analytics) ═══ */
   #s6 .body { grid-template-columns: 1fr; padding: 12px 16px 16px; gap: 12px; }
@@ -1046,10 +1077,10 @@ html, body {
   #s6 .kpi-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
   .kpi-card { padding: 12px; }
   .kpi-card .kv { font-size: 20px; }
-  .kpi-card .kl { font-size: 9.5px; }
+  .kpi-card .kl { font-size: 10px; }
   #s6 .arch-panel { padding: 14px; }
-  .arch-layer { font-size: 9px; padding: 8px 10px; }
-  .arch-note { font-size: 9.5px; }
+  .arch-layer { font-size: 10px; padding: 8px 10px; }
+  .arch-note { font-size: 10px; }
 
   /* ═══ SLIDE 8 (s7 — Intégration SI) ═══ */
   #s7 .body { flex-direction: column; padding: 12px 16px 0; gap: 10px; }
@@ -1061,26 +1092,26 @@ html, body {
   #s7 .sla-row { grid-template-columns: repeat(2,1fr); padding: 10px 16px 16px; gap: 8px; }
   .sla-pill { padding: 10px 12px; }
   .sla-pill .pv { font-size: 22px; }
-  .sla-pill .pl { font-size: 9px; }
+  .sla-pill .pl { font-size: 10px; }
 
   /* ═══ SLIDE 9 (s8 — Roadmap) ═══ */
   #s8 .phases { grid-template-columns: 1fr 1fr; padding: 12px 16px 16px; gap: 10px; }
   .phase-hdr { padding: 12px 10px 14px; }
   .phase-hdr .pn { font-size: 20px; }
-  .phase-hdr .pp { font-size: 8px; }
+  .phase-hdr .pp { font-size: 10px; }
   .phase-body { padding: 10px 12px; }
   .phase-body h4 { font-size: 10px; margin-bottom: 6px; }
-  .phase-body ul li { font-size: 9px; }
-  .phase-body .effort { font-size: 9px; padding: 7px 10px; }
+  .phase-body ul li { font-size: 10px; }
+  .phase-body .effort { font-size: 10px; padding: 7px 10px; }
 
   /* ═══ SLIDE 10 (s9 — ROI) ═══ */
   #s9 .kpis { grid-template-columns: repeat(2,1fr); padding: 12px 16px 10px; gap: 10px; }
   .kpi-orb { width: 100px; height: 100px; }
   .kpi-orb .ov { font-size: 28px; }
-  .kpi-orb .ol { font-size: 8px; }
+  .kpi-orb .ol { font-size: 10px; }
   #s9 .val-cols { grid-template-columns: 1fr; padding: 10px 16px 16px; gap: 10px; }
   .val-card { padding: 14px; }
-  .val-card h3 { font-size: 9px; }
+  .val-card h3 { font-size: 10px; }
   .val-card ul li { font-size: 10px; padding: 7px 0 7px 18px; }
 
   /* ═══ SLIDE 11 (s10 — Conclusion) ═══ */
@@ -1098,17 +1129,68 @@ html, body {
   }
   #s10 .next-steps .ns-text { font-size: 11px; }
   #s10 .next-steps .ns-chips { gap: 6px; }
-  #s10 .next-steps .nsc { font-size: 9.5px; padding: 4px 10px; }
+  #s10 .next-steps .nsc { font-size: 10px; padding: 4px 10px; }
+
+  /* Mobile font-floor: remaining sub-10px elements */
+  .diag-card .sol strong { font-size: 10px; }
+  .badge-tech { font-size: 10px; }
+  .rank-badge { font-size: 10px; }
+  .bot-st { font-size: 10px; }
+  .feat-card .feas { font-size: 10px; }
 }
 
 /* ── Small phones (≤ 390px) ── */
 @media (max-width: 390px) {
-  .s-hdr h2 { font-size: 11.5px; }
+  .s-hdr h2 { font-size: 12px; }
   #s1 .brand { font-size: 34px; }
   #s1 h1 { font-size: 18px; }
   .feat-grid { grid-template-columns: 1fr; }
   #s8 .phases { grid-template-columns: 1fr; }
   #s9 .kpis { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Swipe hint (mobile only) ── */
+#swipe-hint {
+  display: none;
+  position: fixed;
+  bottom: 72px; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(210,157,70,0.1);
+  border: 1px solid rgba(210,157,70,0.28);
+  color: rgba(210,157,70,0.85);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+  padding: 6px 18px 6px 14px;
+  border-radius: 20px;
+  align-items: center; gap: 8px;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  white-space: nowrap;
+}
+#swipe-hint.visible { opacity: 1; }
+@keyframes swipeLeft {
+  0%, 100% { transform: translateX(-50%) translateX(0px); }
+  50%       { transform: translateX(-50%) translateX(-9px); }
+}
+#swipe-hint.visible { animation: swipeLeft 1.4s ease-in-out infinite; }
+
+/* ── Scroll-fade gradient (mobile) ── */
+@media (max-width: 768px) {
+  #swipe-hint { display: flex; }
+
+  .slide.active::after {
+    content: '';
+    position: sticky;
+    bottom: 64px;
+    display: block;
+    height: 52px;
+    margin-top: -52px;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(8,13,26,0.88) 0%, transparent 100%);
+    flex-shrink: 0;
+    z-index: 5;
+  }
 }
 
 /* ─── PRINT ─── */
@@ -1124,7 +1206,7 @@ html, body {
 .dark-panel h3 {
   letter-spacing: 3px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(0,200,255,.1);
+  border-bottom: 1px solid rgba(210,157,70,.1);
   margin-bottom: 4px;
 }
 
@@ -1204,16 +1286,16 @@ button:focus-visible, .qr-btn:focus-visible {
         </clipPath>
       </defs>
       <!-- Bordure or -->
-      <path d="M 7,2 H 193 V 150 C 193,192 156,214 100,228 C 44,214 7,192 7,150 Z" fill="#C9940A"/>
+      <path d="M 7,2 H 193 V 150 C 193,192 156,214 100,228 C 44,214 7,192 7,150 Z" fill="#D29D46"/>
       <!-- Zone rouge -->
-      <rect x="12" y="7" width="176" height="88" clip-path="url(#olSC)" fill="#D2001A"/>
+      <rect x="12" y="7" width="176" height="88" clip-path="url(#olSC)" fill="#DA001A"/>
       <!-- Textes dans la zone rouge -->
       <text x="100" y="50" text-anchor="middle" font-family="'Arial Black',Impact,sans-serif" font-size="27" font-weight="900" fill="white" letter-spacing="1">OLYMPIQUE</text>
       <text x="100" y="84" text-anchor="middle" font-family="'Arial Black',Impact,sans-serif" font-size="27" font-weight="900" fill="white" letter-spacing="2">LYONNAIS</text>
       <!-- Séparateur or -->
-      <rect x="12" y="94" width="176" height="5" fill="#C9940A"/>
+      <rect x="12" y="94" width="176" height="5" fill="#D29D46"/>
       <!-- Zone bleue bas -->
-      <path d="M 12,99 H 188 V 148 C 188,186 153,208 100,222 C 47,208 12,186 12,148 Z" fill="#003DA5"/>
+      <path d="M 12,99 H 188 V 148 C 188,186 153,208 100,222 C 47,208 12,186 12,148 Z" fill="#14387F"/>
       <!-- Cercle blanc = le O -->
       <circle cx="66" cy="164" r="54" fill="white"/>
 
@@ -1227,27 +1309,27 @@ button:focus-visible, .qr-btn:focus-visible {
         <g clip-path="url(#olLC)">
 
           <!-- ─── QUEUE en S vers le haut-droite ─── -->
-          <path d="M 14,6 C 36,-2 44,-18 40,-34 C 36,-48 26,-44 28,-32 C 30,-20 24,-6 14,6 Z" fill="#D4950A"/>
+          <path d="M 14,6 C 36,-2 44,-18 40,-34 C 36,-48 26,-44 28,-32 C 30,-20 24,-6 14,6 Z" fill="#D29D46"/>
 
           <!-- ─── CORPS diagonal ─── -->
-          <ellipse cx="2" cy="16" rx="13" ry="20" transform="rotate(-10,2,16)" fill="#D4950A"/>
+          <ellipse cx="2" cy="16" rx="13" ry="20" transform="rotate(-10,2,16)" fill="#D29D46"/>
 
           <!-- ─── CUISSE ARRIÈRE DROITE ─── -->
-          <ellipse cx="12" cy="36" rx="10" ry="15" transform="rotate(-12,12,36)" fill="#D4950A"/>
-          <ellipse cx="13" cy="50" rx="14" ry="6" fill="#C08000"/>
+          <ellipse cx="12" cy="36" rx="10" ry="15" transform="rotate(-12,12,36)" fill="#D29D46"/>
+          <ellipse cx="13" cy="50" rx="14" ry="6" fill="#B07A30"/>
 
           <!-- ─── CUISSE ARRIÈRE GAUCHE ─── -->
-          <ellipse cx="-7" cy="34" rx="9" ry="14" fill="#D4950A"/>
-          <ellipse cx="-7" cy="48" rx="12" ry="5" fill="#C08000"/>
+          <ellipse cx="-7" cy="34" rx="9" ry="14" fill="#D29D46"/>
+          <ellipse cx="-7" cy="48" rx="12" ry="5" fill="#B07A30"/>
 
           <!-- ─── PATTE AV DROITE — levée très haut ─── -->
-          <ellipse cx="24" cy="-2" rx="8" ry="15" transform="rotate(-42,24,-2)" fill="#D4950A"/>
+          <ellipse cx="24" cy="-2" rx="8" ry="15" transform="rotate(-42,24,-2)" fill="#D29D46"/>
           <!-- Griffe avant droite -->
-          <path d="M 36,-14 C 44,-16 50,-10 48,-4 C 46,2 40,4 36,0 C 32,-4 32,-12 36,-14 Z" fill="#C08000"/>
+          <path d="M 36,-14 C 44,-16 50,-10 48,-4 C 46,2 40,4 36,0 C 32,-4 32,-12 36,-14 Z" fill="#B07A30"/>
 
           <!-- ─── PATTE AV GAUCHE — basse ─── -->
-          <ellipse cx="-16" cy="8" rx="7" ry="12" transform="rotate(20,-16,8)" fill="#D4950A"/>
-          <ellipse cx="-26" cy="17" rx="10" ry="5" transform="rotate(-14,-26,17)" fill="#C08000"/>
+          <ellipse cx="-16" cy="8" rx="7" ry="12" transform="rotate(20,-16,8)" fill="#D29D46"/>
+          <ellipse cx="-26" cy="17" rx="10" ry="5" transform="rotate(-14,-26,17)" fill="#B07A30"/>
 
           <!-- ─── CRINIÈRE ÉTOILÉE (rayons triangulaires) ─── -->
           <path d="
@@ -1263,35 +1345,35 @@ button:focus-visible, .qr-btn:focus-visible {
             L -22,-19  L -26,-27  L -18,-27
             L -21,-34  L -13,-30  L -13,-39
             L -6,-34  L -4,-43   L 2,-36
-            Z" fill="#904800"/>
+            Z" fill="#8B6020"/>
 
           <!-- ─── CERCLE CRINIÈRE BASE ─── -->
-          <circle cx="4" cy="-22" r="18" fill="#904800"/>
+          <circle cx="4" cy="-22" r="18" fill="#8B6020"/>
 
           <!-- ─── TÊTE (légèrement ovale) ─── -->
-          <ellipse cx="4" cy="-23" rx="13" ry="14" fill="#D4950A"/>
+          <ellipse cx="4" cy="-23" rx="13" ry="14" fill="#D29D46"/>
 
           <!-- ─── OREILLES (triangles) ─── -->
-          <polygon points="-6,-35 -3,-29 1,-36" fill="#D4950A"/>
-          <polygon points="14,-35 11,-29 15,-36" fill="#D4950A"/>
+          <polygon points="-6,-35 -3,-29 1,-36" fill="#D29D46"/>
+          <polygon points="14,-35 11,-29 15,-36" fill="#D29D46"/>
 
           <!-- ─── GUEULE OUVERTE ─── -->
-          <ellipse cx="4" cy="-14" rx="9" ry="7" fill="#904800"/>
+          <ellipse cx="4" cy="-14" rx="9" ry="7" fill="#8B6020"/>
           <!-- Dents -->
           <polygon points="-1,-18 1,-13 3,-18" fill="white"/>
           <polygon points="5,-18 7,-13 9,-18" fill="white"/>
 
           <!-- ─── YEUX (bleus comme dans le vrai logo) ─── -->
-          <circle cx="-2" cy="-26" r="3" fill="#003DA5"/>
+          <circle cx="-2" cy="-26" r="3" fill="#14387F"/>
           <circle cx="-1" cy="-27" r="1.1" fill="white"/>
-          <circle cx="11" cy="-26" r="3" fill="#003DA5"/>
+          <circle cx="11" cy="-26" r="3" fill="#14387F"/>
           <circle cx="12" cy="-27" r="1.1" fill="white"/>
 
           <!-- ─── NEZ ─── -->
           <ellipse cx="4" cy="-19" rx="2.5" ry="2" fill="#5B2800"/>
 
           <!-- ─── LANGUE ROUGE ─── -->
-          <ellipse cx="4" cy="-10" rx="3" ry="5" fill="#D2001A"/>
+          <ellipse cx="4" cy="-10" rx="3" ry="5" fill="#DA001A"/>
         </g>
       </svg>
 
@@ -1486,7 +1568,7 @@ button:focus-visible, .qr-btn:focus-visible {
         <strong>👁 Vision SI Applicatif</strong>
         Ce bot illustre la couche conversationnelle du SI Client — sans refonte du CRM ni de la billetterie existante.
       </div>
-      <div class="si-note" style="border-color:rgba(232,184,0,.2); background:rgba(232,184,0,.05);">
+      <div class="si-note" style="border-color:rgba(210,157,70,.2); background:rgba(210,157,70,.05);">
         <strong style="color:var(--gold);">🔗 Domaine SI Client</strong>
         Intégration read-only API OL en phase 1. Enrichissement CRM par interaction en phase 2.
       </div>
@@ -1506,14 +1588,14 @@ button:focus-visible, .qr-btn:focus-visible {
     <div class="d-card">
       <h3 style="color:var(--ol-red);">CE QUE LE CHATBOT FAIT CÔTÉ BILLETTERIE</h3>
       <div class="item"><span class="ico">🔍</span><div><h5>Recherche &amp; Info Tickets</h5><p>Le fan formule sa demande en langage naturel. Le bot répond en temps réel avec disponibilités, tarifs et lien direct d'achat, via l'API billetterie existante.</p><span class="tag" style="background:rgba(0,184,124,.12); color:var(--green); border:1px solid rgba(0,184,124,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Via API billetterie OL existante</span></div></div>
-      <div class="item"><span class="ico">🔔</span><div><h5>Alertes de Disponibilité</h5><p>Le fan s'inscrit à une alerte. Un message WhatsApp ou email est envoyé automatiquement dès que des places se libèrent.</p><span class="tag" style="background:rgba(0,200,255,.1); color:var(--accent); border:1px solid rgba(0,200,255,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Webhook sortant</span></div></div>
-      <div class="item"><span class="ico">🎁</span><div><h5>Upsell Contextuel</h5><p>L'abonné Tribune reçoit une proposition ciblée : upgrade VIP disponible ou pack famille avant le match. Un message personnalisé, jamais intrusif.</p><span class="tag" style="background:rgba(232,184,0,.1); color:var(--gold); border:1px solid rgba(232,184,0,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Segmentation CRM OL</span></div></div>
+      <div class="item"><span class="ico">🔔</span><div><h5>Alertes de Disponibilité</h5><p>Le fan s'inscrit à une alerte. Un message WhatsApp ou email est envoyé automatiquement dès que des places se libèrent.</p><span class="tag" style="background:rgba(210,157,70,.1); color:var(--accent); border:1px solid rgba(210,157,70,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Webhook sortant</span></div></div>
+      <div class="item"><span class="ico">🎁</span><div><h5>Upsell Contextuel</h5><p>L'abonné Tribune reçoit une proposition ciblée : upgrade VIP disponible ou pack famille avant le match. Un message personnalisé, jamais intrusif.</p><span class="tag" style="background:rgba(210,157,70,.1); color:var(--gold); border:1px solid rgba(210,157,70,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Segmentation CRM OL</span></div></div>
       <div class="item"><span class="ico">❓</span><div><h5>FAQ Abonnement Automatisée</h5><p>Renouvellement, changement de siège, suspension, remboursement : les cinquante questions les plus fréquentes, traitées instantanément.</p><span class="tag" style="background:rgba(0,184,124,.12); color:var(--green); border:1px solid rgba(0,184,124,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Base de connaissance</span></div></div>
     </div>
     <div class="d-card">
       <h3 style="color:var(--ol-blue); letter-spacing:2px;">INTÉGRATION CRM : COMMENT ÇA MARCHE</h3>
-      <div class="item"><span class="ico">🔗</span><div><h5>Connexion API REST</h5><p>H'appi se connecte au CRM OL via API. Les données fan (abonnement, historique) sont lues pour personnaliser chaque réponse, sans modifier l'existant.</p><span class="tag" style="background:rgba(0,200,255,.1); color:var(--accent); border:1px solid rgba(0,200,255,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Read-only au départ</span></div></div>
-      <div class="item"><span class="ico">✏️</span><div><h5>Enrichissement du Profil Fan</h5><p>Chaque interaction enrichit le profil CRM : sujets abordés, niveau de satisfaction, préférences exprimées. Une donnée propriétaire, au service de l'OL.</p><span class="tag" style="background:rgba(232,184,0,.1); color:var(--gold); border:1px solid rgba(232,184,0,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Phase 2 — write access</span></div></div>
+      <div class="item"><span class="ico">🔗</span><div><h5>Connexion API REST</h5><p>H'appi se connecte au CRM OL via API. Les données fan (abonnement, historique) sont lues pour personnaliser chaque réponse, sans modifier l'existant.</p><span class="tag" style="background:rgba(210,157,70,.1); color:var(--accent); border:1px solid rgba(210,157,70,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Read-only au départ</span></div></div>
+      <div class="item"><span class="ico">✏️</span><div><h5>Enrichissement du Profil Fan</h5><p>Chaque interaction enrichit le profil CRM : sujets abordés, niveau de satisfaction, préférences exprimées. Une donnée propriétaire, au service de l'OL.</p><span class="tag" style="background:rgba(210,157,70,.1); color:var(--gold); border:1px solid rgba(210,157,70,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Phase 2 — write access</span></div></div>
       <div class="item"><span class="ico">🛡️</span><div><h5>Sécurité &amp; Conformité RGPD</h5><p>Les données sont traitées dans le respect du cadre légal, avec consentement explicite. Un hébergement on-premise est possible si le DSI l'exige.</p><span class="tag" style="background:rgba(0,184,124,.12); color:var(--green); border:1px solid rgba(0,184,124,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">RGPD compliant</span></div></div>
       <div class="item"><span class="ico">⚠️</span><div><h5>Prérequis côté OL</h5><p>Un accès à la documentation API CRM et billetterie OL, et un référent technique pour deux à trois sessions d'intégration. Rien de plus.</p><span class="tag" style="background:rgba(210,0,26,.15); color:#ff6b6b; border:1px solid rgba(210,0,26,.3); font-size:9px; font-weight:700; padding:2px 8px; border-radius:10px;">Besoin accès API OL</span></div></div>
     </div>
@@ -1606,64 +1688,64 @@ button:focus-visible, .qr-btn:focus-visible {
 <div class="slide" id="s8">
   <div class="s-hdr enter-hdr">
     <div class="bar"></div>
-    <h2>MA VISION SI : LES 4 PREMIÈRES PHASES APRÈS MA PRISE DE POSTE</h2>
+    <h2>ROADMAP : 4 PHASES POUR TRANSFORMER LE SI OL EN 12 MOIS</h2>
     <div class="slide-n">09</div>
   </div>
   <div class="phases">
     <div class="phase enter-1">
-      <div class="phase-hdr" style="background:var(--ol-red);"><div class="pn">PHASE 1</div><div class="pp">SEMAINES 1–3</div></div>
+      <div class="phase-hdr" style="background:var(--ol-red);"><div class="pn">PHASE 1</div><div class="pp">SEMAINES 1–4</div></div>
       <div class="phase-body">
-        <h4 style="color:var(--ol-red);">Audit &amp; Immersion SI</h4>
+        <h4 style="color:var(--ol-red);">Écouter Avant d'Agir</h4>
         <ul>
-          <li>Rencontrer les équipes DSI, métier et support</li>
-          <li>Cartographier les 4 domaines SI existants</li>
-          <li>Identifier les points de friction prioritaires</li>
-          <li>Auditer les intégrations et la dette technique</li>
-          <li>Définir les quick wins par domaine</li>
+          <li>Rencontrer chaque responsable métier des 4 domaines SI</li>
+          <li>Auditer les applications critiques &amp; cartographier les dépendances</li>
+          <li>Identifier les 3 ruptures qui coûtent le plus à l'OL</li>
+          <li>Poser les KPIs de référence avant toute décision</li>
+          <li>Valider les quick wins avec le DSI et les équipes terrain</li>
         </ul>
-        <div class="effort" style="background:rgba(210,0,26,.08); color:var(--ol-red);">🎯 Livrable : plan d'action SI à 90 jours</div>
+        <div class="effort" style="background:rgba(210,0,26,.08); color:var(--ol-red);">🗺️ Cartographie SI vivante + plan de quick wins priorisés</div>
       </div>
     </div>
     <div class="phase enter-2">
-      <div class="phase-hdr" style="background:var(--ol-blue);"><div class="pn">PHASE 2</div><div class="pp">SEMAINES 4–8</div></div>
+      <div class="phase-hdr" style="background:var(--ol-blue);"><div class="pn">PHASE 2</div><div class="pp">MOIS 2–3</div></div>
       <div class="phase-body">
-        <h4 style="color:var(--ol-blue);">Premières Initiatives</h4>
+        <h4 style="color:var(--ol-blue);">Gagner les Premières Batailles</h4>
         <ul>
-          <li>Déployer la couche conversationnelle SI Client</li>
-          <li>Mettre en place le dashboard DSI unifié</li>
-          <li>Automatiser le SI Support (80 % des requêtes)</li>
-          <li>Créer la base de connaissance SI interne</li>
-          <li>Définir et suivre les KPIs par domaine</li>
+          <li>Déployer le Bot Fan OL en production (SI Client)</li>
+          <li>Automatiser les requêtes support récurrentes — 80 % sans agent</li>
+          <li>Lancer le dashboard DSI unifié — 4 domaines, une vue</li>
+          <li>Connecter les outils de perf sportive au SI opérationnel</li>
+          <li>Présenter les premiers résultats à la direction : ROI tangible</li>
         </ul>
-        <div class="effort" style="background:rgba(0,61,165,.08); color:var(--ol-blue);">📊 Premiers résultats mesurables à M+2</div>
+        <div class="effort" style="background:rgba(20,56,127,.08); color:var(--ol-blue);">📊 Premier rapport ROI présenté au DSI — M+2</div>
       </div>
     </div>
     <div class="phase enter-3">
-      <div class="phase-hdr" style="background:var(--ol-navy);"><div class="pn">PHASE 3</div><div class="pp">MOIS 3–4</div></div>
+      <div class="phase-hdr" style="background:var(--ol-navy);"><div class="pn">PHASE 3</div><div class="pp">MOIS 4–6</div></div>
       <div class="phase-body">
-        <h4 style="color:var(--ol-navy);">Consolidation &amp; Mesure</h4>
+        <h4 style="color:var(--accent);">Unifier les Silos</h4>
         <ul>
-          <li>Déployer les outils SI Sportif pour l'équipe technique</li>
-          <li>Intégrer l'app mobile OL au SI Client</li>
-          <li>Former les équipes internes aux nouveaux outils</li>
-          <li>Présenter le bilan ROI par domaine au DSI</li>
-          <li>Ajuster la roadmap selon les retours terrain</li>
+          <li>Intégrer l'app mobile OL au SI Client via API unifiée</li>
+          <li>Lancer la billetterie intelligente avec profil CRM enrichi</li>
+          <li>Connecter les 4 domaines SI — une architecture cohérente</li>
+          <li>Former les équipes internes : montée en autonomie réelle</li>
+          <li>Définir les standards SI qui dureront au-delà du mandat</li>
         </ul>
-        <div class="effort" style="background:rgba(0,26,78,.08); color:var(--ol-navy);">✅ Rapport ROI DSI à M+4</div>
+        <div class="effort" style="background:rgba(20,56,127,.08); color:var(--accent);">✅ Architecture SI unifiée validée — M+6</div>
       </div>
     </div>
     <div class="phase enter-4">
-      <div class="phase-hdr" style="background:var(--dark); border-top:3px solid var(--ol-red);"><div class="pn">PHASE 4</div><div class="pp">MOIS 5–12 POST PRISE DE POSTE</div></div>
+      <div class="phase-hdr" style="background:var(--dark); border-top:3px solid var(--ol-red);"><div class="pn">PHASE 4</div><div class="pp">MOIS 7–12+</div></div>
       <div class="phase-body">
-        <h4 style="color:var(--ol-red);">Transformation &amp; Roadmap 2027</h4>
+        <h4 style="color:var(--ol-red);">Faire de l'OL une Référence</h4>
         <ul>
-          <li>Construire un SI unifié cross-domaines, cohérent et durable</li>
-          <li>Embarquer l'IA dans les 4 domaines SI</li>
-          <li>Étendre le modèle SI à d'autres clubs de division 1</li>
-          <li>Co-construire la roadmap SI 2027 avec le DSI</li>
-          <li>Structurer et animer l'équipe SI applicatif</li>
+          <li>Co-construire la roadmap SI 2027 avec le DSI &amp; les directions</li>
+          <li>Embarquer l'IA dans les 4 domaines SI — décisions data-driven</li>
+          <li>Étendre les solutions aux matchdays UEFA — scalabilité prouvée</li>
+          <li>Lancer le programme de données fan propriétaires OL</li>
+          <li>Positionner l'OL comme club référence SI en Ligue 1</li>
         </ul>
-        <div class="effort" style="background:rgba(210,0,26,.07); color:var(--ol-red);">🚀 Vision long terme co-construite avec le DSI</div>
+        <div class="effort" style="background:rgba(210,0,26,.07); color:var(--ol-red);">🏆 Vision SI 3 ans validée — OL premier de classe</div>
       </div>
     </div>
   </div>
@@ -1677,7 +1759,7 @@ button:focus-visible, .qr-btn:focus-visible {
     <div class="slide-n">10</div>
   </div>
   <div class="kpis">
-    <div><div class="kpi-orb" style="border-color:var(--ol-blue); background:rgba(0,61,165,.1);"><div class="ov" style="color:var(--ol-blue);">-60%</div><div class="ol">Tickets support fan<br>récurrents</div></div></div>
+    <div><div class="kpi-orb" style="border-color:var(--ol-blue); background:rgba(20,56,127,.1);"><div class="ov" style="color:var(--ol-blue);">-60%</div><div class="ol">Tickets support fan<br>récurrents</div></div></div>
     <div><div class="kpi-orb" style="border-color:var(--ol-red); background:rgba(210,0,26,.1);"><div class="ov" style="color:var(--ol-red);">24/7</div><div class="ol">Disponibilité<br>sans coût additionnel</div></div></div>
     <div><div class="kpi-orb" style="border-color:var(--ol-navy); background:rgba(0,26,78,.15);"><div class="ov" style="color:#fff;">+15%</div><div class="ol">Conversion billet<br>via chatbot (estimé)</div></div></div>
     <div><div class="kpi-orb" style="border-color:var(--ol-red); background:rgba(210,0,26,.1);"><div class="ov" style="color:var(--ol-red);">M+3</div><div class="ol">Premier retour<br>mesurable garanti</div></div></div>
@@ -1743,6 +1825,9 @@ button:focus-visible, .qr-btn:focus-visible {
 
 </div><!-- /deck -->
 
+<!-- ─── SWIPE HINT (mobile) ─── -->
+<div id="swipe-hint" aria-hidden="true">&#8592; Swipe</div>
+
 <!-- ─── NAV ─── -->
 <nav class="nav">
   <button onclick="go(-1)">&#8592;</button>
@@ -1805,8 +1890,19 @@ let tx = 0;
 document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
 document.addEventListener('touchend', e => {
   const dx = e.changedTouches[0].clientX - tx;
-  if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+  if (Math.abs(dx) > 50) { hideSwipeHint(); go(dx < 0 ? 1 : -1); }
 });
+
+/* Swipe hint — mobile only */
+const swipeHint = document.getElementById('swipe-hint');
+function hideSwipeHint() {
+  if (swipeHint) { swipeHint.classList.remove('visible'); setTimeout(() => { swipeHint.style.display = 'none'; }, 500); }
+}
+if (swipeHint && window.innerWidth <= 768) {
+  setTimeout(() => swipeHint.classList.add('visible'), 1200);
+  setTimeout(hideSwipeHint, 4000);
+  document.addEventListener('touchstart', hideSwipeHint, { once: true });
+}
 
 updateProgress();
 
@@ -2103,8 +2199,8 @@ const T = [
     en:'IS INTEGRATION : HOW H\'APPI FITS INTO THE EXISTING SYSTEM' },
   // ── SLIDE 9 (s8 — Roadmap) ──
   { s:'#s8 .s-hdr h2',
-    fr:'MA VISION SI : LES 4 PREMIÈRES PHASES APRÈS MA PRISE DE POSTE',
-    en:'MY IS VISION : THE 4 FIRST PHASES AFTER TAKING THE POSITION' },
+    fr:'ROADMAP : 4 PHASES POUR TRANSFORMER LE SI OL EN 12 MOIS',
+    en:'ROADMAP : 4 PHASES TO TRANSFORM OL\'S IS IN 12 MONTHS' },
   // ── SLIDE 10 (s9 — ROI) ──
   { s:'#s9 .s-hdr h2',
     fr:'ROI : DES RÉSULTATS RÉALISTES, PAS DES PROMESSES EN L\'AIR',
@@ -2347,47 +2443,47 @@ const TM = [
   ]},
   // Slide 9 (s8 — Roadmap) — phase-hdr .pp
   { s:'#s8 .phase-hdr .pp', v:[
-    { fr:'SEMAINES 1–3', en:'WEEKS 1–3' },
-    { fr:'SEMAINES 4–8', en:'WEEKS 4–8' },
-    { fr:'MOIS 3–4',     en:'MONTHS 3–4' },
-    { fr:'MOIS 5–12 POST PRISE DE POSTE', en:'MONTHS 5–12 AFTER HIRING' },
+    { fr:'SEMAINES 1–4',  en:'WEEKS 1–4' },
+    { fr:'MOIS 2–3',      en:'MONTH 2–3' },
+    { fr:'MOIS 4–6',      en:'MONTH 4–6' },
+    { fr:'MOIS 7–12+',    en:'MONTH 7–12+' },
   ]},
   // Slide 9 (s8) — phase-body h4
   { s:'#s8 .phase-body h4', v:[
-    { fr:'Audit &amp; Immersion SI',          en:'IS Audit &amp; Immersion' },
-    { fr:'Premières Initiatives',             en:'First Initiatives' },
-    { fr:'Consolidation &amp; Mesure',        en:'Consolidation &amp; Measurement' },
-    { fr:'Transformation &amp; Roadmap 2027', en:'Transformation &amp; 2027 Roadmap' },
+    { fr:'Écouter Avant d\'Agir',         en:'Listen Before Acting' },
+    { fr:'Gagner les Premières Batailles', en:'Win the First Battles' },
+    { fr:'Unifier les Silos',              en:'Unify the Silos' },
+    { fr:'Faire de l\'OL une Référence',  en:'Make OL a Benchmark' },
   ]},
   // Slide 9 (s8) — phase-body ul li (20 total: 5 per phase)
   { s:'#s8 .phase-body ul li', v:[
-    { fr:'Rencontrer les équipes DSI, métier et support',                    en:'Meet the IS, business and support teams' },
-    { fr:'Cartographier les 4 domaines SI existants',                        en:'Map the 4 existing IS domains' },
-    { fr:'Identifier les points de friction prioritaires',                   en:'Identify priority friction points' },
-    { fr:'Auditer les intégrations et la dette technique',                   en:'Audit integrations and technical debt' },
-    { fr:'Définir les quick wins par domaine',                               en:'Define quick wins by domain' },
-    { fr:'Déployer la couche conversationnelle SI Client',                   en:'Deploy the IS Client conversational layer' },
-    { fr:'Mettre en place le dashboard DSI unifié',                          en:'Set up the unified CIO dashboard' },
-    { fr:'Automatiser le SI Support (80 % des requêtes)',                    en:'Automate IS Support (80% of queries)' },
-    { fr:'Créer la base de connaissance SI interne',                         en:'Create the internal IS knowledge base' },
-    { fr:'Définir et suivre les KPIs par domaine',                          en:'Define and track KPIs by domain' },
-    { fr:'Déployer les outils SI Sportif pour l\'équipe technique',         en:'Deploy IS Sports tools for the technical team' },
-    { fr:'Intégrer l\'app mobile OL au SI Client',                          en:'Integrate the OL mobile app into IS Client' },
-    { fr:'Former les équipes internes aux nouveaux outils',                  en:'Train internal teams on the new tools' },
-    { fr:'Présenter le bilan ROI par domaine au DSI',                       en:'Present the ROI review by domain to the CIO' },
-    { fr:'Ajuster la roadmap selon les retours terrain',                    en:'Adjust the roadmap based on field feedback' },
-    { fr:'Construire un SI unifié cross-domaines, cohérent et durable',     en:'Build a unified cross-domain IS, coherent and sustainable' },
-    { fr:'Embarquer l\'IA dans les 4 domaines SI',                          en:'Embed AI across the 4 IS domains' },
-    { fr:'Étendre le modèle SI à d\'autres clubs de division 1',             en:'Extend the IS model to other top-flight clubs' },
-    { fr:'Co-construire la roadmap SI 2027 avec le DSI',                   en:'Co-build the 2027 IS roadmap with the CIO' },
-    { fr:'Structurer et animer l\'équipe SI applicatif',                    en:'Structure and lead the applicative IS team' },
+    { fr:'Rencontrer chaque responsable métier des 4 domaines SI',                        en:'Meet every business owner across the 4 IS domains' },
+    { fr:'Auditer les applications critiques &amp; cartographier les dépendances',        en:'Audit critical applications &amp; map dependencies' },
+    { fr:'Identifier les 3 ruptures qui coûtent le plus à l\'OL',                        en:'Identify the 3 breakdowns that cost OL the most' },
+    { fr:'Poser les KPIs de référence avant toute décision',                              en:'Set baseline KPIs before any decision is made' },
+    { fr:'Valider les quick wins avec le DSI et les équipes terrain',                     en:'Validate quick wins with the CIO and field teams' },
+    { fr:'Déployer le Bot Fan OL en production (SI Client)',                              en:'Deploy the OL Fan Bot in production (IS Client)' },
+    { fr:'Automatiser les requêtes support récurrentes — 80 % sans agent',               en:'Automate recurring support requests — 80% without an agent' },
+    { fr:'Lancer le dashboard DSI unifié — 4 domaines, une vue',                         en:'Launch the unified CIO dashboard — 4 domains, one view' },
+    { fr:'Connecter les outils de perf sportive au SI opérationnel',                     en:'Connect sports performance tools to operational IS' },
+    { fr:'Présenter les premiers résultats à la direction : ROI tangible',               en:'Present first results to leadership: tangible ROI' },
+    { fr:'Intégrer l\'app mobile OL au SI Client via API unifiée',                       en:'Integrate the OL mobile app into IS Client via unified API' },
+    { fr:'Lancer la billetterie intelligente avec profil CRM enrichi',                   en:'Launch smart ticketing with enriched CRM profile' },
+    { fr:'Connecter les 4 domaines SI — une architecture cohérente',                     en:'Connect the 4 IS domains — a coherent architecture' },
+    { fr:'Former les équipes internes : montée en autonomie réelle',                     en:'Train internal teams: building real autonomy' },
+    { fr:'Définir les standards SI qui dureront au-delà du mandat',                      en:'Define IS standards that will last beyond the mandate' },
+    { fr:'Co-construire la roadmap SI 2027 avec le DSI &amp; les directions',            en:'Co-build the 2027 IS roadmap with CIO &amp; directors' },
+    { fr:'Embarquer l\'IA dans les 4 domaines SI — décisions data-driven',               en:'Embed AI across all 4 IS domains — data-driven decisions' },
+    { fr:'Étendre les solutions aux matchdays UEFA — scalabilité prouvée',               en:'Extend solutions to UEFA matchdays — proven scalability' },
+    { fr:'Lancer le programme de données fan propriétaires OL',                          en:'Launch the proprietary OL fan data programme' },
+    { fr:'Positionner l\'OL comme club référence SI en Ligue 1',                        en:'Position OL as the IS reference club in Ligue 1' },
   ]},
   // Slide 9 (s8) — phase-body .effort
   { s:'#s8 .phase-body .effort', v:[
-    { fr:'🎯 Livrable : plan d\'action SI à 90 jours',              en:'🎯 Deliverable: 90-day IS action plan' },
-    { fr:'📊 Premiers résultats mesurables à M+2',                   en:'📊 First measurable results at M+2' },
-    { fr:'✅ Rapport ROI DSI à M+4',                                en:'✅ CIO ROI report at M+4' },
-    { fr:'🚀 Vision long terme co-construite avec le DSI',          en:'🚀 Long-term vision co-built with the CIO' },
+    { fr:'🗺️ Cartographie SI vivante + plan de quick wins priorisés', en:'🗺️ Live IS map + prioritised quick win plan' },
+    { fr:'📊 Premier rapport ROI présenté au DSI — M+2',              en:'📊 First ROI report presented to CIO — M+2' },
+    { fr:'✅ Architecture SI unifiée validée — M+6',                  en:'✅ Unified IS architecture validated — M+6' },
+    { fr:'🏆 Vision SI 3 ans validée — OL premier de classe',         en:'🏆 3-year IS vision validated — OL top of the class' },
   ]},
   // Slide 10 (s9 — ROI) — kpi-orb .ol
   { s:'#s9 .kpi-orb .ol', v:[
